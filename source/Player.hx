@@ -1,6 +1,7 @@
 package;
 
 import flixel.FlxSprite;
+import flixel.addons.weapon.FlxWeapon;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.util.FlxColor;
 import flixel.FlxG;
@@ -24,7 +25,8 @@ class Player extends FlxSprite
 	{
 		super(X, Y);
 		makeGraphic(16, 16, FlxColor.PINK);
-		
+		_weapon = new Weapon();
+		_chargeSpeed = 1;
 		drag.x = drag.y = 1600;
 	}
 	
@@ -105,8 +107,8 @@ class Player extends FlxSprite
 		_weapon = weapon;
 	}
 	
-	public function attack(enemies:FlxTypedGroup<Enemy>, ticks:Int)
+	public function attack(ticks:Int)
 	{
-		_weapon.attack(this, enemies, ticks * _chargeSpeed);
+		_weapon.attack(this, ticks * _chargeSpeed);
 	}
 }

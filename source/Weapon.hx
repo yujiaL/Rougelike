@@ -11,9 +11,8 @@ class Weapon extends FlxSprite
 		super(X, Y);
 	}
 	
-	public function attack(player:Player, enemies:FlxTypedGroup<Enemy>, position:Float)
+	public function attack(player:Player, position:Float):Void
 	{
 		
 	}
-	
 }

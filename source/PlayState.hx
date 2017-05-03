@@ -115,7 +115,7 @@ class PlayState extends FlxState
 		}
 		if (FlxG.keys.justReleased.SPACE) {
 			_ticksText.text = "Time pressed " + (FlxG.game.ticks - _ticks);
-			_player.attack(_enemies, FlxG.game.ticks - _ticks);
+			_player.attack(FlxG.game.ticks - _ticks);
 		}
 	}
 	
