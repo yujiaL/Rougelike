@@ -24,6 +24,12 @@ class PlayState extends FlxState
 	 */
 	private var _player:Player;
 	
+	/**
+	 * Enemies and their bullets.
+	 */
+	private var _enemies:FlxTypedGroup<Enemy>;
+	private var _enemy_bullets:FlxTypedGroup<Bullet>;
+	
 	override public function create():Void
 	{
 		// Map and door.
@@ -41,6 +47,13 @@ class PlayState extends FlxState
 		// Player.
 		_player = new Player(32, 32);
 		add(_player);
+		
+		// Enemies.
+		_enemy_bullets = new FlxTypedGroup<Bullet>();
+		add(_enemy_bullets);
+		_enemies = new FlxTypedGroup<Enemy>();
+		_enemies.add(new Enemy(120, 120, _enemy_bullets));
+		add(_enemies);
 		
 		super.create();
 	}
