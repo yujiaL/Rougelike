@@ -6,12 +6,18 @@ import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.math.FlxPoint;
+import haxe.CallStack.StackItem;
+import flixel.group.FlxGroup.FlxTypedGroup;
 
 class Player extends FlxSprite
 {
-	public var speed:Float = 200;
-	
+	// player stats
+	public var speed:Float = 150;	
+	private var _weapon:Weapon;
 	private var _health:Int;
+	private var _coins:Int;
+	private var _weight:Int;
+	private var _hairLength:Int;
 	
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
@@ -23,6 +29,7 @@ class Player extends FlxSprite
 	
 	override public function update(elapsed:Float):Void
 	{
+		
 		movement();
 		super.update(elapsed);
 	}
@@ -80,5 +87,21 @@ class Player extends FlxSprite
 			velocity.rotate(FlxPoint.weak(0, 0), mA);
 			
 		}
+	}
+	
+	public function pickUpItem(item:Item):Void
+	{
+		
+		item.pickup();
+	}
+	
+	public function pickUpWeapon(weapon:Weapon):Void
+	{
+		_weapon = weapon;
+	}
+	
+	public function attack(enemies:FlxTypedGroup<Enemy>, position:Float)
+	{
+		_weapon.attack(this, enemies, position);
 	}
 }
