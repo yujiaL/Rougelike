@@ -6,7 +6,7 @@ import source.Player;
 class PlayState extends FlxState
 {
 	private var _player:Player;
-	private var _weapon:Weapon;
+	//private var _weapon:Weapon;
 	
 	
 	override public function create():Void
