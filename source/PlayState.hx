@@ -2,6 +2,7 @@ package;
 
 import flixel.FlxState;
 import flixel.FlxG;
+import flixel.text.FlxText;
 import flixel.tile.FlxTilemap;
 import flixel.group.FlxGroup.FlxTypedGroup;
 
@@ -23,6 +24,8 @@ class PlayState extends FlxState
 	 * Player.
 	 */
 	private var _player:Player;
+	private var _ticksText:FlxText;
+	private var _ticks:Int;
 	
 	/**
 	 * Enemies and their bullets.
@@ -47,6 +50,9 @@ class PlayState extends FlxState
 		// Player.
 		_player = new Player(32, 32);
 		add(_player);
+		_ticksText = new FlxText(16, 2, 0, "Time pressed " + (FlxG.game.ticks), 12);
+		_ticksText.scrollFactor.set(0, 0);
+		add(_ticksText);
 		
 		// Enemies.
 		_enemy_bullets = new FlxTypedGroup<Bullet>();
@@ -69,5 +75,27 @@ class PlayState extends FlxState
 		for (door in _doors)
 			if (!door._open)
 				FlxG.collide(_player, door);
+				
+		// Update enemy's vision.
+		_enemies.forEachAlive(updateVision);
+		
+		// Attack.
+		playerAttack();
+	}
+	
+	private function playerAttack():Void
+	{
+		if (FlxG.keys.justPressed.SPACE) {
+			_ticks = FlxG.game.ticks;
+		}
+		if (FlxG.keys.justReleased.SPACE) {
+			_ticksText.text = "Time pressed " + (FlxG.game.ticks - _ticks);
+			_player.attack(_enemies, FlxG.game.ticks - _ticks);
+		}
+	}
+	
+	private function updateVision(e:Enemy):Void
+	{
+		e.playerPos.copyFrom(_player.getMidpoint());
 	}
 }

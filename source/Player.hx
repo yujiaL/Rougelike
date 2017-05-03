@@ -18,6 +18,7 @@ class Player extends FlxSprite
 	private var _coins:Int;
 	private var _weight:Int;
 	private var _hairLength:Int;
+	private var _chargeSpeed:Int;
 	
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{

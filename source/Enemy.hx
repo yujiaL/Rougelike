@@ -34,6 +34,6 @@ class Enemy extends FlxSprite
 	
 	public function attack():Void
 	{
-		_bullets.add(new Bullet(1.0));
+		_bullets.add(new Bullet(x, y, playerPos.x, playerPos.y, 50, 1));
 	}
 }

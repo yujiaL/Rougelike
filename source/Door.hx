@@ -24,7 +24,7 @@ class Door extends FlxSprite
 	{
 		super.update(elapsed);
 			
-		if (FlxG.keys.justPressed.SPACE)
+		if (FlxG.keys.justPressed.E)
 		{
 			if (_open)
 			{
