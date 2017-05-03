@@ -1,4 +1,4 @@
-package source;
+package;
 
 import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
@@ -11,7 +11,6 @@ class Player extends FlxSprite
 {
 	public var speed:Float = 200;
 	
-	private var _weapon:Weapon;
 	private var _health:Int;
 	
 	public function new(?X:Float=0, ?Y:Float=0) 
