@@ -97,12 +97,16 @@ class Player extends FlxSprite
 	}
 	
 	public function pickUpWeapon(weapon:Weapon):Void
-	{
+	{		
+		//drop off previous weapon
+		
+		
+		//pick up new weapon
 		_weapon = weapon;
 	}
 	
-	public function attack(enemies:FlxTypedGroup<Enemy>, position:Float)
+	public function attack(enemies:FlxTypedGroup<Enemy>, ticks:Int)
 	{
-		_weapon.attack(this, enemies, position);
+		_weapon.attack(this, enemies, ticks * _chargeSpeed);
 	}
 }

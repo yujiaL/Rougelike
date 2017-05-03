@@ -1,7 +1,9 @@
 package;
 
+import flash.display.InterpolationMethod;
 import flixel.FlxState;
 import flixel.FlxG;
+import flixel.addons.weapon.FlxWeapon;
 import flixel.text.FlxText;
 import flixel.tile.FlxTilemap;
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -32,6 +34,12 @@ class PlayState extends FlxState
 	 */
 	private var _enemies:FlxTypedGroup<Enemy>;
 	private var _enemy_bullets:FlxTypedGroup<Bullet>;
+	
+	/**
+	 * Items and weapons
+	 */
+	private var _items:FlxTypedGroup<Item>;
+	private var _weapons:FlxTypedGroup<Weapon>;
 	
 	override public function create():Void
 	{
@@ -79,8 +87,25 @@ class PlayState extends FlxState
 		// Update enemy's vision.
 		_enemies.forEachAlive(updateVision);
 		
+		// pick up items
+		if (FlxG.keys.justReleased.E)
+		{
+			FlxG.overlap(_player, _items, playerPickItem);
+			FlxG.overlap(_player, _weapons, playerPickWeapon);
+		}
+		
 		// Attack.
 		playerAttack();
+	}
+	
+	private function playerPickItem(P:Player, I:Item):Void
+	{
+		P.pickUpItem(I);
+	}
+	
+	private function playerPickWeapon(P:Player, W:Weapon):Void
+	{
+		P.pickUpWeapon(W);
 	}
 	
 	private function playerAttack():Void
