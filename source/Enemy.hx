@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.weapon.FlxBullet;
 import flixel.util.FlxTimer;
@@ -10,6 +11,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 class Enemy extends FlxSprite
 {
 
+	private var _idleTmr:Float;
 	public var _speed:Float = 50;
 	public var playerPos(default, null):FlxPoint;
 	
@@ -23,12 +25,23 @@ class Enemy extends FlxSprite
 		
 		playerPos = FlxPoint.get();
 		
+		_idleTmr = 0;
+		
 		_bullets = bullets;
     }
 	
 	override public function update(elapsed:Float):Void
 	{
-		attack();
+		// Shoots a bullet from 1 to 4 second.
+		if (_idleTmr <= 0)
+		{
+			attack();
+			_idleTmr = FlxG.random.int(1, 4);
+			
+		}
+		else
+			_idleTmr -= FlxG.elapsed;
+		
 		super.update(elapsed);
 	}
 	
