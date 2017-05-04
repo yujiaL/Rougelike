@@ -10,12 +10,11 @@ import flixel.math.FlxPoint;
 import haxe.CallStack.StackItem;
 import flixel.group.FlxGroup.FlxTypedGroup;
 
-class Player extends FlxSprite
+class Player extends Creature
 {
 	// player stats
 	public var speed:Float = 150;	
 	private var _weapon:Weapon;
-	private var _health:Int;
 	private var _coins:Int;
 	private var _weight:Int;
 	private var _hairLength:Int;

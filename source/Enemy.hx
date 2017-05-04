@@ -8,7 +8,7 @@ import flixel.util.FlxColor;
 import flixel.math.FlxPoint;
 import flixel.group.FlxGroup.FlxTypedGroup;
 
-class Enemy extends FlxSprite
+class Enemy extends Creature
 {
 
 	private var _idleTmr:Float;
