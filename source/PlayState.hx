@@ -26,6 +26,7 @@ class PlayState extends FlxState
 	 * Player.
 	 */
 	private var _player:Player;
+	private var _playerBullets:FlxTypedGroup<Bullet>;
 	private var _ticksText:FlxText;
 	private var _ticks:Int;
 	
@@ -66,7 +67,7 @@ class PlayState extends FlxState
 		_enemy_bullets = new FlxTypedGroup<Bullet>();
 		add(_enemy_bullets);
 		_enemies = new FlxTypedGroup<Enemy>();
-		_enemies.add(new Enemy(120, 120, 100, _enemy_bullets));
+		_enemies.add(new RockBoy(120, 120, 100, _enemy_bullets));
 		add(_enemies);
 		
 		super.create();

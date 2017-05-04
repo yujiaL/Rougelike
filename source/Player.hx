@@ -24,7 +24,7 @@ class Player extends Creature
 	{
 		super(X, Y, health);
 		makeGraphic(16, 16, FlxColor.PINK);
-		_weapon = new Weapon();
+		//_weapon = new Weapon();
 		_chargeSpeed = 1;
 		drag.x = drag.y = 1600;
 	}
