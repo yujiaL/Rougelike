@@ -20,13 +20,17 @@ class Player extends Creature
 	private var _hairLength:Int;
 	private var _chargeSpeed:Float;
 	
-	override public function new(?X:Float=0, ?Y:Float=0, health:Int, weapon:Weapon) 
+	override public function new(?X:Float=0, ?Y:Float=0, health:Int) 
 	{
 		super(X, Y, health);
 		makeGraphic(16, 16, FlxColor.PINK);
 		
-		_weapon = weapon;
-		_weapon.hold(x + 16, y, facing);
+		// initialize player stats
+		_weapon = new Weapon(0, 0, null);
+		
+		_coins = 0;
+		_weight = 100;
+		_hairLength = 10;
 		
 		_chargeSpeed = 0.1;
 		drag.x = drag.y = 1600;
@@ -34,9 +38,24 @@ class Player extends Creature
 	
 	override public function update(elapsed:Float):Void
 	{
-		_weapon.hold(x + 16, y, facing);
+		holdWeapon();
 		movement();
 		super.update(elapsed);
+	}
+	
+	private function holdWeapon():Void
+	{
+		switch (facing)
+		{
+			case FlxObject.LEFT:
+				_weapon.hold(this.x - 16, this.y, facing);
+			case FlxObject.RIGHT :
+				_weapon.hold(this.x + 16, this.y, facing);
+			case FlxObject.UP:
+				_weapon.hold(this.x, this.y - 16, facing);
+			case FlxObject.DOWN:
+				_weapon.hold(this.x, this.y + 16, facing);
+		}
 	}
 	
 	private function movement():Void
@@ -96,14 +115,22 @@ class Player extends Creature
 	
 	public function pickUpItem(item:Item):Void
 	{
+		_health += item.hpChange;
+		_coins += item.coinChange;
+		_weight += item.weightChange;
+		_hairLength += item.hairChange;
+		speed += item.speedChange;
+		_chargeSpeed += item.chargeSpeedChange;
 		
-		item.pickup();
+		item.kill();
+		
+		
 	}
 	
 	public function pickUpWeapon(weapon:Weapon):Void
-	{		
+	{
 		//drop off previous weapon
-		
+		//_weapon.setPosition(x, y);
 		
 		//pick up new weapon
 		_weapon = weapon;

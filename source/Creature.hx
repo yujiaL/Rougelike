@@ -5,8 +5,8 @@ import flixel.FlxSprite;
 
 class Creature extends FlxSprite
 {
-	private var _health:Int;
-	private var _specialState:SpecialStatesManager;
+	public var _health:Int;
+	public var _specialState:SpecialStatesManager;
 
 	public function new(?X:Float=0, ?Y:Float=0, health:Int) 
 	{

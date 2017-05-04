@@ -24,8 +24,6 @@ class BoxingGlove extends Weapon
 		var XTarget = x;
 		var YTarget = y;
 		
-		FlxG.switchState(new PlayState());
-		
 		switch (facing)
 		{
 			case FlxObject.LEFT:

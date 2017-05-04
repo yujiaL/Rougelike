@@ -1,6 +1,6 @@
 package;
 
-import flash.display.InterpolationMethod;
+import flixel.util.FlxColor;
 import flixel.FlxState;
 import flixel.FlxG;
 import flixel.addons.weapon.FlxWeapon;
@@ -42,6 +42,10 @@ class PlayState extends FlxState
 	private var _items:FlxTypedGroup<Item>;
 	private var _weapons:FlxTypedGroup<Weapon>;
 	
+	
+	
+	private var hp:FlxText;
+	
 	override public function create():Void
 	{
 		// Map and door.
@@ -59,9 +63,7 @@ class PlayState extends FlxState
 		// Player.
 		_playerBullets = new FlxTypedGroup<Bullet>();
 		add(_playerBullets);
-		var bx = new BoxingGlove(0, 0, _playerBullets);
-		add(bx);
-		_player = new Player(32, 32, 100, bx);   // set player health to 100 now, may change later
+		_player = new Player(32, 32, 100);   // set player health to 100 now, may change later
 		add(_player);
 		_ticksText = new FlxText(16, 2, 0, "Time pressed " + (FlxG.game.ticks), 12);
 		_ticksText.scrollFactor.set(0, 0);
@@ -73,6 +75,21 @@ class PlayState extends FlxState
 		_enemies = new FlxTypedGroup<Enemy>();
 		_enemies.add(new RockBoy(120, 120, 100, _enemy_bullets));
 		add(_enemies);
+		
+		// Add item.
+		_items = new FlxTypedGroup<Item>();
+		_items.add(new HealthPotion(160, 160));
+		add(_items);
+		hp = new FlxText(16, 36, 0, "HP: " + _player._health, 12);
+		add(hp);
+		
+		// Add weapon.
+		_weapons = new FlxTypedGroup<Weapon>();
+		_weapons.add(new BoxingGlove(60, 160, _playerBullets));
+		var green = new BoxingGlove(120, 160, _playerBullets);
+		green.makeGraphic(12, 12, FlxColor.GREEN);
+		_weapons.add(green);
+		add(_weapons);
 		
 		super.create();
 	}
@@ -92,15 +109,19 @@ class PlayState extends FlxState
 		// Update enemy's vision.
 		_enemies.forEachAlive(updateVision);
 		
+		// Attack.
+		playerAttack();
+		
 		// pick up items
 		if (FlxG.keys.justReleased.E)
 		{
+			_player._health++;
 			FlxG.overlap(_player, _items, playerPickItem);
 			FlxG.overlap(_player, _weapons, playerPickWeapon);
 		}
 		
-		// Attack.
-		playerAttack();
+		// Update health.
+		hp.text = "HP: " + _player._health;
 	}
 	
 	private function playerPickItem(P:Player, I:Item):Void
