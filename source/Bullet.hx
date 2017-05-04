@@ -7,11 +7,11 @@ import flixel.util.FlxColor;
 
 class Bullet extends FlxSprite
 {
-	private var _damage:Float;
+	public var _damage:Int;
 	private var _duration:Float;
 
 	// Create a bullet shoots from (X, Y) to (XTarget, YTarget).
-	public function new(X:Float, Y:Float, XTarget:Float, YTarget:Float, damage:Float, speed:Float = 100, duration:Float = 99999) 
+	public function new(X:Float, Y:Float, XTarget:Float, YTarget:Float, damage:Int, speed:Float = 100, duration:Float = 99999) 
 	{
 		super(X, Y);
 		
@@ -39,14 +39,8 @@ class Bullet extends FlxSprite
 		super.update(elapsed);
 	}
 	
-	// Call this function to add speical effects for the attack owner.
-	public function updateOwner()
-	{
-		
-	}
-	
 	// Call this function to add speical effects for the attack target.
-	public function updateTarget()
+	public function updateTarget(C:Creature)
 	{
 		
 	}

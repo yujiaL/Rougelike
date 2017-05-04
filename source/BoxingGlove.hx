@@ -44,10 +44,13 @@ class BoxingGlove extends Weapon
 		}
 		else
 		{
-			var bullet = new Bullet(x, y, XTarget, YTarget, 10, 100, 0.2);
+			var bullet = new Bullet(x, y, XTarget, YTarget, 10, 100, 0.0000000001);
 			bullet.setSize(48, 48);
 			bullet.makeGraphic(48, 48, FlxColor.BLUE);
 			_bullets.add(bullet);
+			
+			player._specialState._fall = true;
+			player._specialState._fallTimer = 1;
 		}
 	}
 }

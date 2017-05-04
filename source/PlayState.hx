@@ -45,6 +45,7 @@ class PlayState extends FlxState
 	
 	
 	private var hp:FlxText;
+	private var enemyHp:FlxText;
 	
 	override public function create():Void
 	{
@@ -80,8 +81,13 @@ class PlayState extends FlxState
 		_items = new FlxTypedGroup<Item>();
 		_items.add(new HealthPotion(160, 160));
 		add(_items);
+		
+		
 		hp = new FlxText(16, 36, 0, "HP: " + _player._health, 12);
 		add(hp);
+		enemyHp = new FlxText(200, 36, 0, "Enemy HP: " + _enemies.getFirstAlive()._health, 12);
+		add(enemyHp);
+		
 		
 		// Add weapon.
 		_weapons = new FlxTypedGroup<Weapon>();
@@ -109,6 +115,10 @@ class PlayState extends FlxState
 		// Update enemy's vision.
 		_enemies.forEachAlive(updateVision);
 		
+		// If special state.
+		if (_player._specialState.updateStates(_player))
+			return;
+		
 		// Attack.
 		playerAttack();
 		
@@ -122,6 +132,23 @@ class PlayState extends FlxState
 		
 		// Update health.
 		hp.text = "HP: " + _player._health;
+		enemyHp.text = "Enemy HP: " + _enemies.getFirstAlive()._health;
+		
+		// Damage.
+		FlxG.overlap(_player, _enemy_bullets, playerGetsHit);
+		FlxG.overlap(_enemies, _playerBullets, enemyGetsHit);
+	}
+	
+	private function playerGetsHit(P:Player, B:Bullet):Void
+	{
+		P._health -= B._damage;
+		B.kill();
+	}
+	
+	private function enemyGetsHit(E:Enemy, B:Bullet):Void
+	{
+		E._health -= B._damage;
+		B.kill();
 	}
 	
 	private function playerPickItem(P:Player, I:Item):Void

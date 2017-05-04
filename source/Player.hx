@@ -123,8 +123,6 @@ class Player extends Creature
 		_chargeSpeed += item.chargeSpeedChange;
 		
 		item.kill();
-		
-		
 	}
 	
 	public function pickUpWeapon(weapon:Weapon):Void

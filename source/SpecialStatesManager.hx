@@ -9,7 +9,7 @@ import flixel.FlxG;
 class SpecialStatesManager
 {
 	public var _fall:Bool;
-	private var _fallTimer:Float;
+	public var _fallTimer:Float;
 
 	public function new() 
 	{
