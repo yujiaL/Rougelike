@@ -50,7 +50,7 @@ class BoxingGlove extends Weapon
 			_bullets.add(bullet);
 			
 			player._specialState._fall = true;
-			player._specialState._fallTimer = 1;
+			player._specialState._fallTimer = 2;
 		}
 	}
 }

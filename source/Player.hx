@@ -39,6 +39,11 @@ class Player extends Creature
 	override public function update(elapsed:Float):Void
 	{
 		holdWeapon();
+		
+		// If special state.
+		if (_specialState.updateStates(this))
+			return;
+		
 		movement();
 		super.update(elapsed);
 	}

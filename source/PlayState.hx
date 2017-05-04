@@ -66,8 +66,9 @@ class PlayState extends FlxState
 		add(_playerBullets);
 		_player = new Player(32, 32, 100);   // set player health to 100 now, may change later
 		add(_player);
-		_ticksText = new FlxText(16, 2, 0, "Time pressed " + (FlxG.game.ticks), 12);
+		_ticksText = new FlxText(16, 2, 0, "Time pressed " + 0, 12);
 		_ticksText.scrollFactor.set(0, 0);
+		_ticks = -1;
 		add(_ticksText);
 		
 		// Enemies.
@@ -115,6 +116,20 @@ class PlayState extends FlxState
 		// Update enemy's vision.
 		_enemies.forEachAlive(updateVision);
 		
+		// Update health.
+		hp.text = "HP: " + _player._health;
+		enemyHp.text = "Enemy HP: " + _enemies.getFirstAlive()._health;
+		
+		// Damage.
+		FlxG.overlap(_player, _enemy_bullets, playerGetsHit);
+		FlxG.overlap(_enemies, _playerBullets, enemyGetsHit);
+		
+		// Show bar.
+		if (_ticks != -1)
+			_ticksText.text = "Time pressed " + (FlxG.game.ticks - _ticks);
+		else
+			_ticksText.text = "Time pressed " + 0;
+		
 		// If special state.
 		if (_player._specialState.updateStates(_player))
 			return;
@@ -129,14 +144,6 @@ class PlayState extends FlxState
 			FlxG.overlap(_player, _items, playerPickItem);
 			FlxG.overlap(_player, _weapons, playerPickWeapon);
 		}
-		
-		// Update health.
-		hp.text = "HP: " + _player._health;
-		enemyHp.text = "Enemy HP: " + _enemies.getFirstAlive()._health;
-		
-		// Damage.
-		FlxG.overlap(_player, _enemy_bullets, playerGetsHit);
-		FlxG.overlap(_enemies, _playerBullets, enemyGetsHit);
 	}
 	
 	private function playerGetsHit(P:Player, B:Bullet):Void
@@ -166,9 +173,11 @@ class PlayState extends FlxState
 		if (FlxG.keys.justPressed.SPACE) {
 			_ticks = FlxG.game.ticks;
 		}
+		if (_ticks == -1)
+			return;
 		if (FlxG.keys.justReleased.SPACE) {
-			_ticksText.text = "Time pressed " + (FlxG.game.ticks - _ticks);
 			_player.attack(FlxG.game.ticks - _ticks);
+			_ticks = -1;
 		}
 	}
 	
