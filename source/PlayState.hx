@@ -56,7 +56,7 @@ class PlayState extends FlxState
 		add(_doors);
 		
 		// Player.
-		_player = new Player(32, 32);
+		_player = new Player(32, 32, 100);   // set player health to 100 now, may change later
 		add(_player);
 		_ticksText = new FlxText(16, 2, 0, "Time pressed " + (FlxG.game.ticks), 12);
 		_ticksText.scrollFactor.set(0, 0);
@@ -66,7 +66,7 @@ class PlayState extends FlxState
 		_enemy_bullets = new FlxTypedGroup<Bullet>();
 		add(_enemy_bullets);
 		_enemies = new FlxTypedGroup<Enemy>();
-		_enemies.add(new Enemy(120, 120, _enemy_bullets));
+		_enemies.add(new Enemy(120, 120, 100, _enemy_bullets));
 		add(_enemies);
 		
 		super.create();
