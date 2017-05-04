@@ -1,13 +1,12 @@
 package;
 
-import flixel.FlxBasic;
 import flixel.FlxG;
 
 /*
  *	Class control the special states of a player or enemy.
  * 	Change states by setting variable to true and set the timer.
  */
-class SpecialStatesManager extends FlxBasic
+class SpecialStatesManager
 {
 	public var _fall:Bool;
 	private var _fallTimer:Float;
@@ -35,5 +34,6 @@ class SpecialStatesManager extends FlxBasic
 			// Return true to indicate the player cannot move for a while.
 			return true;
 		}
+		return false;
 	}
 }

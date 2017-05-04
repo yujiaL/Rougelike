@@ -20,9 +20,9 @@ class Player extends Creature
 	private var _hairLength:Int;
 	private var _chargeSpeed:Int;
 	
-	public function new(?X:Float=0, ?Y:Float=0) 
+	override public function new(?X:Float=0, ?Y:Float=0, health:Int) 
 	{
-		super(X, Y);
+		super(X, Y, health);
 		makeGraphic(16, 16, FlxColor.PINK);
 		_weapon = new Weapon();
 		_chargeSpeed = 1;

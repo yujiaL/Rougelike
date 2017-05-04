@@ -1,6 +1,7 @@
 package;
 import flash.display.InteractiveObject;
 import flash.display.Shader;
+import flixel.FlxSprite;
 
 class Creature extends FlxSprite
 {
