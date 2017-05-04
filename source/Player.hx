@@ -18,20 +18,23 @@ class Player extends Creature
 	private var _coins:Int;
 	private var _weight:Int;
 	private var _hairLength:Int;
-	private var _chargeSpeed:Int;
+	private var _chargeSpeed:Float;
 	
-	override public function new(?X:Float=0, ?Y:Float=0, health:Int) 
+	override public function new(?X:Float=0, ?Y:Float=0, health:Int, weapon:Weapon) 
 	{
 		super(X, Y, health);
 		makeGraphic(16, 16, FlxColor.PINK);
-		//_weapon = new Weapon();
-		_chargeSpeed = 1;
+		
+		_weapon = weapon;
+		_weapon.hold(x + 16, y, facing);
+		
+		_chargeSpeed = 0.1;
 		drag.x = drag.y = 1600;
 	}
 	
 	override public function update(elapsed:Float):Void
 	{
-		
+		_weapon.hold(x + 16, y, facing);
 		movement();
 		super.update(elapsed);
 	}

@@ -57,7 +57,11 @@ class PlayState extends FlxState
 		add(_doors);
 		
 		// Player.
-		_player = new Player(32, 32, 100);   // set player health to 100 now, may change later
+		_playerBullets = new FlxTypedGroup<Bullet>();
+		add(_playerBullets);
+		var bx = new BoxingGlove(0, 0, _playerBullets);
+		add(bx);
+		_player = new Player(32, 32, 100, bx);   // set player health to 100 now, may change later
 		add(_player);
 		_ticksText = new FlxText(16, 2, 0, "Time pressed " + (FlxG.game.ticks), 12);
 		_ticksText.scrollFactor.set(0, 0);
