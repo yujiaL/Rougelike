@@ -1,6 +1,8 @@
 package;
 
+import flixel.FlxObject;
 import flixel.FlxBasic;
+import flixel.FlxSprite;
 import flixel.util.FlxColor;
 import flixel.FlxState;
 import flixel.FlxG;
@@ -222,12 +224,17 @@ class PlayState extends FlxState
 		// Enemies.
 		_enemy_bullets.clear();
 		_enemies.clear();
-		_enemies.add(new RockBoy(120, 120, 100, _enemy_bullets));
+		for (i in 0...FlxG.random.int(1, 5))
+		{
+			var enemy = new RockBoy(0, 0, 100, _enemy_bullets);
+			randomizeOSPosition(enemy);
+			_enemies.add(enemy);
+		}
+		
 		
 		// Add item.
 		_items.clear();
 		_items.add(new HealthPotion(160, 160));
-		
 		
 		// Add weapon.
 		_weapons.forEach(destroyWeapon);
@@ -235,6 +242,19 @@ class PlayState extends FlxState
 		var green = new BoxingGlove(120, 160, _playerBullets);
 		green.makeGraphic(12, 12, FlxColor.GREEN);
 		_weapons.add(green);
+	}
+	
+	private function randomizeOSPosition(OS:FlxSprite, ?Object2:FlxObject):Void
+	{
+		// Pick a random place.
+		OS.x = FlxG.random.int(0, 240);
+		OS.y = FlxG.random.int(0, 240);
+		
+		// Check overlap.
+		// FlxG.overlap(OS, _map, randomizeOSPosition);
+		FlxG.overlap(OS, _doors, randomizeOSPosition);
+		FlxG.overlap(OS, _enemies, randomizeOSPosition);
+		FlxG.overlap(OS, _player, randomizeOSPosition);
 	}
 	
 	private function destroyWeapon(W:Weapon)
