@@ -24,6 +24,14 @@ class Enemy extends Creature
 		_bullets = bullets;
     }
 	
+	override public function update(elapsed:Float):Void
+	{
+		if (_health <= 0)
+			kill();
+		
+		super.update(elapsed);
+	}
+	
 	public function attack():Void
 	{
 		

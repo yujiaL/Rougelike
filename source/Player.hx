@@ -24,6 +24,7 @@ class Player extends Creature
 	{
 		super(X, Y, health);
 		makeGraphic(16, 16, FlxColor.PINK);
+		//loadGraphic(AssetPaths.Test__png, false, 32, 32);
 		
 		// initialize player stats
 		_weapon = new Weapon(0, 0, null);

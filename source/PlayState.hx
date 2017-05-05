@@ -75,6 +75,7 @@ class PlayState extends FlxState
 		_playerBullets = new FlxTypedGroup<Bullet>();
 		add(_playerBullets);
 		_player.setPosition(32, 32);
+		FlxG.camera.follow(_player, TOPDOWN, 1);
 		
 		_ticks = -1;
 		
@@ -108,8 +109,10 @@ class PlayState extends FlxState
 		add(_ticksText);
 		
 		hp = new FlxText(16, 36, 0, "HP: " + _player._health, 12);
+		hp.scrollFactor.set(0, 0);
 		add(hp);
 		enemyHp = new FlxText(200, 36, 0, "Enemy HP: " + _enemies.getFirstAlive()._health, 12);
+		enemyHp.scrollFactor.set(0, 0);
 		add(enemyHp);
 		
 		super.create();
@@ -138,7 +141,8 @@ class PlayState extends FlxState
 		
 		// Update health.
 		hp.text = "HP: " + _player._health;
-		enemyHp.text = "Enemy HP: " + _enemies.getFirstAlive()._health;
+		if (countLiving() > 0)
+			enemyHp.text = "Enemy HP: " + _enemies.getFirstAlive()._health;
 		
 		// Damage.
 		FlxG.overlap(_player, _enemy_bullets, playerGetsHit);
