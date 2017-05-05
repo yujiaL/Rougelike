@@ -14,7 +14,7 @@ class Player extends Creature
 {
 	// player stats
 	public var speed:Float = 150;	
-	private var _weapon:Weapon;
+	public var _weapon:Weapon;
 	private var _coins:Int;
 	private var _weight:Int;
 	private var _hairLength:Int;
@@ -133,7 +133,7 @@ class Player extends Creature
 	public function pickUpWeapon(weapon:Weapon):Void
 	{
 		//drop off previous weapon
-		//_weapon.setPosition(x, y);
+		// weapons.add(_weapon);
 		
 		//pick up new weapon
 		_weapon = weapon;

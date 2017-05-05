@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxBasic;
 import flixel.util.FlxColor;
 import flixel.FlxState;
 import flixel.FlxG;
@@ -54,6 +55,13 @@ class PlayState extends FlxState
 		_map.loadMapFromCSV(AssetPaths.map__csv, AssetPaths.auto_tiles__png, TILE_WIDTH, TILE_HEIGHT, AUTO);
 		add(_map);
 		
+		// Player.
+		_player = new Player(32, 32, 100);   // set player health to 100 now, may change later
+		add(_player);
+		
+		
+	
+		//createNewRoom();
 		_doors = new FlxTypedGroup<Door>();
 		_doors.add(new Door(112, 240));
 		_doors.add(new Door(128, 240));
@@ -64,12 +72,10 @@ class PlayState extends FlxState
 		// Player.
 		_playerBullets = new FlxTypedGroup<Bullet>();
 		add(_playerBullets);
-		_player = new Player(32, 32, 100);   // set player health to 100 now, may change later
-		add(_player);
-		_ticksText = new FlxText(16, 2, 0, "Time pressed " + 0, 12);
-		_ticksText.scrollFactor.set(0, 0);
+		_player.setPosition(32, 32);
+		
 		_ticks = -1;
-		add(_ticksText);
+		
 		
 		// Enemies.
 		_enemy_bullets = new FlxTypedGroup<Bullet>();
@@ -83,13 +89,6 @@ class PlayState extends FlxState
 		_items.add(new HealthPotion(160, 160));
 		add(_items);
 		
-		
-		hp = new FlxText(16, 36, 0, "HP: " + _player._health, 12);
-		add(hp);
-		enemyHp = new FlxText(200, 36, 0, "Enemy HP: " + _enemies.getFirstAlive()._health, 12);
-		add(enemyHp);
-		
-		
 		// Add weapon.
 		_weapons = new FlxTypedGroup<Weapon>();
 		_weapons.add(new BoxingGlove(60, 160, _playerBullets));
@@ -98,12 +97,31 @@ class PlayState extends FlxState
 		_weapons.add(green);
 		add(_weapons);
 		
+		
+		
+		
+		// HUD.
+		_ticksText = new FlxText(16, 2, 0, "Time pressed " + 0, 12);
+		_ticksText.scrollFactor.set(0, 0);
+		add(_ticksText);
+		
+		hp = new FlxText(16, 36, 0, "HP: " + _player._health, 12);
+		add(hp);
+		enemyHp = new FlxText(200, 36, 0, "Enemy HP: " + _enemies.getFirstAlive()._health, 12);
+		add(enemyHp);
+		
 		super.create();
 	}
 
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
+		
+		
+		// Create new room.
+		if (FlxG.keys.justPressed.C)
+			setNewRoom();
+		
 		
 		// Collide with tiles.
 		FlxG.collide(_player, _map);
@@ -184,5 +202,44 @@ class PlayState extends FlxState
 	private function updateVision(e:Enemy):Void
 	{
 		e.playerPos.copyFrom(_player.getMidpoint());
+	}
+	
+	private function setNewRoom():Void
+	{
+		_doors.clear();
+		_doors.add(new Door(112, 240));
+		_doors.add(new Door(128, 240));
+		_doors.add(new Door(112, 288));
+		_doors.add(new Door(128, 288));
+		
+		// Player.
+		_playerBullets.clear();
+		_player.setPosition(32, 32);
+		
+		_ticks = -1;
+		
+		
+		// Enemies.
+		_enemy_bullets.clear();
+		_enemies.clear();
+		_enemies.add(new RockBoy(120, 120, 100, _enemy_bullets));
+		
+		// Add item.
+		_items.clear();
+		_items.add(new HealthPotion(160, 160));
+		
+		
+		// Add weapon.
+		_weapons.forEach(destroyWeapon);
+		_weapons.add(new BoxingGlove(60, 160, _playerBullets));
+		var green = new BoxingGlove(120, 160, _playerBullets);
+		green.makeGraphic(12, 12, FlxColor.GREEN);
+		_weapons.add(green);
+	}
+	
+	private function destroyWeapon(W:Weapon)
+	{
+		if (W != _player._weapon)
+			W.destroy();
 	}
 }
