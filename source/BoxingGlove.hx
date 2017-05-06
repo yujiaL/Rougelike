@@ -12,7 +12,7 @@ class BoxingGlove extends Weapon
 	{
 		super(X, Y, bullets);
 		
-		makeGraphic(12, 12, FlxColor.RED);
+		makeGraphic(128, 128, FlxColor.RED);
 		
 		facing = FlxObject.RIGHT;
 		
@@ -44,9 +44,8 @@ class BoxingGlove extends Weapon
 		}
 		else
 		{
-			var bullet = new Bullet(x, y, XTarget, YTarget, 10, 100, 0.0000000001);
-			bullet.setSize(48, 48);
-			bullet.makeGraphic(48, 48, FlxColor.BLUE);
+			var bullet = new Punch(x, y, XTarget, YTarget, 10);
+			bullet.makeGraphic(128, 128, FlxColor.BLUE);
 			_bullets.add(bullet);
 			
 			player._specialState._fall = true;
