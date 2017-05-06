@@ -55,6 +55,7 @@ class PlayState extends FlxState
 		// Map and door.
 		_map = new FlxTilemap();
 		_map.loadMapFromCSV(AssetPaths.map__csv, AssetPaths.auto_tiles__png, TILE_WIDTH, TILE_HEIGHT, AUTO);
+		//_map.loadMapFromCSV(AssetPaths.map__csv, AssetPaths.Tilemap__png, TILE_WIDTH, TILE_HEIGHT, AUTO);
 		add(_map);
 		
 		// Player.
