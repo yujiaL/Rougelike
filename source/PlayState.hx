@@ -98,14 +98,14 @@ class PlayState extends FlxState
 		
 		
 		// HUD.
-		_ticksText = new FlxText(16, 2, 0, "Time pressed " + 0, 12);
+		_ticksText = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT, 0, "Time pressed " + 0, 128);
 		_ticksText.scrollFactor.set(0, 0);
 		add(_ticksText);
 		
-		hp = new FlxText(16, 36, 0, "HP: " + _player._health, 12);
+		hp = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT * 2, 0, "HP: " + _player._health, 128);
 		hp.scrollFactor.set(0, 0);
 		add(hp);
-		enemyHp = new FlxText(200, 36, 0, "Enemy HP: " + _enemies.getFirstAlive()._health, 12);
+		enemyHp = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT * 3, 0, "Enemy HP: " + _enemies.getFirstAlive()._health, 128);
 		enemyHp.scrollFactor.set(0, 0);
 		add(enemyHp);
 		
@@ -126,7 +126,7 @@ class PlayState extends FlxState
 		FlxG.collide(_player, _map);
 		
 		// Collide with enemies
-		FlxG.collide(_player, _enemies);
+		// FlxG.collide(_player, _enemies);
 		
 		// Collide with doors.
 		for (door in _doors)
@@ -170,12 +170,14 @@ class PlayState extends FlxState
 	private function playerGetsHit(P:Player, B:Bullet):Void
 	{
 		P._health -= B._damage;
+		B.updateTarget(P);
 		B.kill();
 	}
 	
 	private function enemyGetsHit(E:Enemy, B:Bullet):Void
 	{
 		E._health -= B._damage;
+		B.updateTarget(E);
 		B.kill();
 	}
 	

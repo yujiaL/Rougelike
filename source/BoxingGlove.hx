@@ -39,7 +39,7 @@ class BoxingGlove extends Weapon
 		if (position < _bar) 
 		{
 			var bullet = new Bullet(x, y, XTarget, YTarget, 1, 50, 2);
-			bullet.makeGraphic(4, 4, FlxColor.BLUE);
+			bullet.makeGraphic(32, 32, FlxColor.BLUE);
 			_bullets.add(bullet);
 		}
 		else
