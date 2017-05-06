@@ -30,7 +30,6 @@ class PlayState extends FlxState
 	 */
 	private var _player:Player;
 	private var _playerBullets:FlxTypedGroup<Bullet>;
-	private var _ticksText:FlxText;
 	private var _ticks:Int;
 	
 	/**
@@ -45,10 +44,10 @@ class PlayState extends FlxState
 	private var _items:FlxTypedGroup<Item>;
 	private var _weapons:FlxTypedGroup<Weapon>;
 	
-	
-	
-	private var hp:FlxText;
-	private var enemyHp:FlxText;
+	/**
+	 * HUD
+	 */
+	private var _hud:HUD;
 	
 	override public function create():Void
 	{
@@ -66,7 +65,7 @@ class PlayState extends FlxState
 		add(_playerBullets);
 		FlxG.camera.follow(_player, NO_DEAD_ZONE, 1);
 		
-		_ticks = -1;
+		_ticks = 0;
 				
 	
 		//createNewRoom();
@@ -95,19 +94,9 @@ class PlayState extends FlxState
 		add(_weapons);
 		
 		
-		
-		
 		// HUD.
-		_ticksText = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT, 0, "Time pressed " + 0, 128);
-		_ticksText.scrollFactor.set(0, 0);
-		add(_ticksText);
-		
-		hp = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT * 2, 0, "HP: " + _player._health, 128);
-		hp.scrollFactor.set(0, 0);
-		add(hp);
-		enemyHp = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT * 3, 0, "Enemy HP: " + _enemies.getFirstAlive()._health, 128);
-		enemyHp.scrollFactor.set(0, 0);
-		add(enemyHp);
+		_hud = new HUD();
+		add(_hud);
 		
 		super.create();
 	}
@@ -115,7 +104,6 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
-		
 		
 		// Create new room.
 		if (FlxG.keys.justPressed.C)
@@ -127,7 +115,7 @@ class PlayState extends FlxState
 		FlxG.collide(_enemies, _map);
 		
 		// Collide with enemies
-		// FlxG.collide(_player, _enemies);
+		FlxG.overlap(_player, _enemies, separateCreatures);
 		
 		// Collide with doors.
 		for (door in _doors)
@@ -137,20 +125,12 @@ class PlayState extends FlxState
 		// Update enemy's vision.
 		_enemies.forEachAlive(updateVision);
 		
-		// Update health.
-		hp.text = "HP: " + _player._health;
-		if (_enemies.countLiving() > 0)
-			enemyHp.text = "Enemy HP: " + _enemies.getFirstAlive()._health;
+		// Update hud.
+		_hud.updateHUD(_ticks, _player._health, _enemies.getFirstAlive()._health);
 		
 		// Damage.
 		FlxG.overlap(_player, _enemy_bullets, playerGetsHit);
 		FlxG.overlap(_enemies, _playerBullets, enemyGetsHit);
-		
-		// Show bar.
-		if (_ticks != -1)
-			_ticksText.text = "Time pressed " + (FlxG.game.ticks - _ticks);
-		else
-			_ticksText.text = "Time pressed " + 0;
 		
 		// If special state.
 		if (_player._specialState.updateStates(_player))
@@ -162,10 +142,16 @@ class PlayState extends FlxState
 		// pick up items
 		if (FlxG.keys.justReleased.E)
 		{
-			_player._health++;
 			FlxG.overlap(_player, _items, playerPickItem);
 			FlxG.overlap(_player, _weapons, playerPickWeapon);
 		}
+	}
+	
+	private function separateCreatures(C1:Creature, C2:Creature):Void
+	{
+		FlxObject.separate(C1, C2);
+		C1.velocity.set();
+		C2.velocity.set();
 	}
 	
 	private function playerGetsHit(P:Player, B:Bullet):Void
@@ -194,14 +180,12 @@ class PlayState extends FlxState
 	
 	private function playerAttack():Void
 	{
-		if (FlxG.keys.justPressed.SPACE) {
-			_ticks = FlxG.game.ticks;
+		if (FlxG.keys.pressed.SPACE) {
+			_ticks++;
 		}
-		if (_ticks == -1)
-			return;
 		if (FlxG.keys.justReleased.SPACE) {
-			_player.attack(FlxG.game.ticks - _ticks);
-			_ticks = -1;
+			_player.attack(_ticks);
+			_ticks = 0;
 		}
 	}
 	
@@ -218,7 +202,7 @@ class PlayState extends FlxState
 		_playerBullets.clear();
 		_player.setPosition(2560, 2560);
 		
-		_ticks = -1;
+		_ticks = 0;
 		
 		
 		// Enemies.
@@ -234,25 +218,24 @@ class PlayState extends FlxState
 		
 		// Add item.
 		_items.clear();
-		_items.add(new HealthPotion(160, 160));
+		_items.add(new HealthPotion(1200, 3000));
 		
 		// Add weapon.
 		_weapons.forEach(destroyWeapon);
-		_weapons.add(new BoxingGlove(60, 160, _playerBullets));
-		var green = new BoxingGlove(120, 160, _playerBullets);
-		green.makeGraphic(12, 12, FlxColor.GREEN);
+		_weapons.add(new BoxingGlove(2000, 2500, _playerBullets));
+		var green = new BoxingGlove(4500, 2800, _playerBullets);
+		green.makeGraphic(128, 128, FlxColor.GREEN);
 		_weapons.add(green);
 	}
 	
 	private function randomizeOSPosition(OS:FlxSprite, ?Object2:FlxObject):Void
 	{
 		// Pick a random place.
-		OS.x = FlxG.random.int(0, 240);
-		OS.y = FlxG.random.int(0, 240);
+		OS.x = FlxG.random.int(257, 23 * 256 - 1);
+		OS.y = FlxG.random.int(257, 16 * 256 - 1);
 		
 		// Check overlap.
-		// FlxG.overlap(OS, _map, randomizeOSPosition);
-		FlxG.overlap(OS, _doors, randomizeOSPosition);
+		// FlxG.overlap(OS, _doors, randomizeOSPosition);
 		FlxG.overlap(OS, _enemies, randomizeOSPosition);
 		FlxG.overlap(OS, _player, randomizeOSPosition);
 	}
