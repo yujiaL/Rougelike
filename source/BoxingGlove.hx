@@ -21,19 +21,25 @@ class BoxingGlove extends Weapon
 	
 	override public function attack(player:Player, position:Float):Void
 	{	
+		var XOrigin = getMidpoint().x;
+		var YOrigin = getMidpoint().y;
 		var XTarget = getMidpoint().x;
 		var YTarget = getMidpoint().y;
 		
 		switch (facing)
 		{
 			case FlxObject.LEFT:
-				XTarget--;
+				XOrigin -= cast(GlobalVariable.UNIT / 2, Int);
+				XTarget -= 999999;
 			case FlxObject.RIGHT:
-				XTarget++;
+				XOrigin += cast(GlobalVariable.UNIT / 2, Int);
+				XTarget += 999999;
 			case FlxObject.UP:
-				YTarget--;
+				YOrigin -= cast(GlobalVariable.UNIT / 2, Int);
+				YTarget -= 999999;
 			case FlxObject.DOWN:
-				YTarget++;
+				YOrigin += cast(GlobalVariable.UNIT / 2, Int);
+				YTarget += 999999;
 		}
 		
 		if (position < _bar) 
@@ -44,7 +50,8 @@ class BoxingGlove extends Weapon
 		}
 		else
 		{
-			_bullets.add(new Punch(getMidpoint().x, getMidpoint().y, XTarget, YTarget, 10));
+			_bullets.add(new Punch(getMidpoint().x, getMidpoint().y, XTarget, YTarget, 10, x, y));
+			_bullets.add(new Punch(XOrigin, YOrigin, XTarget, YTarget, 10, x, y));
 			player._specialState._fall = true;
 			player._specialState._fallTimer = 2;
 		}
