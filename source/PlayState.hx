@@ -16,8 +16,8 @@ class PlayState extends FlxState
 	/**
 	 * Some static constants for the size of the tilemap tiles.
 	 */
-	private static inline var TILE_WIDTH:Int = 16;
-	private static inline var TILE_HEIGHT:Int = 16;
+	private static inline var TILE_WIDTH:Int = GlobalVariable.UNIT;
+	private static inline var TILE_HEIGHT:Int = GlobalVariable.UNIT;
 	
 	/**
 	 * Tilemap and doors.
@@ -54,50 +54,43 @@ class PlayState extends FlxState
 	{
 		// Map and door.
 		_map = new FlxTilemap();
-		_map.loadMapFromCSV(AssetPaths.map__csv, AssetPaths.auto_tiles__png, TILE_WIDTH, TILE_HEIGHT, AUTO);
-		//_map.loadMapFromCSV(AssetPaths.map__csv, AssetPaths.Tilemap__png, TILE_WIDTH, TILE_HEIGHT, AUTO);
+		//_map.loadMapFromCSV(AssetPaths.map__csv, AssetPaths.auto_tiles__png, TILE_WIDTH, TILE_HEIGHT, AUTO);
+		_map.loadMapFromCSV(AssetPaths.map__csv, AssetPaths.Tilemap__png, TILE_WIDTH, TILE_HEIGHT, AUTO);
 		add(_map);
 		
 		// Player.
-		_player = new Player(32, 32, 100);   // set player health to 100 now, may change later
+		_player = new Player(2560, 2560, GlobalVariable.PLAYERHP);   // set player health to 100 now, may change later
 		add(_player);
 		
+		_playerBullets = new FlxTypedGroup<Bullet>();
+		add(_playerBullets);
+		FlxG.camera.follow(_player, NO_DEAD_ZONE, 1);
 		
+		_ticks = -1;
+				
 	
 		//createNewRoom();
 		_doors = new FlxTypedGroup<Door>();
-		_doors.add(new Door(112, 240));
-		_doors.add(new Door(128, 240));
-		_doors.add(new Door(112, 288));
-		_doors.add(new Door(128, 288));
 		add(_doors);
 		
-		// Player.
-		_playerBullets = new FlxTypedGroup<Bullet>();
-		add(_playerBullets);
-		_player.setPosition(32, 32);
-		FlxG.camera.follow(_player, TOPDOWN, 1);
-		
-		_ticks = -1;
-		
-		
+
 		// Enemies.
 		_enemy_bullets = new FlxTypedGroup<Bullet>();
 		add(_enemy_bullets);
 		_enemies = new FlxTypedGroup<Enemy>();
-		_enemies.add(new RockBoy(120, 120, 100, _enemy_bullets));
+		_enemies.add(new RockBoy(3600, 1200, 100, _enemy_bullets));
 		add(_enemies);
 		
 		// Add item.
 		_items = new FlxTypedGroup<Item>();
-		_items.add(new HealthPotion(160, 160));
+		_items.add(new HealthPotion(1200, 3000));
 		add(_items);
 		
 		// Add weapon.
 		_weapons = new FlxTypedGroup<Weapon>();
-		_weapons.add(new BoxingGlove(60, 160, _playerBullets));
-		var green = new BoxingGlove(120, 160, _playerBullets);
-		green.makeGraphic(12, 12, FlxColor.GREEN);
+		_weapons.add(new BoxingGlove(2000, 2500, _playerBullets));
+		var green = new BoxingGlove(4500, 2800, _playerBullets);
+		green.makeGraphic(256, 256, FlxColor.GREEN);
 		_weapons.add(green);
 		add(_weapons);
 		
@@ -132,6 +125,9 @@ class PlayState extends FlxState
 		// Collide with tiles.
 		FlxG.collide(_player, _map);
 		
+		// Collide with enemies
+		FlxG.collide(_player, _enemies);
+		
 		// Collide with doors.
 		for (door in _doors)
 			if (!door._open)
@@ -142,7 +138,7 @@ class PlayState extends FlxState
 		
 		// Update health.
 		hp.text = "HP: " + _player._health;
-		if (countLiving() > 0)
+		if (_enemies.countLiving() > 0)
 			enemyHp.text = "Enemy HP: " + _enemies.getFirstAlive()._health;
 		
 		// Damage.
@@ -214,14 +210,10 @@ class PlayState extends FlxState
 	private function setNewRoom():Void
 	{
 		_doors.clear();
-		_doors.add(new Door(112, 240));
-		_doors.add(new Door(128, 240));
-		_doors.add(new Door(112, 288));
-		_doors.add(new Door(128, 288));
 		
 		// Player.
 		_playerBullets.clear();
-		_player.setPosition(32, 32);
+		_player.setPosition(2560, 2560);
 		
 		_ticks = -1;
 		

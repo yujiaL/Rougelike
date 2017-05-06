@@ -13,7 +13,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 class Player extends Creature
 {
 	// player stats
-	public var speed:Float = 150;	
+	public var speed:Float = 1500;	
 	public var _weapon:Weapon;
 	private var _coins:Int;
 	private var _weight:Int;
@@ -23,8 +23,8 @@ class Player extends Creature
 	override public function new(?X:Float=0, ?Y:Float=0, health:Int) 
 	{
 		super(X, Y, health);
-		makeGraphic(16, 16, FlxColor.PINK);
-		//loadGraphic(AssetPaths.Test__png, false, 256, 256);
+		//makeGraphic(16, 16, FlxColor.PINK);
+		loadGraphic(AssetPaths.dango__png, false, 512, 256);
 		
 		// initialize player stats
 		_weapon = new Weapon(0, 0, null);
@@ -34,7 +34,7 @@ class Player extends Creature
 		_hairLength = 10;
 		
 		_chargeSpeed = 0.1;
-		drag.x = drag.y = 1600;
+		drag.x = drag.y = 15000;
 	}
 	
 	override public function update(elapsed:Float):Void
