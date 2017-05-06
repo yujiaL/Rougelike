@@ -90,7 +90,7 @@ class PlayState extends FlxState
 		_weapons = new FlxTypedGroup<Weapon>();
 		_weapons.add(new BoxingGlove(2000, 2500, _playerBullets));
 		var green = new BoxingGlove(4500, 2800, _playerBullets);
-		green.makeGraphic(256, 256, FlxColor.GREEN);
+		green.makeGraphic(128, 128, FlxColor.GREEN);
 		_weapons.add(green);
 		add(_weapons);
 		
@@ -124,6 +124,7 @@ class PlayState extends FlxState
 		
 		// Collide with tiles.
 		FlxG.collide(_player, _map);
+		FlxG.collide(_enemies, _map);
 		
 		// Collide with enemies
 		// FlxG.collide(_player, _enemies);

@@ -22,6 +22,8 @@ class Enemy extends Creature
 		playerPos = FlxPoint.get();
 		
 		_bullets = bullets;
+		
+		drag.x = drag.y = 15000;
     }
 	
 	override public function update(elapsed:Float):Void

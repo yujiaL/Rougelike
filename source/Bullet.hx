@@ -11,7 +11,7 @@ class Bullet extends FlxSprite
 	private var _duration:Float;
 
 	// Create a bullet shoots from (X, Y) to (XTarget, YTarget).
-	public function new(X:Float, Y:Float, XTarget:Float, YTarget:Float, damage:Int, speed:Float = 100, duration:Float = 99999) 
+	public function new(X:Float, Y:Float, XTarget:Float, YTarget:Float, damage:Int, speed:Float = 1000, duration:Float = 99999) 
 	{
 		super(X, Y);
 		
@@ -25,6 +25,8 @@ class Bullet extends FlxSprite
 		_damage = damage;
 		
 		_duration = duration;
+		
+		setPosition(x - width / 2, y - height / 2);
 	}
 	
 	override public function update(elapsed:Float):Void

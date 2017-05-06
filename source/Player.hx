@@ -54,13 +54,13 @@ class Player extends Creature
 		switch (facing)
 		{
 			case FlxObject.LEFT:
-				_weapon.hold(this.x - GlobalVariable.UNIT, this.y, facing);
+				_weapon.hold(this.x - GlobalVariable.UNIT / 2 - _weapon.width / 2, this.y + GlobalVariable.UNIT / 2 - _weapon.height / 2, facing);
 			case FlxObject.RIGHT :
-				_weapon.hold(this.x + GlobalVariable.UNIT, this.y, facing);
+				_weapon.hold(this.x + GlobalVariable.UNIT * 1.5 - _weapon.width / 2, this.y + GlobalVariable.UNIT / 2 - _weapon.height / 2, facing);
 			case FlxObject.UP:
-				_weapon.hold(this.x, this.y - GlobalVariable.UNIT, facing);
+				_weapon.hold(this.x + GlobalVariable.UNIT / 2 - _weapon.width / 2, this.y - GlobalVariable.UNIT / 2 - _weapon.height / 2, facing);
 			case FlxObject.DOWN:
-				_weapon.hold(this.x, this.y + GlobalVariable.UNIT, facing);
+				_weapon.hold(this.x + GlobalVariable.UNIT / 2 - _weapon.width / 2, this.y + GlobalVariable.UNIT * 1.5 - _weapon.height / 2, facing);
 		}
 	}
 	

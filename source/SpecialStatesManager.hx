@@ -16,9 +16,9 @@ class SpecialStatesManager
 		_fall = false;
 	}
 	
-	// Call to update special states of the player.
-	// Return false if we should disable the player(keeping updating).
-	public function updateStates(player:Player):Bool
+	// Call to update special states of the creature.
+	// Return false if we should disable the creature(keeping updating).
+	public function updateStates(C:Creature):Bool
 	{
 		if (_fall)
 		{
@@ -29,7 +29,7 @@ class SpecialStatesManager
 				_fallTimer -= FlxG.elapsed;
 			
 			// Play animation.
-			// player.animation.play("fall");
+			// C.animation.play("fall");
 			
 			// Return true to indicate the player cannot move for a while.
 			return true;

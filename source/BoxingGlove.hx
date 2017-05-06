@@ -12,7 +12,7 @@ class BoxingGlove extends Weapon
 	{
 		super(X, Y, bullets);
 		
-		makeGraphic(128, 128, FlxColor.RED);
+		makeGraphic(cast(GlobalVariable.UNIT / 2, Int), cast(GlobalVariable.UNIT / 2, Int), FlxColor.RED);
 		
 		facing = FlxObject.RIGHT;
 		
@@ -21,8 +21,8 @@ class BoxingGlove extends Weapon
 	
 	override public function attack(player:Player, position:Float):Void
 	{	
-		var XTarget = x;
-		var YTarget = y;
+		var XTarget = getMidpoint().x;
+		var YTarget = getMidpoint().y;
 		
 		switch (facing)
 		{
@@ -38,16 +38,13 @@ class BoxingGlove extends Weapon
 		
 		if (position < _bar) 
 		{
-			var bullet = new Bullet(x, y, XTarget, YTarget, 1, 50, 2);
+			var bullet = new Bullet(getMidpoint().x, getMidpoint().y, XTarget, YTarget, 1, 1000, 2);
 			bullet.makeGraphic(32, 32, FlxColor.BLUE);
 			_bullets.add(bullet);
 		}
 		else
 		{
-			var bullet = new Punch(x, y, XTarget, YTarget, 10);
-			bullet.makeGraphic(128, 128, FlxColor.BLUE);
-			_bullets.add(bullet);
-			
+			_bullets.add(new Punch(getMidpoint().x, getMidpoint().y, XTarget, YTarget, 10));
 			player._specialState._fall = true;
 			player._specialState._fallTimer = 2;
 		}
