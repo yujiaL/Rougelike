@@ -10,7 +10,6 @@ import flixel.addons.weapon.FlxWeapon;
 import flixel.text.FlxText;
 import flixel.tile.FlxTilemap;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import lime.graphics.opengl.ext.AMD_program_binary_Z400;
 
 class PlayState extends FlxState
 {
@@ -50,7 +49,7 @@ class PlayState extends FlxState
 	 */
 	private var _hud:HUD;
 	private var _pause:PauseHUD;
-	private var _damages:Array<FlxText>;
+	private var _damages:FlxTypedGroup<FlxText>;
 	
 	override public function create():Void
 	{
@@ -106,7 +105,7 @@ class PlayState extends FlxState
 		add(_hud);
 		_pause = new PauseHUD();
 		add(_pause);
-		_damages = new Array<FlxText>();
+		_damages = new FlxTypedGroup<FlxText>();
 		add(_damages);
 		
 		super.create();
@@ -181,6 +180,7 @@ class PlayState extends FlxState
 	
 	private function enemyGetsHit(E:Enemy, B:Bullet):Void
 	{
+		_damages.add(new DamageText(B.x, B.y, B._damage, 128));
 		E._health -= B._damage;
 		B.updateTarget(E);
 		B.kill();
