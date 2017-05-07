@@ -55,7 +55,8 @@ class PlayState extends FlxState
 		// Map and door.
 		_map = new FlxTilemap();
 		//_map.loadMapFromCSV(AssetPaths.map__csv, AssetPaths.auto_tiles__png, TILE_WIDTH, TILE_HEIGHT, AUTO);
-		_map.loadMapFromCSV(AssetPaths.map__csv, AssetPaths.Tilemap__png, TILE_WIDTH, TILE_HEIGHT, AUTO);
+		//_map.loadMapFromCSV(AssetPaths.map__csv, AssetPaths.Tilemap__png, TILE_WIDTH, TILE_HEIGHT, AUTO);
+		_map.loadMapFromCSV(AssetPaths.map__csv, AssetPaths.auto_tilesBig__png, TILE_WIDTH, TILE_HEIGHT, AUTO);
 		add(_map);
 		
 		// Player.
@@ -115,13 +116,9 @@ class PlayState extends FlxState
 		if (FlxG.keys.justPressed.C)
 			setNewRoom();
 		
-		
-		// Collide with tiles.
-		FlxG.collide(_player, _map);
-		FlxG.collide(_enemies, _map);
-		
 		// Collide with enemies
 		FlxG.overlap(_player, _enemies, separateCreatures);
+		//FlxG.collide(_enemies, _map);
 		
 		// Collide with doors.
 		//for (door in _doors)
@@ -129,16 +126,20 @@ class PlayState extends FlxState
 		//		FlxG.collide(_player, door);
 		if (FlxG.overlap(_player, _doors))
 			setNewRoom();
-				
+		
 		// Update enemy's vision.
 		_enemies.forEachAlive(updateVision);
 		
 		// Update hud.
-		_hud.updateHUD(_ticks, _player._health, _enemies.getFirstAlive()._health);
+		_hud.updateHUD(_ticks, _player._health, _enemies.getFirstAlive()._health);	
 		
 		// Damage.
 		FlxG.overlap(_player, _enemy_bullets, playerGetsHit);
 		FlxG.overlap(_enemies, _playerBullets, enemyGetsHit);
+		
+		// Collide with tiles.
+		FlxG.collide(_player, _map);
+		FlxG.collide(_enemies, _map);
 		
 		// If special state.
 		if (_player._specialState.updateStates(_player))
@@ -147,7 +148,7 @@ class PlayState extends FlxState
 		// Attack.
 		playerAttack();
 		
-		// Check stats.
+		//   Check stats.
 		if (FlxG.keys.justPressed.Q)
 			_pause.openOrClosePause();
 		
@@ -178,6 +179,7 @@ class PlayState extends FlxState
 	{
 		E._health -= B._damage;
 		B.updateTarget(E);
+		//FlxG.collide(E, _map);
 		B.kill();
 	}
 	

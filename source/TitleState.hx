@@ -22,7 +22,9 @@ class TitleState extends FlxState
 		_background = new TitleBackground(0, 0);
 		add(_background);
 		
-		_message = new FlxText(2000, 3000, 0, "Press Space to Start! ", 120);
+		_message = new FlxText(0, 0, 0, "Press Space to Start! ", 200);
+		_message.x = FlxG.width / 2 - _message.width / 2;
+		_message.y = FlxG.height * 4 / 5;
 		//FlxTween.tween(_message, { x: 2000, y: 3000 }, 2.0, { ease: FlxEase.expoIn, type: FlxTween.O});
 		FlxSpriteUtil.flicker(_message, 0, 0.5);
 		add(_message);
