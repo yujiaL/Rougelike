@@ -16,6 +16,8 @@ class HUD extends FlxTypedGroup<FlxSprite>
 	private var _ticksText:FlxText;
 	private var _playerHpText:FlxText;
 	
+	private var _limit:FlxSprite;
+	
 	// For test.
 	private var enemyHp:FlxText;
 	
@@ -35,6 +37,10 @@ class HUD extends FlxTypedGroup<FlxSprite>
 		_chargeBar.createFilledBar(0xff464646, FlxColor.WHITE, true, FlxColor.WHITE);
 		add(_chargeBar);
 		
+		_limit = new FlxSprite(0, 0);
+		_limit.makeGraphic(cast(GlobalVariable.UNIT / 8, Int), cast(GlobalVariable.UNIT / 2, Int), FlxColor.ORANGE);
+		add(_limit);
+		
 		_ticksText = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT, 0, "Time pressed: ", 128);
 		add(_ticksText);
 		
@@ -50,12 +56,13 @@ class HUD extends FlxTypedGroup<FlxSprite>
 		});
 	}
 	
-	public function updateHUD(TimePressed:Int = 0, PlayerHP:Int = 0, EnemyHP:Int = 0, BarValue:Int = 0):Void
+	public function updateHUD(TimePressed:Int = 0, PlayerHP:Int = 0, EnemyHP:Int = 0, BarValue:Int = 0, Limit:Int = 0):Void
     {
         _ticksText.text = "Time pressed: " + TimePressed;
 		_playerHpText.text = "HP: " + PlayerHP;
         enemyHp.text = "Enemy HP: " + EnemyHP;
 		_chargeBar.value = BarValue;
 		_hpBar.value = PlayerHP;
+		_limit.setPosition(Limit, _chargeBar.y);
     }
 }

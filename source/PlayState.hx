@@ -134,7 +134,7 @@ class PlayState extends FlxState
 		_enemies.forEachAlive(updateVision);
 		
 		// Update hud.
-		_hud.updateHUD(_ticks, _player._health, _enemies.getFirstAlive()._health, _ticks);	
+		_hud.updateHUD(_ticks, _player._health, _enemies.getFirstAlive()._health, _ticks, 6000);	
 		
 		// Damage.
 		FlxG.overlap(_player, _enemy_bullets, playerGetsHit);
