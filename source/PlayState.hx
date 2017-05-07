@@ -10,6 +10,7 @@ import flixel.addons.weapon.FlxWeapon;
 import flixel.text.FlxText;
 import flixel.tile.FlxTilemap;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import lime.graphics.opengl.ext.AMD_program_binary_Z400;
 
 class PlayState extends FlxState
 {
@@ -49,6 +50,7 @@ class PlayState extends FlxState
 	 */
 	private var _hud:HUD;
 	private var _pause:PauseHUD;
+	private var _damages:Array<FlxText>;
 	
 	override public function create():Void
 	{
@@ -104,6 +106,8 @@ class PlayState extends FlxState
 		add(_hud);
 		_pause = new PauseHUD();
 		add(_pause);
+		_damages = new Array<FlxText>();
+		add(_damages);
 		
 		super.create();
 	}
@@ -131,7 +135,7 @@ class PlayState extends FlxState
 		_enemies.forEachAlive(updateVision);
 		
 		// Update hud.
-		_hud.updateHUD(_ticks, _player._health, _enemies.getFirstAlive()._health);	
+		_hud.updateHUD(_ticks, _player._health, _enemies.getFirstAlive()._health, _ticks);	
 		
 		// Damage.
 		FlxG.overlap(_player, _enemy_bullets, playerGetsHit);
@@ -164,12 +168,12 @@ class PlayState extends FlxState
 	{
 		FlxObject.separate(C1, C2);
 		C1.velocity.set();
-		C2.velocity.set();
+		C2.velocity.set(); 
 	}
 	
 	private function playerGetsHit(P:Player, B:Bullet):Void
 	{
-		FlxG.camera.shake(0.01, 0.1);
+		FlxG.camera.shake(0.005, 0.1);
 		P._health -= B._damage;
 		B.updateTarget(P);
 		B.kill();
@@ -179,7 +183,6 @@ class PlayState extends FlxState
 	{
 		E._health -= B._damage;
 		B.updateTarget(E);
-		//FlxG.collide(E, _map);
 		B.kill();
 	}
 	
