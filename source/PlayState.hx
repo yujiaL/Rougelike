@@ -48,6 +48,7 @@ class PlayState extends FlxState
 	 * HUD
 	 */
 	private var _hud:HUD;
+	private var _pause:PauseHUD;
 	
 	override public function create():Void
 	{
@@ -93,10 +94,15 @@ class PlayState extends FlxState
 		_weapons.add(green);
 		add(_weapons);
 		
+		// Add door.
+		_doors.add(new Door(1500, 1500));
+		
 		
 		// HUD.
 		_hud = new HUD();
 		add(_hud);
+		_pause = new PauseHUD();
+		add(_pause);
 		
 		super.create();
 	}
@@ -118,9 +124,11 @@ class PlayState extends FlxState
 		FlxG.overlap(_player, _enemies, separateCreatures);
 		
 		// Collide with doors.
-		for (door in _doors)
-			if (!door._open)
-				FlxG.collide(_player, door);
+		//for (door in _doors)
+		//	if (!door._open)
+		//		FlxG.collide(_player, door);
+		if (FlxG.overlap(_player, _doors))
+			setNewRoom();
 				
 		// Update enemy's vision.
 		_enemies.forEachAlive(updateVision);
@@ -139,6 +147,10 @@ class PlayState extends FlxState
 		// Attack.
 		playerAttack();
 		
+		// Check stats.
+		if (FlxG.keys.justPressed.Q)
+			_pause.openOrClosePause();
+		
 		// pick up items
 		if (FlxG.keys.justReleased.E)
 		{
@@ -156,6 +168,7 @@ class PlayState extends FlxState
 	
 	private function playerGetsHit(P:Player, B:Bullet):Void
 	{
+		FlxG.camera.shake(0.01, 0.1);
 		P._health -= B._damage;
 		B.updateTarget(P);
 		B.kill();
@@ -226,12 +239,16 @@ class PlayState extends FlxState
 		var green = new BoxingGlove(4500, 2800, _playerBullets);
 		green.makeGraphic(128, 128, FlxColor.GREEN);
 		_weapons.add(green);
+		
+		// Add door.
+		_doors.clear();
+		_doors.add(new Door(1500, 1500));
 	}
 	
 	private function randomizeOSPosition(OS:FlxSprite, ?Object2:FlxObject):Void
 	{
 		// Pick a random place.
-		OS.x = FlxG.random.int(257, 23 * 256 - 1);
+		OS.x = FlxG.random.int(257, 22 * 256 - 1);
 		OS.y = FlxG.random.int(257, 16 * 256 - 1);
 		
 		// Check overlap.
