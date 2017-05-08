@@ -7,6 +7,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.ui.FlxBar;
 import flixel.util.FlxColor;
 import flixel.util.FlxAxes;
+import flixel.FlxObject;
 
 class HUD extends FlxTypedGroup<FlxSprite>
 {
@@ -16,7 +17,10 @@ class HUD extends FlxTypedGroup<FlxSprite>
 	private var _ticksText:FlxText;
 	private var _playerHpText:FlxText;
 	
-	private var _limit:FlxSprite;
+	private var _limit1:FlxSprite;
+	private var _limit2:FlxSprite;
+	private var _limit3:FlxSprite;
+	private var _limit4:FlxSprite;
 	
 	// For test.
 	private var enemyHp:FlxText;
@@ -37,9 +41,25 @@ class HUD extends FlxTypedGroup<FlxSprite>
 		_chargeBar.createFilledBar(0xff464646, FlxColor.WHITE, true, FlxColor.WHITE);
 		add(_chargeBar);
 		
-		_limit = new FlxSprite(0, 0);
-		_limit.makeGraphic(cast(GlobalVariable.UNIT / 8, Int), cast(GlobalVariable.UNIT / 2, Int), FlxColor.ORANGE);
-		add(_limit);
+		_limit1 = new FlxSprite(0, 0);
+		_limit1.makeGraphic(cast(GlobalVariable.UNIT / 8, Int), cast(GlobalVariable.UNIT / 2, Int), FlxColor.ORANGE);
+		_limit1.visible = false;
+		add(_limit1);
+		
+		_limit2 = new FlxSprite(0, 0);
+		_limit2.makeGraphic(cast(GlobalVariable.UNIT / 8, Int), cast(GlobalVariable.UNIT / 2, Int), FlxColor.RED);
+		_limit2.visible = false;
+		add(_limit2);
+		
+		_limit3 = new FlxSprite(0, 0);
+		_limit3.makeGraphic(cast(GlobalVariable.UNIT / 8, Int), cast(GlobalVariable.UNIT / 2, Int), FlxColor.PINK);
+		_limit3.visible = false;
+		add(_limit3);
+		
+		_limit4 = new FlxSprite(0, 0);
+		_limit4.makeGraphic(cast(GlobalVariable.UNIT / 8, Int), cast(GlobalVariable.UNIT / 2, Int), FlxColor.CYAN);
+		_limit4.visible = false;
+		add(_limit4);
 		
 		_ticksText = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT, 0, "Time pressed: ", 128);
 		add(_ticksText);
@@ -56,13 +76,48 @@ class HUD extends FlxTypedGroup<FlxSprite>
 		});
 	}
 	
-	public function updateHUD(TimePressed:Int = 0, PlayerHP:Int = 0, EnemyHP:Int = 0, BarValue:Int = 0, Limit:Int = 0):Void
+	public function updateHUD(TimePressed:Int = 0, PlayerHP:Int = 0, EnemyHP:Int = 0, BarValue:Float = 0, Limits:Array<Int>):Void
     {
         _ticksText.text = "Time pressed: " + TimePressed;
 		_playerHpText.text = "HP: " + PlayerHP;
         enemyHp.text = "Enemy HP: " + EnemyHP;
 		_chargeBar.value = BarValue;
 		_hpBar.value = PlayerHP;
-		_limit.setPosition(Limit, _chargeBar.y);
+		
+		if (Limits[0] > 0)
+		{
+			_limit1.setPosition(Limits[0] / 100.0 * _chargeBar.barWidth + _chargeBar.x, _chargeBar.y);
+			_limit1.visible = true;
+		} else
+		{
+			_limit1.visible = false;
+		}
+		
+		if (Limits[1] > 0)
+		{
+			_limit2.setPosition(Limits[1] / 100.0 * _chargeBar.barWidth + _chargeBar.x, _chargeBar.y);
+			_limit2.visible = true;
+		} else
+		{
+			_limit2.visible = false;
+		}
+		
+		if (Limits[2] > 0)
+		{
+			_limit3.setPosition(Limits[2] / 100.0 * _chargeBar.barWidth + _chargeBar.x, _chargeBar.y);
+			_limit3.visible = true;
+		} else
+		{
+			_limit3.visible = false;
+		}
+		
+		if (Limits[3] > 0)
+		{
+			_limit4.setPosition(Limits[3] / 100.0 * _chargeBar.barWidth + _chargeBar.x, _chargeBar.y);
+			_limit4.visible = true;
+		} else
+		{
+			_limit4.visible = false;
+		}
     }
 }

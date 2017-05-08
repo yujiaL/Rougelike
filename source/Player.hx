@@ -18,7 +18,7 @@ class Player extends Creature
 	private var _coins:Int;
 	private var _weight:Int;
 	private var _hairLength:Int;
-	private var _chargeSpeed:Float;
+	public var _chargeSpeed:Float;
 	
 	override public function new(?X:Float=0, ?Y:Float=0, health:Int) 
 	{
@@ -33,7 +33,7 @@ class Player extends Creature
 		_weight = 100;
 		_hairLength = 10;
 		
-		_chargeSpeed = 1;
+		_chargeSpeed = 1.5;
 		drag.x = drag.y = 15000;
 	}
 	

@@ -16,7 +16,7 @@ class BoxingGlove extends Weapon
 		
 		facing = FlxObject.RIGHT;
 		
-		_bar = 50;
+		barPositions[0] = 50;
 	}
 	
 	override public function attack(player:Player, position:Float):Void
@@ -42,7 +42,7 @@ class BoxingGlove extends Weapon
 				YTarget += 999999;
 		}
 		
-		if (position < _bar) 
+		if (position < barPositions[0]) 
 		{
 			var bullet = new Bullet(getMidpoint().x, getMidpoint().y, XTarget, YTarget, 1, 1000, 2);
 			bullet.makeGraphic(32, 32, FlxColor.BLUE);

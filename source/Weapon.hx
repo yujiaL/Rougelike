@@ -7,12 +7,18 @@ class Weapon extends FlxSprite
 	private static inline var _CHARGE_MAX:Float = 100;
 	
 	// _bar needs to be updated every frame.
-	private var _bar:Float;
+	public var barPositions:Array<Int>;
 	private var _bullets:FlxTypedGroup<Bullet>;
 	
 	public function new(?X:Float=0, ?Y:Float=0, bullets:FlxTypedGroup<Bullet>) 
 	{
 		super(X, Y);
+		
+		barPositions = new Array<Int>();
+		barPositions.push(-1);
+		barPositions.push(-1);
+		barPositions.push(-1);
+		barPositions.push(-1);
 		
 		_bullets = bullets;
 	}
