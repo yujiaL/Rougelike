@@ -19,6 +19,8 @@ class RockChaseBoy extends Enemy
 	{
 		super(X, Y, 15, bullets);
 		
+		bardDamage = 5;
+		
 		makeGraphic(GlobalVariable.UNIT, GlobalVariable.UNIT, FlxColor.ORANGE);
 		
 		_walkTmr = FlxG.random.int(2, 4);
@@ -37,19 +39,19 @@ class RockChaseBoy extends Enemy
 		// Shoots a bullet from 1 to 4 second.
 		if (_specialState._dash)
 		{
-			_barded = false;
+			barded = false;
 		}
 		else
 		{
 			if (_dashTmr > 0)
 			{
-				_barded = true;
+				barded = true;
 				attack();
 				_dashTmr -= FlxG.elapsed;
 			}
 			else if (_walkTmr > 0) 
 			{
-				_barded = false;
+				barded = false;
 				walkAround();
 				_walkTmr -= FlxG.elapsed;
 			} 

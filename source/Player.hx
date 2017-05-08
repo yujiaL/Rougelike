@@ -1,6 +1,7 @@
 package;
 
 import flixel.FlxSprite;
+import flixel.util.FlxSpriteUtil;
 import flixel.addons.weapon.FlxWeapon;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.util.FlxColor;
@@ -155,5 +156,15 @@ class Player extends Creature
 		if (position > 100)
 			position = 100;
 		_weapon.attack(this, position);
+	}
+	
+	public function receiveDamage(damage:Int)
+	{
+		if (!FlxSpriteUtil.isFlickering(this))
+		{
+			FlxG.camera.shake(0.005, 0.1);
+			_health -= damage;
+			FlxSpriteUtil.flicker(this, 1, 0.2);
+		}
 	}
 }

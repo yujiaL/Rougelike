@@ -140,7 +140,7 @@ class PlayState extends FlxState
 		}
 		
 		// Collision
-		FlxG.overlap(_player, _enemies, separateCreatures);
+		FlxG.overlap(_player, _enemies, playerTouchEnemy);
 		
 		// Set new room,
 		if (FlxG.overlap(_player, _doors))
@@ -197,6 +197,16 @@ class PlayState extends FlxState
 			B.kill();
 	}
 	
+	private function playerTouchEnemy(P:Player, E:Enemy):Void
+	{
+		if (E.barded)
+		{
+			P.receiveDamage(E.bardDamage);
+			
+		}
+		separateCreatures(P, E);
+	}
+	
 	private function separateCreatures(C1:Creature, C2:Creature):Void
 	{
 		FlxObject.separate(C1, C2);
@@ -206,8 +216,7 @@ class PlayState extends FlxState
 	
 	private function playerGetsHit(P:Player, B:Bullet):Void
 	{
-		FlxG.camera.shake(0.005, 0.1);
-		P._health -= B._damage;
+		P.receiveDamage(B._damage);
 		B.updateTarget(P);
 		B.hit = true;
 	}

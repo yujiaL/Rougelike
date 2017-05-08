@@ -17,7 +17,8 @@ class Enemy extends Creature
 	private var _bullets:FlxTypedGroup<Bullet>;
 	private var _moveDir:Float;
 	private var _moveTmr:Float;
-	private var _barded:Bool;
+	public var barded:Bool;
+	public var bardDamage:Int;
 	
 	public function new(X:Float = 0, Y:Float = 0, Health:Int, bullets:FlxTypedGroup<Bullet>)
     {
@@ -29,7 +30,8 @@ class Enemy extends Creature
 		
 		drag.x = drag.y = 15000;
 		
-		_barded = false;
+		barded = false;
+		bardDamage = 0;
 		
 		_moveTmr = 0;
 		_moveDir = -1;
