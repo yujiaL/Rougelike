@@ -139,14 +139,10 @@ class PlayState extends FlxState
 			_doors.add(newDoor);
 		}
 		
-		// Collide with enemies
+		// Collision
 		FlxG.overlap(_player, _enemies, separateCreatures);
-		//FlxG.collide(_enemies, _map);
 		
-		// Collide with doors.
-		//for (door in _doors)
-		//	if (!door._open)
-		//		FlxG.collide(_player, door);
+		// Set new room,
 		if (FlxG.overlap(_player, _doors))
 		{
 			_level++;
@@ -170,6 +166,11 @@ class PlayState extends FlxState
 		FlxG.collide(_player, _map);
 		FlxG.collide(_enemies, _map);
 		FlxG.collide(_obstacles, _player);
+		FlxG.collide(_obstacles, _enemies);
+		
+		// Remove all bullets that hits one or more targets.
+		_enemy_bullets.forEachAlive(removeBullet);
+		_playerBullets.forEachAlive(removeBullet);
 		
 		// If special state.
 		if (_player._specialState.updateStates(_player))
@@ -190,6 +191,12 @@ class PlayState extends FlxState
 		}
 	}
 	
+	private function removeBullet(B:Bullet):Void
+	{
+		if (B.hit)
+			B.kill();
+	}
+	
 	private function separateCreatures(C1:Creature, C2:Creature):Void
 	{
 		FlxObject.separate(C1, C2);
@@ -202,22 +209,22 @@ class PlayState extends FlxState
 		FlxG.camera.shake(0.005, 0.1);
 		P._health -= B._damage;
 		B.updateTarget(P);
-		B.kill();
+		B.hit = true;
 	}
 	
 	private function enemyGetsHit(E:Enemy, B:Bullet):Void
 	{
-		_damages.add(new DamageText(B.x, B.y, B._damage));
+		_damages.add(new DamageText(E.x, E.y, B._damage));
 		E._health -= B._damage;
 		B.updateTarget(E);
-		B.kill();
+		B.hit = true;
 	}
 	
 	private function obstacleGetsHit(O:Obstacle, B:Bullet):Void
 	{
-		_damages.add(new DamageText(B.x, B.y, B._damage));
+		_damages.add(new DamageText(O.x, O.y, B._damage));
 		O._health -= B._damage;
-		B.kill();
+		B.hit = true;
 	}
 	
 	private function playerPickItem(P:Player, I:Item):Void
@@ -263,6 +270,12 @@ class PlayState extends FlxState
 		for (i in 0...FlxG.random.int(1, 5))
 		{
 			var enemy = new RockBoy(0, 0, _enemy_bullets);
+			randomizeOSPosition(enemy);
+			_enemies.add(enemy);
+		}
+		for (i in 0...FlxG.random.int(1, 5))
+		{
+			var enemy = new RockChaseBoy(0, 0, _enemy_bullets);
 			randomizeOSPosition(enemy);
 			_enemies.add(enemy);
 		}

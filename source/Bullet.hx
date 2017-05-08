@@ -8,7 +8,11 @@ import flixel.util.FlxColor;
 class Bullet extends FlxSprite
 {
 	public var _damage:Int;
+	
 	private var _duration:Float;
+	
+	public var hit:Bool;
+	
 
 	// Create a bullet shoots from (X, Y) to (XTarget, YTarget).
 	public function new(X:Float, Y:Float, XTarget:Float, YTarget:Float, damage:Int, speed:Float = 1000, duration:Float = 99999) 
@@ -25,6 +29,8 @@ class Bullet extends FlxSprite
 		_damage = damage;
 		
 		_duration = duration;
+		
+		hit = false;
 		
 		setPosition(x - width / 2, y - height / 2);
 	}

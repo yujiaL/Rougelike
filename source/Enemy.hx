@@ -10,10 +10,14 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 
 class Enemy extends Creature
 {
+	private static inline var _walkSpeed:Float = 600;
 
 	public var playerPos(default, null):FlxPoint;
 	
 	private var _bullets:FlxTypedGroup<Bullet>;
+	private var _moveDir:Float;
+	private var _moveTmr:Float;
+	private var _barded:Bool;
 	
 	public function new(X:Float = 0, Y:Float = 0, Health:Int, bullets:FlxTypedGroup<Bullet>)
     {
@@ -24,6 +28,11 @@ class Enemy extends Creature
 		_bullets = bullets;
 		
 		drag.x = drag.y = 15000;
+		
+		_barded = false;
+		
+		_moveTmr = 0;
+		_moveDir = -1;
     }
 	
 	override public function update(elapsed:Float):Void
@@ -37,5 +46,20 @@ class Enemy extends Creature
 	public function attack():Void
 	{
 		
+	}
+	
+	public function walkAround():Void
+	{
+		if (_moveTmr <= 0)
+		{
+			_moveDir = FlxG.random.int(0, 8) * 45;
+			_moveTmr = FlxG.random.int(1, 4);
+		}
+		else
+		{
+			velocity.set(_walkSpeed, 0);
+			velocity.rotate(FlxPoint.weak(0, 0), _moveDir);
+			_moveTmr -= FlxG.elapsed;
+		}
 	}
 }

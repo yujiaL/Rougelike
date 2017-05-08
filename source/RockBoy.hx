@@ -11,7 +11,7 @@ class RockBoy extends Enemy
 
 	public function new(X:Float = 0, Y:Float = 0, bullets:FlxTypedGroup<Bullet>) 
 	{
-		super(X, Y, 20, bullets);
+		super(X, Y, 15, bullets);
 		
 		makeGraphic(GlobalVariable.UNIT, GlobalVariable.UNIT, FlxColor.YELLOW);
 		

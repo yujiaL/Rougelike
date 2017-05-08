@@ -40,5 +40,7 @@ class Punch extends Bullet
 		var mA:Float = Math.atan2(C.y - _punchSourceY, C.x - _punchSourceX) * 57.2958;
 		C.velocity.set(5000, 0);
 		C.velocity.rotate(FlxPoint.weak(0, 0), mA);
+		C._specialState._dash = true;
+		C._specialState._dashTimer = 1;
 	}
 }
