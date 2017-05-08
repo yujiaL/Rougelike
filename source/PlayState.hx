@@ -180,7 +180,7 @@ class PlayState extends FlxState
 	
 	private function enemyGetsHit(E:Enemy, B:Bullet):Void
 	{
-		_damages.add(new DamageText(B.x, B.y, B._damage, 128));
+		_damages.add(new DamageText(B.x, B.y, B._damage));
 		E._health -= B._damage;
 		B.updateTarget(E);
 		B.kill();
