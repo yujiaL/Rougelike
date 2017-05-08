@@ -2,22 +2,35 @@ package;
 
 import flixel.math.FlxPoint;
 import flixel.util.FlxColor;
+import flixel.FlxObject;
 
 class Punch extends Bullet
 {
 	private var _punchSourceX:Float;
 	private var _punchSourceY:Float;
 	
-	public function new(X:Float, Y:Float, XTarget:Float, YTarget:Float, Damage:Int, SourceX:Float, SourceY:Float)
+	public function new(X:Float, Y:Float, XTarget:Float, YTarget:Float, Damage:Int, SourceX:Float, SourceY:Float, Facing:Int)
 	{
-		super(X, Y, XTarget, YTarget, Damage, 0.001, 1);
+		super(X, Y, XTarget, YTarget, Damage, 0.001, 0.1);
 		
 		_punchSourceX = SourceX;
 		_punchSourceY = SourceY;
 		
-		makeGraphic(cast(GlobalVariable.UNIT / 2, Int), cast(GlobalVariable.UNIT / 2, Int), FlxColor.BLUE);
-
-		setPosition(x - width / 2, y - height / 2);
+		switch(Facing)
+		{
+			case FlxObject.LEFT:
+				makeGraphic(Math.round(GlobalVariable.UNIT * 3), Math.round(GlobalVariable.UNIT), FlxColor.BLUE);
+				setPosition(X - Math.round(GlobalVariable.UNIT * 2), Y);
+			case FlxObject.RIGHT :
+				makeGraphic(Math.round(GlobalVariable.UNIT * 3), Math.round(GlobalVariable.UNIT), FlxColor.BLUE);
+				setPosition(X, Y);
+			case FlxObject.UP:
+				makeGraphic(Math.round(GlobalVariable.UNIT), Math.round(GlobalVariable.UNIT * 3), FlxColor.BLUE);
+				setPosition(X, Y - Math.round(GlobalVariable.UNIT * 2));
+			case FlxObject.DOWN:
+				makeGraphic(Math.round(GlobalVariable.UNIT), Math.round(GlobalVariable.UNIT * 3), FlxColor.BLUE);
+				setPosition(X, Y);
+		}
 	}
 	
 	// Call this function to add speical effects for the attack target.

@@ -39,6 +39,11 @@ class PlayState extends FlxState
 	private var _enemy_bullets:FlxTypedGroup<Bullet>;
 	
 	/**
+	 * Obstacles.
+	 */
+	private var _obstacles:FlxTypedGroup<Obstacle>;
+	
+	/**
 	 * Items and weapons
 	 */
 	private var _items:FlxTypedGroup<Item>;
@@ -50,6 +55,7 @@ class PlayState extends FlxState
 	private var _hud:HUD;
 	private var _pause:PauseHUD;
 	private var _damages:FlxTypedGroup<FlxText>;
+	private var _level:Int;
 	
 	override public function create():Void
 	{
@@ -73,15 +79,21 @@ class PlayState extends FlxState
 	
 		//createNewRoom();
 		_doors = new FlxTypedGroup<Door>();
+		var door = new Door();
+		door.screenCenter();
+		_doors.add(door);
 		add(_doors);
-		
 
 		// Enemies.
 		_enemy_bullets = new FlxTypedGroup<Bullet>();
 		add(_enemy_bullets);
 		_enemies = new FlxTypedGroup<Enemy>();
-		_enemies.add(new RockBoy(3600, 1200, 100, _enemy_bullets));
+		//_enemies.add(new RockBoy(3600, 1200, _enemy_bullets));
 		add(_enemies);
+		
+		// Obstacles.
+		_obstacles = new FlxTypedGroup<Obstacle>();
+		add(_obstacles);
 		
 		// Add item.
 		_items = new FlxTypedGroup<Item>();
@@ -97,7 +109,7 @@ class PlayState extends FlxState
 		add(_weapons);
 		
 		// Add door.
-		_doors.add(new Door(1500, 1500));
+		//_doors.add(new Door(1500, 1500));
 		
 		
 		// HUD.
@@ -107,6 +119,7 @@ class PlayState extends FlxState
 		add(_pause);
 		_damages = new FlxTypedGroup<FlxText>();
 		add(_damages);
+		_level = 0;
 		
 		super.create();
 	}
@@ -118,6 +131,13 @@ class PlayState extends FlxState
 		// Create new room.
 		if (FlxG.keys.justPressed.C)
 			setNewRoom();
+			
+		if (_enemies.countLiving() == 0 && _doors.countLiving() == -1)
+		{
+			var newDoor = new Door();
+			randomizeOSPosition(newDoor);
+			_doors.add(newDoor);
+		}
 		
 		// Collide with enemies
 		FlxG.overlap(_player, _enemies, separateCreatures);
@@ -128,21 +148,28 @@ class PlayState extends FlxState
 		//	if (!door._open)
 		//		FlxG.collide(_player, door);
 		if (FlxG.overlap(_player, _doors))
+		{
+			_level++;
 			setNewRoom();
+		}
+			
 		
 		// Update enemy's vision.
 		_enemies.forEachAlive(updateVision);
 		
 		// Update hud.
-		_hud.updateHUD(_ticks, _player._health, _enemies.getFirstAlive()._health, _ticks * _player._chargeSpeed, _player._weapon.barPositions);	
+		_hud.updateHUD(_ticks, _player._health, _level, _ticks * _player._chargeSpeed, _player._weapon.barPositions);	
 		
 		// Damage.
 		FlxG.overlap(_player, _enemy_bullets, playerGetsHit);
 		FlxG.overlap(_enemies, _playerBullets, enemyGetsHit);
+		FlxG.overlap(_obstacles, _enemy_bullets, obstacleGetsHit);
+		FlxG.overlap(_obstacles, _playerBullets, obstacleGetsHit);
 		
 		// Collide with tiles.
 		FlxG.collide(_player, _map);
 		FlxG.collide(_enemies, _map);
+		FlxG.collide(_obstacles, _player);
 		
 		// If special state.
 		if (_player._specialState.updateStates(_player))
@@ -186,6 +213,13 @@ class PlayState extends FlxState
 		B.kill();
 	}
 	
+	private function obstacleGetsHit(O:Obstacle, B:Bullet):Void
+	{
+		_damages.add(new DamageText(B.x, B.y, B._damage));
+		O._health -= B._damage;
+		B.kill();
+	}
+	
 	private function playerPickItem(P:Player, I:Item):Void
 	{
 		P.pickUpItem(I);
@@ -218,7 +252,7 @@ class PlayState extends FlxState
 		
 		// Player.
 		_playerBullets.clear();
-		_player.setPosition(2560, 2560);
+		randomizeOSPosition(_player);
 		
 		_ticks = 0;
 		
@@ -228,15 +262,32 @@ class PlayState extends FlxState
 		_enemies.clear();
 		for (i in 0...FlxG.random.int(1, 5))
 		{
-			var enemy = new RockBoy(0, 0, 100, _enemy_bullets);
+			var enemy = new RockBoy(0, 0, _enemy_bullets);
 			randomizeOSPosition(enemy);
 			_enemies.add(enemy);
+		}
+		
+		// Add obstacles.
+		_obstacles.clear();
+		for (i in 0...FlxG.random.int(2, 5))
+		{
+			var obstacle = new Small_Rock();
+			randomizeOSPosition(obstacle);
+			_obstacles.add(obstacle);
+		}
+		for (i in 0...FlxG.random.int(1, 3))
+		{
+			var obstacle = new Medium_Rock();
+			randomizeOSPosition(obstacle);
+			_obstacles.add(obstacle);
 		}
 		
 		
 		// Add item.
 		_items.clear();
-		_items.add(new HealthPotion(1200, 3000));
+		var healthPotion = new HealthPotion(1200, 3000);
+		randomizeOSPosition(healthPotion);
+		_items.add(healthPotion);
 		
 		// Add weapon.
 		_weapons.forEach(destroyWeapon);
@@ -247,19 +298,19 @@ class PlayState extends FlxState
 		
 		// Add door.
 		_doors.clear();
-		_doors.add(new Door(1500, 1500));
 	}
 	
 	private function randomizeOSPosition(OS:FlxSprite, ?Object2:FlxObject):Void
 	{
 		// Pick a random place.
-		OS.x = FlxG.random.int(257, 22 * 256 - 1);
-		OS.y = FlxG.random.int(257, 16 * 256 - 1);
+		OS.x = FlxG.random.int(GlobalVariable.UNIT, 30 * GlobalVariable.UNIT);
+		OS.y = FlxG.random.int(GlobalVariable.UNIT, 16 * GlobalVariable.UNIT);
 		
 		// Check overlap.
 		// FlxG.overlap(OS, _doors, randomizeOSPosition);
 		FlxG.overlap(OS, _enemies, randomizeOSPosition);
 		FlxG.overlap(OS, _player, randomizeOSPosition);
+		FlxG.overlap(OS, _doors, randomizeOSPosition);
 	}
 	
 	private function destroyWeapon(W:Weapon)

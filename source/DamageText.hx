@@ -11,7 +11,7 @@ class DamageText extends FlxText
 
 	public function new(X:Float=0, Y:Float=0, Damage:Int, Size:Int=64) 
 	{
-		super(X, Y - GlobalVariable.UNIT / 4, 0, Damage + "!", Size);
+		super(X, Y - GlobalVariable.UNIT / 4, 0, Damage + "", Size);
 		
 		setFormat(null, 128, FlxColor.RED);
 		
@@ -21,7 +21,7 @@ class DamageText extends FlxText
 	override public function kill():Void
 	{
 		alive = false;
-		FlxTween.tween(this, { x : x, y: y - GlobalVariable.UNIT / 6}, 1, { ease: FlxEase.quadInOut, onComplete: finishKill });
+		FlxTween.tween(this, { x : x, y: y - GlobalVariable.UNIT / 6}, 0.5, { ease: FlxEase.quadInOut, onComplete: finishKill });
 	}
 	
 	private function finishKill(_):Void

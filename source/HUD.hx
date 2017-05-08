@@ -23,7 +23,7 @@ class HUD extends FlxTypedGroup<FlxSprite>
 	private var _limit4:FlxSprite;
 	
 	// For test.
-	private var enemyHp:FlxText;
+	private var _level:FlxText;
 	
 	public function new() 
 	{
@@ -67,8 +67,8 @@ class HUD extends FlxTypedGroup<FlxSprite>
 		_playerHpText = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT * 2, 0, "HP: ", 128);
 		add(_playerHpText);
 		
-		enemyHp = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT * 3, 0, "Enemy HP: ", 128);
-		add(enemyHp);
+		_level = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT * 3, 0, "Level: ", 128);
+		add(_level);
 		
 		forEach(function(spr:FlxSprite)
 		{
@@ -76,11 +76,11 @@ class HUD extends FlxTypedGroup<FlxSprite>
 		});
 	}
 	
-	public function updateHUD(TimePressed:Int = 0, PlayerHP:Int = 0, EnemyHP:Int = 0, BarValue:Float = 0, Limits:Array<Int>):Void
+	public function updateHUD(TimePressed:Int = 0, PlayerHP:Int = 0, Level:Int = 0, BarValue:Float = 0, Limits:Array<Int>):Void
     {
         _ticksText.text = "Time pressed: " + TimePressed;
 		_playerHpText.text = "HP: " + PlayerHP;
-        enemyHp.text = "Enemy HP: " + EnemyHP;
+        _level.text = "Level: " + Level;
 		_chargeBar.value = BarValue;
 		_hpBar.value = PlayerHP;
 		

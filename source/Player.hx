@@ -39,6 +39,15 @@ class Player extends Creature
 	
 	override public function update(elapsed:Float):Void
 	{
+		// Check stats.
+		if (_health > 100)
+			_health = 100;
+			
+		if (_chargeSpeed < 0.5)
+			_chargeSpeed = 0.5;
+		if (_chargeSpeed > 2.5)
+			_chargeSpeed = 2.5;
+		
 		holdWeapon();
 		
 		// If special state.
@@ -142,6 +151,9 @@ class Player extends Creature
 	
 	public function attack(ticks:Int)
 	{
-		_weapon.attack(this, ticks * _chargeSpeed);
+		var position = ticks * _chargeSpeed;
+		if (position > 100)
+			position = 100;
+		_weapon.attack(this, position);
 	}
 }

@@ -9,9 +9,9 @@ class RockBoy extends Enemy
 	
 	private var _idleTmr:Float;
 
-	override public function new(X:Float = 0, Y:Float = 0, Health:Int, bullets:FlxTypedGroup<Bullet>) 
+	public function new(X:Float = 0, Y:Float = 0, bullets:FlxTypedGroup<Bullet>) 
 	{
-		super(X, Y, Health, bullets);
+		super(X, Y, 20, bullets);
 		
 		makeGraphic(GlobalVariable.UNIT, GlobalVariable.UNIT, FlxColor.YELLOW);
 		
@@ -24,8 +24,7 @@ class RockBoy extends Enemy
 		if (_idleTmr <= 0)
 		{
 			attack();
-			_idleTmr = FlxG.random.int(1, 3);
-			
+			_idleTmr = FlxG.random.int(2, 4);
 		}
 		else
 			_idleTmr -= FlxG.elapsed;
@@ -35,6 +34,6 @@ class RockBoy extends Enemy
 	
 	override public function attack():Void
 	{
-		_bullets.add(new Bullet(x, y, playerPos.x, playerPos.y, 1, 100, 2));
+		_bullets.add(new Bullet(x, y, playerPos.x, playerPos.y, 5, 800, 2.5));
 	}
 }

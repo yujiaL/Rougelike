@@ -12,48 +12,37 @@ class BoxingGlove extends Weapon
 	{
 		super(X, Y, bullets);
 		
-		makeGraphic(cast(GlobalVariable.UNIT / 2, Int), cast(GlobalVariable.UNIT / 2, Int), FlxColor.RED);
+		makeGraphic(Math.round(GlobalVariable.UNIT), Math.round(GlobalVariable.UNIT), FlxColor.RED);
 		
 		facing = FlxObject.RIGHT;
 		
-		barPositions[0] = 50;
+		barPositions[0] = 75;
 	}
 	
 	override public function attack(player:Player, position:Float):Void
 	{	
-		var XOrigin = getMidpoint().x;
-		var YOrigin = getMidpoint().y;
 		var XTarget = getMidpoint().x;
 		var YTarget = getMidpoint().y;
 		
 		switch (facing)
 		{
 			case FlxObject.LEFT:
-				XOrigin -= cast(GlobalVariable.UNIT / 2, Int);
-				XTarget -= 999999;
+				XTarget--;
 			case FlxObject.RIGHT:
-				XOrigin += cast(GlobalVariable.UNIT / 2, Int);
-				XTarget += 999999;
+				XTarget++;
 			case FlxObject.UP:
-				YOrigin -= cast(GlobalVariable.UNIT / 2, Int);
-				YTarget -= 999999;
+				YTarget--;
 			case FlxObject.DOWN:
-				YOrigin += cast(GlobalVariable.UNIT / 2, Int);
-				YTarget += 999999;
+				YTarget++;
 		}
 		
-		if (position < barPositions[0]) 
+		var damage = position * position / 1000;
+		
+		_bullets.add(new Punch(x, y, XTarget, YTarget, Math.round(damage), getMidpoint().x, getMidpoint().y, facing));
+		if (position > barPositions[0]) 
 		{
-			var bullet = new Bullet(getMidpoint().x, getMidpoint().y, XTarget, YTarget, 1, 1000, 2);
-			bullet.makeGraphic(32, 32, FlxColor.BLUE);
-			_bullets.add(bullet);
-		}
-		else
-		{
-			_bullets.add(new Punch(getMidpoint().x, getMidpoint().y, XTarget, YTarget, 10, x, y));
-			_bullets.add(new Punch(XOrigin, YOrigin, XTarget, YTarget, 10, x, y));
 			player._specialState._fall = true;
-			player._specialState._fallTimer = 2;
+			player._specialState._fallTimer = 3;
 		}
 	}
 }
