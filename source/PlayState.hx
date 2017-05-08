@@ -137,6 +137,8 @@ class PlayState extends FlxState
 			var newDoor = new Door();
 			randomizeOSPosition(newDoor);
 			_doors.add(newDoor);
+			
+			addItem();
 		}
 		
 		// Collision
@@ -339,5 +341,10 @@ class PlayState extends FlxState
 	{
 		if (W != _player._weapon)
 			W.destroy();
+	}
+	
+	private function addItem()
+	{
+		
 	}
 }
