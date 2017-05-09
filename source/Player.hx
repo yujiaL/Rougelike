@@ -14,10 +14,10 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 class Player extends Creature
 {
 	// player stats
-	public var speed:Float = 1500;	
+	public var speed:Float;	
 	public var _weapon:Weapon;
 	private var _coins:Int;
-	private var _weight:Int;
+	public var _weight:Int;
 	private var _hairLength:Int;
 	public var _chargeSpeed:Float;
 	
@@ -31,10 +31,12 @@ class Player extends Creature
 		_weapon = new Weapon(0, 0, null);
 		
 		_coins = 0;
-		_weight = 100;
-		_hairLength = 10;
 		
+		speed = 2000;
+		_weight = 20;
+		_hairLength = 300;
 		_chargeSpeed = 1.5;
+		
 		drag.x = drag.y = 15000;
 	}
 	
@@ -48,6 +50,11 @@ class Player extends Creature
 			_chargeSpeed = 0.5;
 		if (_chargeSpeed > 2.5)
 			_chargeSpeed = 2.5;
+			
+		if (speed < 1000)
+			speed = 1000;
+		if (speed > 3000)
+			speed = 3000;
 		
 		holdWeapon();
 		
@@ -64,13 +71,13 @@ class Player extends Creature
 		switch (facing)
 		{
 			case FlxObject.LEFT:
-				_weapon.hold(this.x - GlobalVariable.UNIT / 2 - _weapon.width / 2, this.y + GlobalVariable.UNIT / 2 - _weapon.height / 2, facing);
+				_weapon.hold(this.x - GlobalVariable.UNIT / 2 - _weapon.width / 2 - _hairLength, this.y + GlobalVariable.UNIT / 2 - _weapon.height / 2, facing);
 			case FlxObject.RIGHT :
-				_weapon.hold(this.x + GlobalVariable.UNIT * 1.5 - _weapon.width / 2, this.y + GlobalVariable.UNIT / 2 - _weapon.height / 2, facing);
+				_weapon.hold(this.x + GlobalVariable.UNIT * 1.5 - _weapon.width / 2 + _hairLength, this.y + GlobalVariable.UNIT / 2 - _weapon.height / 2, facing);
 			case FlxObject.UP:
-				_weapon.hold(this.x + GlobalVariable.UNIT / 2 - _weapon.width / 2, this.y - GlobalVariable.UNIT / 2 - _weapon.height / 2, facing);
+				_weapon.hold(this.x + GlobalVariable.UNIT / 2 - _weapon.width / 2, this.y - GlobalVariable.UNIT / 2 - _weapon.height / 2 - _hairLength, facing);
 			case FlxObject.DOWN:
-				_weapon.hold(this.x + GlobalVariable.UNIT / 2 - _weapon.width / 2, this.y + GlobalVariable.UNIT * 1.5 - _weapon.height / 2, facing);
+				_weapon.hold(this.x + GlobalVariable.UNIT / 2 - _weapon.width / 2, this.y + GlobalVariable.UNIT * 1.5 - _weapon.height / 2 + _hairLength, facing);
 		}
 	}
 	
@@ -155,7 +162,7 @@ class Player extends Creature
 		var position = ticks * _chargeSpeed;
 		if (position > 100)
 			position = 100;
-		_weapon.attack(this, position);
+		_weapon.attack(this, position, _weight);
 	}
 	
 	public function receiveDamage(damage:Int)

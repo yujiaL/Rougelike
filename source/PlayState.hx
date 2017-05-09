@@ -130,7 +130,7 @@ class PlayState extends FlxState
 		
 		// Create new room.
 		if (FlxG.keys.justPressed.C)
-			setNewRoom();
+			FlxG.switchState(new GameOverState(_level));
 			
 		if (_enemies.countLiving() == 0 && _doors.countLiving() == -1)
 		{
@@ -156,7 +156,7 @@ class PlayState extends FlxState
 		_enemies.forEachAlive(updateVision);
 		
 		// Update hud.
-		_hud.updateHUD(_ticks, _player._health, _level, _ticks * _player._chargeSpeed, _player._weapon.barPositions);	
+		_hud.updateHUD(_ticks, _player._health, _level, _ticks * _player._chargeSpeed, _player._weapon.barPositions, _player._weight);	
 		
 		// Damage.
 		FlxG.overlap(_player, _enemy_bullets, playerGetsHit);

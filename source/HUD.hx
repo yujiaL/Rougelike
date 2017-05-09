@@ -76,7 +76,7 @@ class HUD extends FlxTypedGroup<FlxSprite>
 		});
 	}
 	
-	public function updateHUD(TimePressed:Int = 0, PlayerHP:Int = 0, Level:Int = 0, BarValue:Float = 0, Limits:Array<Int>):Void
+	public function updateHUD(TimePressed:Int = 0, PlayerHP:Int = 0, Level:Int = 0, BarValue:Float = 0, Limits:Array<Int>, Weight:Int):Void
     {
         _ticksText.text = "Time pressed: " + TimePressed;
 		_playerHpText.text = "HP: " + PlayerHP;
@@ -86,7 +86,7 @@ class HUD extends FlxTypedGroup<FlxSprite>
 		
 		if (Limits[0] > 0)
 		{
-			_limit1.setPosition(Limits[0] / 100.0 * _chargeBar.barWidth + _chargeBar.x, _chargeBar.y);
+			_limit1.setPosition((Limits[0] + Weight) / 100.0 * _chargeBar.barWidth + _chargeBar.x, _chargeBar.y);
 			_limit1.visible = true;
 		} else
 		{
@@ -95,7 +95,7 @@ class HUD extends FlxTypedGroup<FlxSprite>
 		
 		if (Limits[1] > 0)
 		{
-			_limit2.setPosition(Limits[1] / 100.0 * _chargeBar.barWidth + _chargeBar.x, _chargeBar.y);
+			_limit2.setPosition((Limits[1] + Weight) / 100.0 * _chargeBar.barWidth + _chargeBar.x, _chargeBar.y);
 			_limit2.visible = true;
 		} else
 		{
@@ -104,7 +104,7 @@ class HUD extends FlxTypedGroup<FlxSprite>
 		
 		if (Limits[2] > 0)
 		{
-			_limit3.setPosition(Limits[2] / 100.0 * _chargeBar.barWidth + _chargeBar.x, _chargeBar.y);
+			_limit3.setPosition((Limits[2] + Weight) / 100.0 * _chargeBar.barWidth + _chargeBar.x, _chargeBar.y);
 			_limit3.visible = true;
 		} else
 		{
@@ -113,7 +113,7 @@ class HUD extends FlxTypedGroup<FlxSprite>
 		
 		if (Limits[3] > 0)
 		{
-			_limit4.setPosition(Limits[3] / 100.0 * _chargeBar.barWidth + _chargeBar.x, _chargeBar.y);
+			_limit4.setPosition((Limits[3] + Weight) / 100.0 * _chargeBar.barWidth + _chargeBar.x, _chargeBar.y);
 			_limit4.visible = true;
 		} else
 		{

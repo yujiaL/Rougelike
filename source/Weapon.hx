@@ -22,14 +22,14 @@ class Weapon extends FlxSprite
 		
 		_bullets = bullets;
 	}
-	
+
 	public function hold(X:Float, Y:Float, f:Int):Void
 	{
 		setPosition(X, Y);
 		facing = f;
 	}
 	
-	public function attack(player:Player, position:Float):Void
+	public function attack(player:Player, position:Float, weight:Int):Void
 	{
 		
 	}

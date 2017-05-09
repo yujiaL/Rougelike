@@ -19,7 +19,7 @@ class BoxingGlove extends Weapon
 		barPositions[0] = 75;
 	}
 	
-	override public function attack(player:Player, position:Float):Void
+	override public function attack(player:Player, position:Float, weight:Int):Void
 	{	
 		var XTarget = getMidpoint().x;
 		var YTarget = getMidpoint().y;
@@ -39,7 +39,7 @@ class BoxingGlove extends Weapon
 		var damage = position * position / 1000;
 		
 		_bullets.add(new Punch(x, y, XTarget, YTarget, Math.round(damage), getMidpoint().x, getMidpoint().y, facing));
-		if (position > barPositions[0]) 
+		if (position > barPositions[0] + weight) 
 		{
 			player._specialState._fall = true;
 			player._specialState._fallTimer = 3;
