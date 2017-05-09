@@ -25,7 +25,6 @@ class Player extends Creature
 	override public function new(?X:Float=0, ?Y:Float=0, health:Int) 
 	{
 		super(X, Y, health);
-		//makeGraphic(16, 16, FlxColor.PINK);
 		loadGraphic(AssetPaths.dango__png, true, 512, 256);
 		setFacingFlip(FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.RIGHT, false, false);
