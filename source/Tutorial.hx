@@ -283,6 +283,6 @@ class Tutorial extends FlxState
 		}
 		
 		if (Level == 4)
-			FlxG.switchState(new PlayState());
+			FlxG.switchState(new TitleState());
 	}
 }
