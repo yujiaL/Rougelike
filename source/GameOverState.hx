@@ -25,7 +25,7 @@ class GameOverState extends FlxState
 	{
 		if (FlxG.sound.music == null)
 		{
-			FlxG.sound.
+			
 		}
 		_txtMessage = new FlxText(0, 0, 0, "Game Over!\nYour reached level : " + _level, 256);
 		_txtMessage.screenCenter();
