@@ -9,7 +9,7 @@ class Punch extends Bullet
 	private var _punchSourceX:Float;
 	private var _punchSourceY:Float;
 	
-	public function new(X:Float, Y:Float, XTarget:Float, YTarget:Float, Damage:Int, SourceX:Float, SourceY:Float, Facing:Int)
+	public function new(X:Float, Y:Float, XTarget:Float, YTarget:Float, Damage:Int, SourceX:Float, SourceY:Float, Facing:Int, Scale:Float)
 	{
 		super(X, Y, XTarget, YTarget, Damage, 0.001, 0.1);
 		
@@ -19,16 +19,16 @@ class Punch extends Bullet
 		switch(Facing)
 		{
 			case FlxObject.LEFT:
-				makeGraphic(Math.round(GlobalVariable.UNIT * 3), Math.round(GlobalVariable.UNIT), FlxColor.BLUE);
-				setPosition(X - Math.round(GlobalVariable.UNIT * 2), Y);
+				makeGraphic(Math.round(GlobalVariable.UNIT * Scale), Math.round(GlobalVariable.UNIT), FlxColor.BLUE);
+				setPosition(X - Math.round(GlobalVariable.UNIT * (Scale - 1)), Y);
 			case FlxObject.RIGHT :
-				makeGraphic(Math.round(GlobalVariable.UNIT * 3), Math.round(GlobalVariable.UNIT), FlxColor.BLUE);
+				makeGraphic(Math.round(GlobalVariable.UNIT * Scale), Math.round(GlobalVariable.UNIT), FlxColor.BLUE);
 				setPosition(X, Y);
 			case FlxObject.UP:
-				makeGraphic(Math.round(GlobalVariable.UNIT), Math.round(GlobalVariable.UNIT * 3), FlxColor.BLUE);
-				setPosition(X, Y - Math.round(GlobalVariable.UNIT * 2));
+				makeGraphic(Math.round(GlobalVariable.UNIT), Math.round(GlobalVariable.UNIT * Scale), FlxColor.BLUE);
+				setPosition(X, Y - Math.round(GlobalVariable.UNIT * (Scale - 1)));
 			case FlxObject.DOWN:
-				makeGraphic(Math.round(GlobalVariable.UNIT), Math.round(GlobalVariable.UNIT * 3), FlxColor.BLUE);
+				makeGraphic(Math.round(GlobalVariable.UNIT), Math.round(GlobalVariable.UNIT * Scale), FlxColor.BLUE);
 				setPosition(X, Y);
 		}
 	}

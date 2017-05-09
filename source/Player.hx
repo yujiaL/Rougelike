@@ -20,6 +20,7 @@ class Player extends Creature
 	public var _weight:Int;
 	private var _hairLength:Int;
 	public var _chargeSpeed:Float;
+	private var _attackScale:Float;
 	
 	override public function new(?X:Float=0, ?Y:Float=0, health:Int) 
 	{
@@ -36,6 +37,7 @@ class Player extends Creature
 		_weight = 20;
 		_hairLength = 300;
 		_chargeSpeed = 1.5;
+		_attackScale = 3;
 		
 		drag.x = drag.y = 15000;
 	}
@@ -162,7 +164,7 @@ class Player extends Creature
 		var position = ticks * _chargeSpeed;
 		if (position > 100)
 			position = 100;
-		_weapon.attack(this, position, _weight);
+		_weapon.attack(this, position, _weight, _attackScale);
 	}
 	
 	public function receiveDamage(damage:Int)

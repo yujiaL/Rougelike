@@ -29,7 +29,7 @@ class Weapon extends FlxSprite
 		facing = f;
 	}
 	
-	public function attack(player:Player, position:Float, weight:Int):Void
+	public function attack(player:Player, position:Float, weight:Int, scale:Float):Void
 	{
 		
 	}
