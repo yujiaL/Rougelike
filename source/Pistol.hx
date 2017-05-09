@@ -10,9 +10,9 @@ class Pistol extends Weapon
 	{
 		super(X, Y, bullets);
 		
-		loadGraphic(AssetPaths.boxing_glove__png, true, 256, 256);
-		setFacingFlip(FlxObject.LEFT, true, false);
-		setFacingFlip(FlxObject.RIGHT, false, false);
+		loadGraphic(AssetPaths.pistol__png, true, 256, 256);
+		setFacingFlip(FlxObject.LEFT, false, false);
+		setFacingFlip(FlxObject.RIGHT, true, false);
 		setFacingFlip(FlxObject.UP, false, false);
 		setFacingFlip(FlxObject.DOWN, false, true);
 		
