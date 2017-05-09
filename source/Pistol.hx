@@ -1,13 +1,12 @@
 package;
 
-/**
- * ...
- * @author ...
- */
-class Pistol 
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.FlxObject;
+
+class Pistol extends Weapon
 {
 
-	public function new() 
+	override public function new(?X:Float=0, ?Y:Float=0, bullets:FlxTypedGroup<Bullet>) 
 	{
 		super(X, Y, bullets);
 		
@@ -41,7 +40,7 @@ class Pistol
 		
 		var damage = position * position / 1250;
 		
-		_bullets.add(new Bullet(x, y, XTarget, YTarget, Math.round(damage), getMidpoint().x, getMidpoint().y, facing, scale));
+		_bullets.add(new Bullet(getMidpoint().x, getMidpoint().y, XTarget, YTarget, Math.round(damage), 2500, scale * 0.5));
 		if (position > barPositions[0] + weight) 
 		{
 			player._specialState._fall = true;
