@@ -9,7 +9,5 @@ class TitleBackground extends FlxSprite
 	{
 		super(X, Y);
 		loadGraphic(AssetPaths.title__png, false, 8000, 4500);
-		
 	}
-	
 }

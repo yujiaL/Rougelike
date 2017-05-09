@@ -12,7 +12,8 @@ class BoxingGlove extends Weapon
 	{
 		super(X, Y, bullets);
 		
-		loadGraphic(AssetPaths.boxing_glove__png, true, 256, 256);
+		loadGraphic(AssetPaths.boxing_glove__png, true, GlobalVariable.UNIT, GlobalVariable.UNIT);
+		
 		setFacingFlip(FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		setFacingFlip(FlxObject.UP, false, false);
@@ -40,14 +41,16 @@ class BoxingGlove extends Weapon
 				YTarget++;
 		}
 		
+		// Damage calculator.
 		var damage = position * position / 1000;
 		
 		_bullets.add(new Punch(x, y, XTarget, YTarget, Math.round(damage), getMidpoint().x, getMidpoint().y, facing, scale));
+		
+		// Effects.
 		if (position > barPositions[0] + weight) 
 		{
-			
 			player._specialState._fall = true;
-			player._specialState._fallTimer = 3;
+			player._specialState._fallTimer = 2;
 		}
 	}
 }

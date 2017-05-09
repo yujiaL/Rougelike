@@ -1,8 +1,8 @@
 package;
+
 import flixel.FlxSprite;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
-import flixel.util.FlxColor;
 
 
 class Item extends FlxSprite

@@ -3,13 +3,11 @@ package;
 import flixel.FlxObject;
 import flixel.FlxBasic;
 import flixel.FlxSprite;
-import flixel.graphics.tile.FlxDrawBaseItem;
-import flixel.util.FlxColor;
 import flixel.FlxState;
 import flixel.FlxG;
-import flixel.addons.weapon.FlxWeapon;
 import flixel.text.FlxText;
 import flixel.tile.FlxTilemap;
+import flixel.util.FlxColor;
 import flixel.group.FlxGroup.FlxTypedGroup;
 
 class PlayState extends FlxState
@@ -65,13 +63,11 @@ class PlayState extends FlxState
 		
 		// Map and door.
 		_map = new FlxTilemap();
-		//_map.loadMapFromCSV(AssetPaths.map__csv, AssetPaths.auto_tiles__png, TILE_WIDTH, TILE_HEIGHT, AUTO);
-		//_map.loadMapFromCSV(AssetPaths.map__csv, AssetPaths.Tilemap__png, TILE_WIDTH, TILE_HEIGHT, AUTO);
 		_map.loadMapFromCSV(AssetPaths.map__csv, AssetPaths.auto_tilesBig__png, TILE_WIDTH, TILE_HEIGHT, AUTO);
 		add(_map);
 		
 		// Player.
-		_player = new Player(2560, 2560, GlobalVariable.PLAYERHP);   // set player health to 100 now, may change later
+		_player = new Player(2560, 2560, GlobalVariable.PLAYERHP);
 		add(_player);
 		
 		_playerBullets = new FlxTypedGroup<Bullet>();
@@ -79,7 +75,7 @@ class PlayState extends FlxState
 		FlxG.camera.follow(_player, NO_DEAD_ZONE, 1);
 		
 		_ticks = 0;
-				
+		
 	
 		//createNewRoom();
 		_doors = new FlxTypedGroup<Door>();
@@ -92,7 +88,6 @@ class PlayState extends FlxState
 		_enemy_bullets = new FlxTypedGroup<Bullet>();
 		add(_enemy_bullets);
 		_enemies = new FlxTypedGroup<Enemy>();
-		//_enemies.add(new RockBoy(3600, 1200, _enemy_bullets));
 		add(_enemies);
 		
 		// Obstacles.
@@ -101,20 +96,19 @@ class PlayState extends FlxState
 		
 		// Add item.
 		_items = new FlxTypedGroup<Item>();
-		//_items.add(new HealthPotion(1200, 3000));
 		add(_items);
 		
 		// Add weapon.
 		_weapons = new FlxTypedGroup<Weapon>();
 		_weapons.add(new BoxingGlove(2000, 2500, _playerBullets));
-		_weapons.add(new Pistol(4500, 2800, _playerBullets));
+		_weapons.add(new Pistol(4500, 2500, _playerBullets));
 		add(_weapons);
 		
 		// HUD.
 		_hud = new HUD();
 		add(_hud);
-		_pause = new PauseHUD();
-		add(_pause);
+		//_pause = new PauseHUD();
+		//add(_pause);
 		_damages = new FlxTypedGroup<FlxText>();
 		add(_damages);
 		_level = 0;
@@ -126,17 +120,15 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 		
-		// Create new room.
-		//if (FlxG.keys.justPressed.C)
-		//	FlxG.switchState(new Tutorial(_level));
-			
+		// Game over.
 		if (_player._health <= 0)
 		{
 			if (GlobalVariable.LOGGING)
 				Main.LOGGER.logLevelEnd();
 			FlxG.switchState(new GameOverState(_level));
 		}
-			
+		
+		// When leve is finished.
 		if (_enemies.countLiving() == 0 && _doors.countLiving() == -1)
 		{
 			var newDoor = new Door();
@@ -145,10 +137,7 @@ class PlayState extends FlxState
 			
 			addItem();
 		}
-		
-		// Collision
-		FlxG.overlap(_player, _enemies, playerTouchEnemy);
-		
+
 		// Set new room,
 		if (FlxG.overlap(_player, _doors))
 		{
@@ -159,15 +148,12 @@ class PlayState extends FlxState
 				Main.LOGGER.logLevelStart(_level);
 			setNewRoom();
 		}
-			
 		
 		// Update enemy's vision.
 		_enemies.forEachAlive(updateVision);
 		
-		// Update hud.
-		_hud.updateHUD(_ticks, _player._health, _level, _ticks * _player._chargeSpeed, _player._weapon.barPositions, _player._weight);	
-		
 		// Damage.
+		FlxG.overlap(_player, _enemies, playerTouchEnemy);
 		FlxG.overlap(_player, _enemy_bullets, playerGetsHit);
 		FlxG.overlap(_enemies, _playerBullets, enemyGetsHit);
 		FlxG.overlap(_obstacles, _enemy_bullets, obstacleGetsHit);
@@ -183,11 +169,12 @@ class PlayState extends FlxState
 		_enemy_bullets.forEachAlive(removeBullet);
 		_playerBullets.forEachAlive(removeBullet);
 		
+		// Update hud.
+		_hud.updateHUD(_ticks, _player._health, _level, _ticks * _player._chargeSpeed, _player._weapon.barPositions, _player._weight);	
+		
 		// If special state.
 		if (_player._specialState.updateStates(_player))
 		{
-			// if (GlobalVariable.LOGGING)
-			// Main.LOGGER.logLevelAction(LoggingActions.PLAYER_CHARGEDTOOMUCH);
 			return;
 		}
 			
@@ -196,8 +183,8 @@ class PlayState extends FlxState
 		playerAttack();
 		
 		//   Check stats.
-		if (FlxG.keys.justPressed.Q)
-			_pause.openOrClosePause();
+		//if (FlxG.keys.justPressed.Q)
+		//	_pause.openOrClosePause();
 		
 		// pick up items
 		if (FlxG.keys.justReleased.E)
@@ -216,10 +203,7 @@ class PlayState extends FlxState
 	private function playerTouchEnemy(P:Player, E:Enemy):Void
 	{
 		if (E.barded)
-		{
 			P.receiveDamage(E.bardDamage);
-			
-		}
 		separateCreatures(P, E);
 	}
 	
@@ -290,9 +274,6 @@ class PlayState extends FlxState
 	
 	private function setNewRoom():Void
 	{
-		
-		
-		
 		// Player.
 		_playerBullets.clear();
 		randomizeOSPosition(_player);
@@ -321,13 +302,13 @@ class PlayState extends FlxState
 		}
 		
 		
-		// Add item.
+		// Remove item.
 		_items.clear();
 		
-		// Add weapon.
+		// Remove weapon.
 		_weapons.forEach(destroyWeapon);
 		
-		// Add door.
+		// Remove door.
 		_doors.clear();
 	}
 	
@@ -338,7 +319,6 @@ class PlayState extends FlxState
 		OS.y = FlxG.random.int(GlobalVariable.UNIT, 16 * GlobalVariable.UNIT);
 		
 		// Check overlap.
-		// FlxG.overlap(OS, _doors, randomizeOSPosition);
 		FlxG.overlap(OS, _enemies, randomizeOSPosition);
 		FlxG.overlap(OS, _player, randomizeOSPosition);
 		FlxG.overlap(OS, _doors, randomizeOSPosition);

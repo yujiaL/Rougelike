@@ -1,8 +1,6 @@
 package;
 
-import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.util.FlxColor;
 
 /**
  * A door object that open and closes.
@@ -13,9 +11,7 @@ class Door extends FlxSprite
 	override public function new(?X:Float=0, ?Y:Float=0) 
 	{
 		super(X, Y);
-		//makeGraphic(256, 256, FlxColor.BLUE);
-		
-		loadGraphic(AssetPaths.cave__png, true, 256, 256);
 		immovable = true;
+		loadGraphic(AssetPaths.cave__png, true, 256, 256);
 	}
 }

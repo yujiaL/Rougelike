@@ -1,4 +1,5 @@
 package;
+
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 

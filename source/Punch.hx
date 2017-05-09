@@ -1,8 +1,8 @@
 package;
 
+import flixel.FlxObject;
 import flixel.math.FlxPoint;
 import flixel.util.FlxColor;
-import flixel.FlxObject;
 
 class Punch extends Bullet
 {

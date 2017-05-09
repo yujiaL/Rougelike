@@ -7,7 +7,6 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.ui.FlxBar;
 import flixel.util.FlxColor;
 import flixel.util.FlxAxes;
-import flixel.FlxObject;
 
 class HUD extends FlxTypedGroup<FlxSprite>
 {
@@ -61,14 +60,17 @@ class HUD extends FlxTypedGroup<FlxSprite>
 		_limit4.visible = false;
 		add(_limit4);
 		
-		_ticksText = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT, 0, "Time pressed: ", 128);
-		//add(_ticksText);
-		
-		_playerHpText = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT * 2, 0, "HP: ", 128);
-		//add(_playerHpText);
-		
 		_level = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT, 0, "Level: ", 128);
 		add(_level);
+		
+		if (GlobalVarialbe.LOGGING)
+		{
+			_ticksText = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT * 2, 0, "Time pressed: ", 128);
+			add(_ticksText);
+			
+			_playerHpText = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT * 3, 0, "HP: ", 128);
+			add(_playerHpText);
+		}
 		
 		forEach(function(spr:FlxSprite)
 		{
@@ -78,8 +80,12 @@ class HUD extends FlxTypedGroup<FlxSprite>
 	
 	public function updateHUD(TimePressed:Int = 0, PlayerHP:Int = 0, Level:Int = 0, BarValue:Float = 0, Limits:Array<Int>, Weight:Int):Void
     {
-        _ticksText.text = "Time pressed: " + TimePressed;
-		_playerHpText.text = "HP: " + PlayerHP;
+		if (GlobalVarialbe.LOGGING)
+		{
+			_ticksText.text = "Time pressed: " + TimePressed;
+			_playerHpText.text = "HP: " + PlayerHP;
+		}
+		
         _level.text = "Level: " + Level;
 		_chargeBar.value = BarValue;
 		_hpBar.value = PlayerHP;

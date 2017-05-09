@@ -1,6 +1,5 @@
 package;
-import flash.display.InteractiveObject;
-import flash.display.Shader;
+
 import flixel.FlxSprite;
 
 class Creature extends FlxSprite
@@ -14,5 +13,4 @@ class Creature extends FlxSprite
 		_health = health;
 		_specialState = new SpecialStatesManager();
 	}
-	
 }

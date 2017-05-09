@@ -4,7 +4,6 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
-import flixel.FlxG;
 
 class DamageText extends FlxText 
 {
@@ -13,7 +12,7 @@ class DamageText extends FlxText
 	{
 		super(X, Y - GlobalVariable.UNIT / 4, 0, Damage + "", Size);
 		
-		setFormat(null, 128, FlxColor.RED);
+		setFormat(null, Math.round(GlobalVariable.UNIT / 2), FlxColor.RED);
 		
 		kill();
 	}

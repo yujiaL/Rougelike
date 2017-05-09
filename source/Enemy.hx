@@ -1,10 +1,6 @@
 package;
 
 import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.addons.weapon.FlxBullet;
-import flixel.util.FlxTimer;
-import flixel.util.FlxColor;
 import flixel.math.FlxPoint;
 import flixel.group.FlxGroup.FlxTypedGroup;
 
@@ -13,22 +9,23 @@ class Enemy extends Creature
 	private static inline var _walkSpeed:Float = 600;
 
 	public var playerPos(default, null):FlxPoint;
+	public var barded:Bool;
+	public var bardDamage:Int;
 	
 	private var _bullets:FlxTypedGroup<Bullet>;
 	private var _moveDir:Float;
 	private var _moveTmr:Float;
-	public var barded:Bool;
-	public var bardDamage:Int;
+	
 	
 	public function new(X:Float = 0, Y:Float = 0, Health:Int, bullets:FlxTypedGroup<Bullet>)
     {
         super(X, Y, Health);
 		
+		drag.x = drag.y = 15000;
+		
 		playerPos = FlxPoint.get();
 		
 		_bullets = bullets;
-		
-		drag.x = drag.y = 15000;
 		
 		barded = false;
 		bardDamage = 0;

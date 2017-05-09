@@ -11,5 +11,4 @@ class Doughnut extends Item
 		
 		loadGraphic(AssetPaths.donut__png, true, 128, 128);
 	}
-	
 }

@@ -1,14 +1,11 @@
 package;
 
-import flixel.FlxSprite;
-import flixel.util.FlxSpriteUtil;
-import flixel.addons.weapon.FlxWeapon;
-import flixel.system.FlxAssets.FlxGraphicAsset;
-import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxObject;
+import flixel.FlxSprite;
 import flixel.math.FlxPoint;
-import haxe.CallStack.StackItem;
+import flixel.util.FlxSpriteUtil;
+import flixel.util.FlxColor;
 import flixel.group.FlxGroup.FlxTypedGroup;
 
 class Player extends Creature
@@ -16,10 +13,11 @@ class Player extends Creature
 	// player stats
 	public var speed:Float;	
 	public var _weapon:Weapon;
-	private var _coins:Int;
 	public var _weight:Int;
-	private var _hairLength:Int;
 	public var _chargeSpeed:Float;
+	
+	private var _coins:Int;
+	private var _hairLength:Int;
 	private var _attackScale:Float;
 	
 	override public function new(?X:Float=0, ?Y:Float=0, health:Int) 
@@ -166,9 +164,6 @@ class Player extends Creature
 	{
 		if (GlobalVariable.LOGGING)
 			Main.LOGGER.logLevelAction(LoggingActions.PICK_UP_WEAPON);
-		
-		//drop off previous weapon
-		// weapons.add(_weapon);
 		
 		//pick up new weapon
 		_weapon = weapon;

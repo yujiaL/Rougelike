@@ -133,9 +133,6 @@ class Tutorial extends FlxState
 		// Update enemy's vision.
 		_enemies.forEachAlive(updateVision);
 		
-		// Update hud.
-		_hud.updateHUD(_ticks, _player._health, 0, _ticks * _player._chargeSpeed, _player._weapon.barPositions, _player._weight);
-		
 		// Damage.
 		FlxG.overlap(_player, _enemies, playerTouchEnemy);
 		FlxG.overlap(_player, _enemy_bullets, playerGetsHit);
@@ -152,6 +149,9 @@ class Tutorial extends FlxState
 		FlxG.collide(_enemies, _map);
 		FlxG.collide(_obstacles, _player);
 		FlxG.collide(_obstacles, _enemies);
+		
+		// Update hud.
+		_hud.updateHUD(_ticks, _player._health, 0, _ticks * _player._chargeSpeed, _player._weapon.barPositions, _player._weight);
 		
 		// If special state.
 		if (_player._specialState.updateStates(_player))
@@ -185,7 +185,6 @@ class Tutorial extends FlxState
 		if (E.barded)
 		{
 			P.receiveDamage(E.bardDamage);
-			
 		}
 		separateCreatures(P, E);
 	}
