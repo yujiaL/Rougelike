@@ -1,14 +1,13 @@
 package;
 
-import flixel.FlxG;
-import flixel.util.FlxColor;
-import flixel.FlxObject;
-import flixel.group.FlxGroup.FlxTypedGroup;
-
-class BoxingGlove extends Weapon
+/**
+ * ...
+ * @author ...
+ */
+class Pistol 
 {
 
-	override public function new(?X:Float=0, ?Y:Float=0, bullets:FlxTypedGroup<Bullet>) 
+	public function new() 
 	{
 		super(X, Y, bullets);
 		
@@ -20,7 +19,7 @@ class BoxingGlove extends Weapon
 		
 		facing = FlxObject.RIGHT;
 		
-		barPositions[0] = 75;
+		barPositions[0] = 85;
 	}
 	
 	override public function attack(player:Player, position:Float, weight:Int, scale:Float):Void
@@ -40,13 +39,13 @@ class BoxingGlove extends Weapon
 				YTarget++;
 		}
 		
-		var damage = position * position / 1000;
+		var damage = position * position / 1250;
 		
-		_bullets.add(new Punch(x, y, XTarget, YTarget, Math.round(damage), getMidpoint().x, getMidpoint().y, facing, scale));
+		_bullets.add(new Bullet(x, y, XTarget, YTarget, Math.round(damage), getMidpoint().x, getMidpoint().y, facing, scale));
 		if (position > barPositions[0] + weight) 
 		{
 			player._specialState._fall = true;
-			player._specialState._fallTimer = 3;
+			player._specialState._fallTimer = 2;
 		}
 	}
 }
