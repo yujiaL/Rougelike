@@ -13,6 +13,7 @@ class Item extends FlxSprite
 	public var hairChange:Int;
 	public var speedChange:Int;
 	public var chargeSpeedChange:Float;
+	public var attackScaleChange:Float;
 	
 	public function new(?X:Float=0, ?Y:Float=0) 
 	{
