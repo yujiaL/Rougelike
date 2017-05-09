@@ -23,10 +23,6 @@ class GameOverState extends FlxState
 	
 	override public function create():Void 
 	{
-		if (FlxG.sound.music == null)
-		{
-			FlxG.sound.playMusic(AssetPaths.sad_ending__ogg, 1, true);
-		}
 		_txtMessage = new FlxText(0, 0, 0, "Game Over!\nYour reached level : " + _level, 256);
 		_txtMessage.screenCenter();
 		add(_txtMessage);
