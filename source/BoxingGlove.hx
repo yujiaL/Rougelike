@@ -1,5 +1,6 @@
 package;
 
+import flash.display.Bitmap;
 import flixel.FlxG;
 import flixel.util.FlxColor;
 import flixel.FlxObject;
@@ -12,7 +13,11 @@ class BoxingGlove extends Weapon
 	{
 		super(X, Y, bullets);
 		
-		makeGraphic(Math.round(GlobalVariable.UNIT), Math.round(GlobalVariable.UNIT), FlxColor.RED);
+		loadGraphic(AssetPaths.boxing_glove__png, true, 256, 256);
+		setFacingFlip(FlxObject.LEFT, true, false);
+		setFacingFlip(FlxObject.RIGHT, false, false);
+		setFacingFlip(FlxObject.UP, false, false);
+		setFacingFlip(FlxObject.DOWN, false, true);
 		
 		facing = FlxObject.RIGHT;
 		

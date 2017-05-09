@@ -98,7 +98,7 @@ class PlayState extends FlxState
 		
 		// Add item.
 		_items = new FlxTypedGroup<Item>();
-		_items.add(new HealthPotion(1200, 3000));
+		//_items.add(new HealthPotion(1200, 3000));
 		add(_items);
 		
 		// Add weapon.
@@ -280,13 +280,13 @@ class PlayState extends FlxState
 		
 		// Add obstacles.
 		_obstacles.clear();
-		for (i in 0...FlxG.random.int(3, 6))
+		for (i in 0...FlxG.random.int(4, 8))
 		{
 			var obstacle = new Small_Rock();
 			randomizeOSPosition(obstacle);
 			_obstacles.add(obstacle);
 		}
-		for (i in 0...FlxG.random.int(2, 5))
+		for (i in 0...FlxG.random.int(3, 6))
 		{
 			var obstacle = new Medium_Rock();
 			randomizeOSPosition(obstacle);
@@ -296,16 +296,9 @@ class PlayState extends FlxState
 		
 		// Add item.
 		_items.clear();
-		var healthPotion = new HealthPotion(1200, 3000);
-		randomizeOSPosition(healthPotion);
-		_items.add(healthPotion);
 		
 		// Add weapon.
 		_weapons.forEach(destroyWeapon);
-		_weapons.add(new BoxingGlove(2000, 2500, _playerBullets));
-		var green = new BoxingGlove(4500, 2800, _playerBullets);
-		green.makeGraphic(128, 128, FlxColor.GREEN);
-		_weapons.add(green);
 		
 		// Add door.
 		_doors.clear();
@@ -354,11 +347,55 @@ class PlayState extends FlxState
 	
 	private function addItem()
 	{
-		if (FlxG.random.bool())
+		// items that changes the player weight
+		if (FlxG.random.bool(30))
 		{
-			var item = new Item();
-			randomizeOSPosition(item);
-			//_items.add(item);
+			var doughnut = new Doughnut();
+			randomizeOSPosition(doughnut);
+			_items.add(doughnut);
+		}
+		
+		if (FlxG.random.bool(30))
+		{
+			var broccoli = new Broccoli();
+			randomizeOSPosition(broccoli);
+			_items.add(broccoli);
+		}
+		
+		// items that changes the player hp
+		if (FlxG.random.bool(60))
+		{
+			var hpS = new HpPotionS();
+			randomizeOSPosition(hpS);
+			_items.add(hpS);
+		}
+		
+		if (FlxG.random.bool(10))
+		{
+			var hpM = new HpPotionM();
+			randomizeOSPosition(hpM);
+			_items.add(hpM);
+		}
+		
+		if (FlxG.random.bool(5))
+		{
+			var hpL = new HpPotionL();
+			randomizeOSPosition(hpL);
+			_items.add(hpL);
+		}
+		
+		if (FlxG.random.bool(30))
+		{
+			var hairLonger = new HairPotion();
+			randomizeOSPosition(hairLonger);
+			_items.add(hairLonger);
+		}
+		
+		if (FlxG.random.bool(30))
+		{
+			var hairShorter = new HairShortenPotion();
+			randomizeOSPosition(hairShorter);
+			_items.add(hairShorter);
 		}
 	}
 }

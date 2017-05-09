@@ -7,7 +7,7 @@ class Doughnut extends Item
 	{
 		super(X, Y);
 		weightChange = 5;
-		speedChannge = -200;
+		speedChange = -200;
 		
 		loadGraphic(AssetPaths.donut__png, true, 128, 128);
 	}

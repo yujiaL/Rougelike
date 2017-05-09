@@ -13,7 +13,9 @@ class Door extends FlxSprite
 	override public function new(?X:Float=0, ?Y:Float=0) 
 	{
 		super(X, Y);
-		makeGraphic(256, 256, FlxColor.BLUE);
+		//makeGraphic(256, 256, FlxColor.BLUE);
+		
+		loadGraphic(AssetPaths.cave__png, true, 256, 256);
 		immovable = true;
 	}
 }

@@ -8,7 +8,7 @@ class Obstacle extends Enemy
 	{
 		super(X, Y, Health, null);
 		
-		makeGraphic(256, 256, FlxColor.GRAY);
+		//makeGraphic(256, 256, FlxColor.GRAY);
 		
 		immovable = true;
 	}

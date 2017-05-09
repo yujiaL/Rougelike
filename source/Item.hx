@@ -25,6 +25,7 @@ class Item extends FlxSprite
 		hairChange = 0;
 		speedChange = 0;
 		chargeSpeedChange = 0.0;
+		attackScaleChange = 0.0;
 	}
 	
 	public function pickup():Void

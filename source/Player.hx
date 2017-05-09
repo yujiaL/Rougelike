@@ -26,7 +26,11 @@ class Player extends Creature
 	{
 		super(X, Y, health);
 		//makeGraphic(16, 16, FlxColor.PINK);
-		loadGraphic(AssetPaths.dango__png, false, 512, 256);
+		loadGraphic(AssetPaths.dango__png, true, 512, 256);
+		setFacingFlip(FlxObject.LEFT, true, false);
+		setFacingFlip(FlxObject.RIGHT, false, false);
+		
+		animation.add("lr", [1, 2, 3, 2, 1], 6, false);
 		
 		// initialize player stats
 		_weapon = new Weapon(0, 0, null);
@@ -34,10 +38,10 @@ class Player extends Creature
 		_coins = 0;
 		
 		speed = 2000;
-		_weight = 20;
+		_weight = 0;
 		_hairLength = 0;
 		_chargeSpeed = 1.5;
-		_attackScale = 6;
+		_attackScale = 3;
 		
 		drag.x = drag.y = 15000;
 	}
@@ -74,12 +78,16 @@ class Player extends Creature
 		{
 			case FlxObject.LEFT:
 				_weapon.hold(this.x - GlobalVariable.UNIT / 2 - _weapon.width / 2 - _hairLength, this.y + GlobalVariable.UNIT / 2 - _weapon.height / 2, facing);
+				animation.play("lr");
 			case FlxObject.RIGHT :
 				_weapon.hold(this.x + GlobalVariable.UNIT * 1.5 - _weapon.width / 2 + _hairLength, this.y + GlobalVariable.UNIT / 2 - _weapon.height / 2, facing);
+				animation.play("lr");
 			case FlxObject.UP:
 				_weapon.hold(this.x + GlobalVariable.UNIT / 2 - _weapon.width / 2, this.y - GlobalVariable.UNIT / 2 - _weapon.height / 2 - _hairLength, facing);
+				animation.play("lr");
 			case FlxObject.DOWN:
 				_weapon.hold(this.x + GlobalVariable.UNIT / 2 - _weapon.width / 2, this.y + GlobalVariable.UNIT * 1.5 - _weapon.height / 2 + _hairLength, facing);
+				animation.play("lr");
 		}
 	}
 	
@@ -146,6 +154,7 @@ class Player extends Creature
 		_hairLength += item.hairChange;
 		speed += item.speedChange;
 		_chargeSpeed += item.chargeSpeedChange;
+		_attackScale += item.attackScaleChange;
 		
 		item.kill();
 	}
