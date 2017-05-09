@@ -13,7 +13,8 @@ class LoggingActions
 	public static var ENEMY_GETSHIT:Int = 5;
 	public static var START_GAME:Int = 6;
 	public static var START_TUTORIAL:Int = 7;
-	public static var PICK_UP:Int = 8;
+	public static var PICK_UP_ITEM:Int = 8;
+	public static var PICK_UP_WEAPON:Int = 9;
 	
 	public function new() 
 	{

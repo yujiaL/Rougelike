@@ -43,6 +43,8 @@ class Pistol extends Weapon
 		_bullets.add(new Bullet(getMidpoint().x, getMidpoint().y, XTarget, YTarget, Math.round(damage), 2500, scale * 0.5));
 		if (position > barPositions[0] + weight) 
 		{
+			Main.LOGGER.logLevelAction(LoggingActions.PLAYER_CHARGEDTOOMUCH);
+			
 			player._specialState._fall = true;
 			player._specialState._fallTimer = 2;
 		}

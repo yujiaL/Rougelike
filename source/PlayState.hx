@@ -127,11 +127,14 @@ class PlayState extends FlxState
 		super.update(elapsed);
 		
 		// Create new room.
-		if (FlxG.keys.justPressed.C)
-			FlxG.switchState(new Tutorial(_level));
+		//if (FlxG.keys.justPressed.C)
+		//	FlxG.switchState(new Tutorial(_level));
 			
 		if (_player._health <= 0)
+		{
+			Main.LOGGER.logLevelEnd();
 			FlxG.switchState(new GameOverState(_level));
+		}
 			
 		if (_enemies.countLiving() == 0 && _doors.countLiving() == -1)
 		{
@@ -148,7 +151,9 @@ class PlayState extends FlxState
 		// Set new room,
 		if (FlxG.overlap(_player, _doors))
 		{
+			Main.LOGGER.logLevelEnd();
 			_level++;
+			Main.LOGGER.logLevelStart(_level);
 			setNewRoom();
 		}
 			
@@ -219,7 +224,7 @@ class PlayState extends FlxState
 	
 	private function playerGetsHit(P:Player, B:Bullet):Void
 	{
-		Main.LOGGER.logLevelAction(LoggingActions.PLAYER_GETSHIT);;
+		Main.LOGGER.logLevelAction(LoggingActions.PLAYER_GETSHIT);
 		
 		_damages.add(new DamageText(P.x, P.y, B._damage));
 		P.receiveDamage(B._damage);
@@ -229,7 +234,7 @@ class PlayState extends FlxState
 	
 	private function enemyGetsHit(E:Enemy, B:Bullet):Void
 	{
-		Main.LOGGER.logLevelAction(LoggingActions.ENEMY_GETSHIT);;
+		Main.LOGGER.logLevelAction(LoggingActions.ENEMY_GETSHIT);
 		
 		_damages.add(new DamageText(E.x, E.y, B._damage));
 		E._health -= B._damage;
@@ -260,6 +265,7 @@ class PlayState extends FlxState
 			_ticks++;
 		}
 		if (FlxG.keys.justReleased.SPACE) {
+			Main.LOGGER.logLevelAction(LoggingActions.PLAYER_ATTACK);
 			_player.attack(_ticks);
 			_ticks = 0;
 		}

@@ -47,7 +47,7 @@ class GameOverState extends FlxState
 		super.update(elapsed);
 		if (FlxG.keys.justReleased.SPACE)
 		{
-			FlxG.switchState(new PlayState());
+			FlxG.switchState(new TitleState());
 		}
 	}
 }
