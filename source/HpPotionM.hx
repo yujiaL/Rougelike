@@ -3,9 +3,12 @@ package;
 class HpPotionM extends Item
 {
 
-	public function new() 
+	public function new(?X:Float=0, ?Y:Float=0) 
 	{
+		super(X, Y);
 		hpChange = 50;
+		
+		loadGraphic(AssetPaths.health_potion_m__png, true, 128, 128);
 	}
 	
 }
