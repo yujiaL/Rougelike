@@ -51,6 +51,7 @@ class Tutorial extends FlxState
 	 */
 	private var _damages:FlxTypedGroup<FlxText>;
 	private var _texts:FlxTypedGroup<FlxText>;
+	private var _hud:HUD;
 	
 	/**
 	 * Levels.
@@ -97,6 +98,11 @@ class Tutorial extends FlxState
 		_weapons = new FlxTypedGroup<Weapon>();
 		add(_weapons);
 		
+		// Add texts.
+		_damages = new FlxTypedGroup<FlxText>();
+		_texts = new FlxTypedGroup<FlxText>();
+		add(_texts);
+		
 		// Load level 1.
 		loadLevel(1);
 		_current_level = 1;
@@ -107,10 +113,14 @@ class Tutorial extends FlxState
 		super.update(elapsed);
 		
 		// Levels.
-		if (_current_level == 1 && _player._weapon == _weapons.getFirstAlive())
+		if (_current_level == 1 && _player._weapon == _weapons.getFirstAlive() && _doors.countLiving() == -1)
 		{
 			_doors.add(new Door(23 * 256, 6 * 256));
-			_texts.add(new FlxText(14 * 256, 10 * 256, 8 * 256, "Use arrow key to move.", 128));
+			_texts.add(new FlxText(22 * 256, 10 * 256, 8 * 256, "Proceed to the next level.", 128));
+		}
+		if (_current_level == 3 && _enemies.countLiving() == 0)
+		{
+			_doors.add(new Door(23 * 256, 6 * 256));
 		}
 		
 		// Doors.
@@ -118,6 +128,9 @@ class Tutorial extends FlxState
 		
 		// Update enemy's vision.
 		_enemies.forEachAlive(updateVision);
+		
+		// Update hud.
+		_hud.updateHUD(_ticks, _player._health, _level, _ticks * _player._chargeSpeed, _player._weapon.barPositions, _player._weight);
 		
 		// Damage.
 		FlxG.overlap(_player, _enemies, playerTouchEnemy);
@@ -154,6 +167,7 @@ class Tutorial extends FlxState
 	private function playerTouchDoor(P:Player, D:Door):Void
 	{
 		loadLevel(_current_level + 1);
+		D.kill();
 	}
 	
 	private function removeBullet(B:Bullet):Void
@@ -249,7 +263,26 @@ class Tutorial extends FlxState
 		
 		if (Level == 2)
 		{
-			
+			_hud = new HUD();
+			add(_hud);
+			_doors.add(new Door(16 * 256, 256));
+			_obstacles.add(new Small_Rock(14 * 256, 256));
+			_obstacles.add(new Small_Rock(15 * 256, 256 * 2));
+			_obstacles.add(new Small_Rock(16 * 256, 256 * 3));
+			_obstacles.add(new Small_Rock(17 * 256, 256 * 2));
+			_obstacles.add(new Small_Rock(18 * 256, 256));
+			_texts.add(new FlxText(10 * 256, 10 * 256, 0, "Press SPACE to charge. Release to attack.", 128));
+			_current_level = 2;
 		}
+		
+		if (Level == 3)
+		{
+			_enemies.add(new RockChaseBoy(8 * 256, 8 * 256, _enemy_bullets));
+			_texts.add(new FlxText(4 * 256, 10 * 256, 0, "Be careful when you attack...Too much power isn't always a good thing.", 128));
+			_current_level = 3;
+		}
+		
+		if (Level == 4)
+			FlxG.switchState(new PlayState());
 	}
 }
