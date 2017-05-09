@@ -60,6 +60,9 @@ class Tutorial extends FlxState
 	
 	override public function create():Void
 	{
+		
+		Main.LOGGER.logLevelStart(0);
+		
 		// Map.
 		_map = new FlxTilemap();
 		_map.loadMapFromCSV(AssetPaths.map__csv, AssetPaths.auto_tilesBig__png, TILE_WIDTH, TILE_HEIGHT, AUTO);
@@ -283,6 +286,9 @@ class Tutorial extends FlxState
 		}
 		
 		if (Level == 4)
+		{
+			Main.LOGGER.logLevelEnd();
 			FlxG.switchState(new TitleState());
+		}
 	}
 }

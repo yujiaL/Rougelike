@@ -60,6 +60,9 @@ class PlayState extends FlxState
 	
 	override public function create():Void
 	{
+		
+		Main.LOGGER.logLevelStart(_level);
+		
 		// Map and door.
 		_map = new FlxTilemap();
 		//_map.loadMapFromCSV(AssetPaths.map__csv, AssetPaths.auto_tiles__png, TILE_WIDTH, TILE_HEIGHT, AUTO);
@@ -216,6 +219,9 @@ class PlayState extends FlxState
 	
 	private function playerGetsHit(P:Player, B:Bullet):Void
 	{
+		Main.LOGGER.logLevelAction(LoggingActions.PLAYER_GETSHIT);;
+		
+		_damages.add(new DamageText(P.x, P.y, B._damage));
 		P.receiveDamage(B._damage);
 		B.updateTarget(P);
 		B.hit = true;
@@ -223,6 +229,8 @@ class PlayState extends FlxState
 	
 	private function enemyGetsHit(E:Enemy, B:Bullet):Void
 	{
+		Main.LOGGER.logLevelAction(LoggingActions.ENEMY_GETSHIT);;
+		
 		_damages.add(new DamageText(E.x, E.y, B._damage));
 		E._health -= B._damage;
 		B.updateTarget(E);
@@ -264,6 +272,9 @@ class PlayState extends FlxState
 	
 	private function setNewRoom():Void
 	{
+		
+		
+		
 		// Player.
 		_playerBullets.clear();
 		randomizeOSPosition(_player);

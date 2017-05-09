@@ -1,4 +1,5 @@
-package cse481d.logging;
+package;
+
 #if flash
 import flash.net.SharedObject;
 #end

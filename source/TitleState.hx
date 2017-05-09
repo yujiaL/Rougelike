@@ -46,10 +46,12 @@ class TitleState extends FlxState
 		super.update(elapsed);
 		if (FlxG.keys.justReleased.T)
 		{
+			Main.LOGGER.logActionWithNoLevel(LoggingActions.START_TUTORIAL);
 			FlxG.switchState(new Tutorial());
 		}
 		if (FlxG.keys.justReleased.SPACE)
 		{
+			Main.LOGGER.logActionWithNoLevel(LoggingActions.START_GAME);
 			clickPlay();
 		}
 	}
