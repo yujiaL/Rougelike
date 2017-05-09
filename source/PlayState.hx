@@ -132,6 +132,9 @@ class PlayState extends FlxState
 		if (FlxG.keys.justPressed.C)
 			FlxG.switchState(new GameOverState(_level));
 			
+		if (_player._health <= 0)
+			FlxG.switchState(new GameOverState(_level));
+			
 		if (_enemies.countLiving() == 0 && _doors.countLiving() == -1)
 		{
 			var newDoor = new Door();
@@ -275,31 +278,20 @@ class PlayState extends FlxState
 		_ticks = 0;
 		
 		
-		// Enemies.
+		// Add Enemies.
 		_enemy_bullets.clear();
 		_enemies.clear();
-		for (i in 0...FlxG.random.int(1, 5))
-		{
-			var enemy = new RockBoy(0, 0, _enemy_bullets);
-			randomizeOSPosition(enemy);
-			_enemies.add(enemy);
-		}
-		for (i in 0...FlxG.random.int(1, 5))
-		{
-			var enemy = new RockChaseBoy(0, 0, _enemy_bullets);
-			randomizeOSPosition(enemy);
-			_enemies.add(enemy);
-		}
+		addEnemy();
 		
 		// Add obstacles.
 		_obstacles.clear();
-		for (i in 0...FlxG.random.int(2, 5))
+		for (i in 0...FlxG.random.int(3, 6))
 		{
 			var obstacle = new Small_Rock();
 			randomizeOSPosition(obstacle);
 			_obstacles.add(obstacle);
 		}
-		for (i in 0...FlxG.random.int(1, 3))
+		for (i in 0...FlxG.random.int(2, 5))
 		{
 			var obstacle = new Medium_Rock();
 			randomizeOSPosition(obstacle);
@@ -341,6 +333,28 @@ class PlayState extends FlxState
 	{
 		if (W != _player._weapon)
 			W.destroy();
+	}
+	
+	private function addEnemy()
+	{
+		for (i in 1...(_level + 1))
+		{
+			if (FlxG.random.bool(100 / i))
+			{
+				var enemy = new RockChaseBoy(0, 0, _enemy_bullets);
+				randomizeOSPosition(enemy);
+				_enemies.add(enemy);
+			}
+		}
+		for (i in 1...(_level - 2))
+		{
+			if (FlxG.random.bool(100 / i))
+			{
+				var enemy = new RockBoy(0, 0, _enemy_bullets);
+				randomizeOSPosition(enemy);
+				_enemies.add(enemy);
+			}
+		}
 	}
 	
 	private function addItem()

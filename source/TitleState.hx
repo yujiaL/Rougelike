@@ -9,7 +9,6 @@ import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
 import flixel.util.FlxSpriteUtil;
 
-
 class TitleState extends FlxState
 {
 
