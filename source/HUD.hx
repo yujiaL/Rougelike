@@ -32,13 +32,13 @@ class HUD extends FlxTypedGroup<FlxSprite>
 		_hpBar = new FlxBar(0, 0, LEFT_TO_RIGHT, cast(FlxG.width - GlobalVariable.UNIT * 2, Int), cast(GlobalVariable.UNIT / 2, Int));
 		_hpBar.screenCenter(FlxAxes.X);
 		_hpBar.y = FlxG.height - GlobalVariable.UNIT * 2;
-		_hpBar.createFilledBar(0xff464646, FlxColor.WHITE, true, FlxColor.WHITE);
+		_hpBar.createFilledBar(0xff464646, 0xff00FF00, true, FlxColor.BLACK);
 		add(_hpBar);
 		
 		_chargeBar = new FlxBar(0, 0, LEFT_TO_RIGHT, cast(FlxG.width - GlobalVariable.UNIT * 2, Int), cast(GlobalVariable.UNIT / 2, Int));
 		_chargeBar.screenCenter(FlxAxes.X);
 		_chargeBar.y = FlxG.height - GlobalVariable.UNIT * 1;
-		_chargeBar.createFilledBar(0xff464646, FlxColor.WHITE, true, FlxColor.WHITE);
+		_chargeBar.createFilledBar(0xff464646, 0xffFFFF33, true, FlxColor.BLACK);
 		add(_chargeBar);
 		
 		_limit1 = new FlxSprite(0, 0);

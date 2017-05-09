@@ -3,6 +3,7 @@ package;
 import flixel.FlxObject;
 import flixel.FlxBasic;
 import flixel.FlxSprite;
+import flixel.graphics.tile.FlxDrawBaseItem;
 import flixel.util.FlxColor;
 import flixel.FlxState;
 import flixel.FlxG;
@@ -108,10 +109,6 @@ class PlayState extends FlxState
 		_weapons.add(green);
 		add(_weapons);
 		
-		// Add door.
-		//_doors.add(new Door(1500, 1500));
-		
-		
 		// HUD.
 		_hud = new HUD();
 		add(_hud);
@@ -130,7 +127,7 @@ class PlayState extends FlxState
 		
 		// Create new room.
 		if (FlxG.keys.justPressed.C)
-			FlxG.switchState(new GameOverState(_level));
+			FlxG.switchState(new Tutorial(_level));
 			
 		if (_player._health <= 0)
 			FlxG.switchState(new GameOverState(_level));
@@ -269,8 +266,6 @@ class PlayState extends FlxState
 	
 	private function setNewRoom():Void
 	{
-		_doors.clear();
-		
 		// Player.
 		_playerBullets.clear();
 		randomizeOSPosition(_player);
@@ -359,6 +354,11 @@ class PlayState extends FlxState
 	
 	private function addItem()
 	{
-		
+		if (FlxG.random.bool())
+		{
+			var item = new Item();
+			randomizeOSPosition(item);
+			//_items.add(item);
+		}
 	}
 }
