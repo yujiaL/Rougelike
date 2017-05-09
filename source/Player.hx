@@ -35,9 +35,9 @@ class Player extends Creature
 		
 		speed = 2000;
 		_weight = 20;
-		_hairLength = 300;
+		_hairLength = 0;
 		_chargeSpeed = 1.5;
-		_attackScale = 3;
+		_attackScale = 6;
 		
 		drag.x = drag.y = 15000;
 	}
