@@ -99,6 +99,7 @@ class Tutorial extends FlxState
 		add(_weapons);
 		
 		// Add texts.
+		_hud = new HUD();
 		_damages = new FlxTypedGroup<FlxText>();
 		_texts = new FlxTypedGroup<FlxText>();
 		add(_texts);
@@ -130,7 +131,7 @@ class Tutorial extends FlxState
 		_enemies.forEachAlive(updateVision);
 		
 		// Update hud.
-		_hud.updateHUD(_ticks, _player._health, _level, _ticks * _player._chargeSpeed, _player._weapon.barPositions, _player._weight);
+		_hud.updateHUD(_ticks, _player._health, 0, _ticks * _player._chargeSpeed, _player._weapon.barPositions, _player._weight);
 		
 		// Damage.
 		FlxG.overlap(_player, _enemies, playerTouchEnemy);
@@ -263,7 +264,6 @@ class Tutorial extends FlxState
 		
 		if (Level == 2)
 		{
-			_hud = new HUD();
 			add(_hud);
 			_doors.add(new Door(16 * 256, 256));
 			_obstacles.add(new Small_Rock(14 * 256, 256));
