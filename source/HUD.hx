@@ -62,12 +62,12 @@ class HUD extends FlxTypedGroup<FlxSprite>
 		add(_limit4);
 		
 		_ticksText = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT, 0, "Time pressed: ", 128);
-		add(_ticksText);
+		//add(_ticksText);
 		
 		_playerHpText = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT * 2, 0, "HP: ", 128);
-		add(_playerHpText);
+		//add(_playerHpText);
 		
-		_level = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT * 3, 0, "Level: ", 128);
+		_level = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT, 0, "Level: ", 128);
 		add(_level);
 		
 		forEach(function(spr:FlxSprite)

@@ -60,8 +60,8 @@ class PlayState extends FlxState
 	
 	override public function create():Void
 	{
-		
-		Main.LOGGER.logLevelStart(_level);
+		if (GlobalVariable.LOGGING)
+			Main.LOGGER.logLevelStart(_level);
 		
 		// Map and door.
 		_map = new FlxTilemap();
@@ -132,7 +132,8 @@ class PlayState extends FlxState
 			
 		if (_player._health <= 0)
 		{
-			Main.LOGGER.logLevelEnd();
+			if (GlobalVariable.LOGGING)
+				Main.LOGGER.logLevelEnd();
 			FlxG.switchState(new GameOverState(_level));
 		}
 			
@@ -151,9 +152,11 @@ class PlayState extends FlxState
 		// Set new room,
 		if (FlxG.overlap(_player, _doors))
 		{
-			Main.LOGGER.logLevelEnd();
+			if (GlobalVariable.LOGGING)
+				Main.LOGGER.logLevelEnd();
 			_level++;
-			Main.LOGGER.logLevelStart(_level);
+			if (GlobalVariable.LOGGING)
+				Main.LOGGER.logLevelStart(_level);
 			setNewRoom();
 		}
 			
@@ -182,7 +185,12 @@ class PlayState extends FlxState
 		
 		// If special state.
 		if (_player._specialState.updateStates(_player))
+		{
+			// if (GlobalVariable.LOGGING)
+			// Main.LOGGER.logLevelAction(LoggingActions.PLAYER_CHARGEDTOOMUCH);
 			return;
+		}
+			
 		
 		// Attack.
 		playerAttack();
@@ -224,7 +232,8 @@ class PlayState extends FlxState
 	
 	private function playerGetsHit(P:Player, B:Bullet):Void
 	{
-		Main.LOGGER.logLevelAction(LoggingActions.PLAYER_GETSHIT);
+		if (GlobalVariable.LOGGING)
+			Main.LOGGER.logLevelAction(LoggingActions.PLAYER_GETSHIT);
 		
 		_damages.add(new DamageText(P.x, P.y, B._damage));
 		P.receiveDamage(B._damage);
@@ -234,7 +243,8 @@ class PlayState extends FlxState
 	
 	private function enemyGetsHit(E:Enemy, B:Bullet):Void
 	{
-		Main.LOGGER.logLevelAction(LoggingActions.ENEMY_GETSHIT);
+		if (GlobalVariable.LOGGING)
+			Main.LOGGER.logLevelAction(LoggingActions.ENEMY_GETSHIT);
 		
 		_damages.add(new DamageText(E.x, E.y, B._damage));
 		E._health -= B._damage;
@@ -265,7 +275,9 @@ class PlayState extends FlxState
 			_ticks++;
 		}
 		if (FlxG.keys.justReleased.SPACE) {
-			Main.LOGGER.logLevelAction(LoggingActions.PLAYER_ATTACK);
+
+			if (GlobalVariable.LOGGING)
+				Main.LOGGER.logLevelAction(LoggingActions.PLAYER_ATTACK);
 			_player.attack(_ticks);
 			_ticks = 0;
 		}

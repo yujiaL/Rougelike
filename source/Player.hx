@@ -142,13 +142,14 @@ class Player extends Creature
 			velocity.set(speed, 0);
 			velocity.rotate(FlxPoint.weak(0, 0), mA);
 			
-			Main.LOGGER.logLevelAction(LoggingActions.PLAYER_MOVE);
+			// Main.LOGGER.logLevelAction(LoggingActions.PLAYER_MOVE);
 		}
 	}
 	
 	public function pickUpItem(item:Item):Void
 	{
-		Main.LOGGER.logLevelAction(LoggingActions.PICK_UP_ITEM);
+		if (GlobalVariable.LOGGING)
+			Main.LOGGER.logLevelAction(LoggingActions.PICK_UP_ITEM);
 		
 		_health += item.hpChange;
 		_coins += item.coinChange;
@@ -163,7 +164,8 @@ class Player extends Creature
 	
 	public function pickUpWeapon(weapon:Weapon):Void
 	{
-		Main.LOGGER.logLevelAction(LoggingActions.PICK_UP_WEAPON);
+		if (GlobalVariable.LOGGING)
+			Main.LOGGER.logLevelAction(LoggingActions.PICK_UP_WEAPON);
 		
 		//drop off previous weapon
 		// weapons.add(_weapon);

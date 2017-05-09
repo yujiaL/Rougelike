@@ -60,8 +60,8 @@ class Tutorial extends FlxState
 	
 	override public function create():Void
 	{
-		
-		Main.LOGGER.logLevelStart(0);
+		if (GlobalVariable.LOGGING)
+			Main.LOGGER.logLevelStart(-1);
 		
 		// Map.
 		_map = new FlxTilemap();
@@ -287,7 +287,8 @@ class Tutorial extends FlxState
 		
 		if (Level == 4)
 		{
-			Main.LOGGER.logLevelEnd();
+			if (GlobalVariable.LOGGING)
+				Main.LOGGER.logLevelEnd();
 			FlxG.switchState(new TitleState());
 		}
 	}

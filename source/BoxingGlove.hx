@@ -45,7 +45,6 @@ class BoxingGlove extends Weapon
 		_bullets.add(new Punch(x, y, XTarget, YTarget, Math.round(damage), getMidpoint().x, getMidpoint().y, facing, scale));
 		if (position > barPositions[0] + weight) 
 		{
-			Main.LOGGER.logLevelAction(LoggingActions.PLAYER_CHARGEDTOOMUCH);
 			
 			player._specialState._fall = true;
 			player._specialState._fallTimer = 3;
