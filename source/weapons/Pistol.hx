@@ -3,6 +3,7 @@ package weapons;
 import creatures.Player;
 
 import flixel.FlxObject;
+import flixel.util.FlxColor;
 import flixel.group.FlxGroup.FlxTypedGroup;
 
 class Pistol extends Weapon
@@ -41,14 +42,35 @@ class Pistol extends Weapon
 				YTarget++;
 		}
 		
-		var damage = position * position / 1250;
+		var damage = position * position / 1250 + 0.3;
 		
-		_bullets.add(new Bullet(getMidpoint().x, getMidpoint().y, XTarget, YTarget, Math.round(damage), GlobalVariable.UNIT * 10, scale * 0.5));
+		_bullets.add(new PistolBullet(getMidpoint().x, getMidpoint().y, XTarget, YTarget, Math.round(damage), scale * 0.5));
 		
 		if (position > barPositions[0] + weight) 
 		{
-			player._specialState._fall = true;
-			player._specialState._fallTimer = 2;
+			switch (player.facing)
+			{
+				case FlxObject.LEFT:
+					player.velocity.set(GlobalVariable.UNIT * 15, 0);
+				case FlxObject.RIGHT:
+					player.velocity.set(GlobalVariable.UNIT * -15, 0);
+				case FlxObject.UP:
+					player.velocity.set(0, GlobalVariable.UNIT * 15);
+				case FlxObject.DOWN:
+					player.velocity.set(0, GlobalVariable.UNIT * -15);
+			}
+			player._specialState._pushed = true;
+			player._specialState._pushedTimer = 0.8;
 		}
+	}
+}
+
+private class PistolBullet extends Bullet
+{
+	public function new(X:Float, Y:Float,  XTarget:Float, YTarget:Float, Damage:Int, Scale:Float)
+	{
+		super(X, Y, XTarget, YTarget, Damage, GlobalVariable.UNIT * 8, Scale);
+		
+		makeGraphic(Math.round(GlobalVariable.UNIT * 0.5), Math.round(GlobalVariable.UNIT * 0.5), FlxColor.PINK);
 	}
 }

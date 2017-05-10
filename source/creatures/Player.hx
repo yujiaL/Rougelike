@@ -66,11 +66,10 @@ class Player extends Creature
 		
 		holdWeapon();
 		
-		// If special state.
-		if (_specialState.updateStates(this))
-			return;
+		// If no special state.
+		if (!_specialState.updateStates(this))
+			movement();
 		
-		movement();
 		super.update(elapsed);
 	}
 	

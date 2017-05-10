@@ -33,13 +33,8 @@ class RockChaseBoy extends Enemy
 	
 	override public function update(elapsed:Float):Void
 	{
-		
-		// If special state.
+		// Dash to the position of player once a while.
 		if (_specialState.updateStates(this))
-			return;
-		
-		// Shoots a bullet from 1 to 4 second.
-		if (_specialState._dash)
 		{
 			barded = false;
 		}

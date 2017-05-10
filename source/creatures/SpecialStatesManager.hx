@@ -11,13 +11,13 @@ class SpecialStatesManager
 	public var _fall:Bool;
 	public var _fallTimer:Float;
 	
-	public var _dash:Bool;
-	public var _dashTimer:Float;
+	public var _pushed:Bool;
+	public var _pushedTimer:Float;
 
 	public function new() 
 	{
 		_fall = false;
-		_dash = false;
+		_pushed = false;
 	}
 	
 	// Call to update special states of the creature.
@@ -39,19 +39,19 @@ class SpecialStatesManager
 			return true;
 		}
 		
-		if (_dash)
+		if (_pushed)
 		{
 			// Timer management.
-			if (_dashTimer <= 0)
-				_dash = false;
+			if (_pushedTimer <= 0)
+				_pushed = false;
 			else
-				_dashTimer -= FlxG.elapsed;
+				_pushedTimer -= FlxG.elapsed;
 			
 			// Play animation.
 			// C.animation.play("fall");
 			
 			// Return true to indicate the player cannot move for a while.
-			return false;
+			return true;
 		}
 		
 		return false;
