@@ -39,7 +39,7 @@ class Player extends Creature
 		
 		_coins = 0;
 		
-		speed = GlobalVariable.UNIT * 7;
+		speed = GlobalVariable.UNIT * 8;
 		_weight = 0;
 		_hairLength = 0;
 		_chargeSpeed = 1.5;

@@ -23,7 +23,7 @@ class Enemy extends Creature
     {
         super(X, Y, Health);
 		
-		drag.x = drag.y = 15000;
+		drag.x = drag.y = GlobalVariable.UNIT * 50;
 		
 		playerPos = FlxPoint.get();
 		
