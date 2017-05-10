@@ -26,7 +26,7 @@ class Player extends Creature
 	override public function new(?X:Float=0, ?Y:Float=0, health:Int) 
 	{
 		super(X, Y, health);
-		loadGraphic(AssetPaths.dango__png, true, 512, 256);
+		loadGraphic(AssetPaths.dango__png, true, GlobalVariable.UNIT * 4, GlobalVariable.UNIT * 2);
 		setFacingFlip(FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		
@@ -37,13 +37,13 @@ class Player extends Creature
 		
 		_coins = 0;
 		
-		speed = 2000;
+		speed = GlobalVariable.UNIT * 8;
 		_weight = 0;
 		_hairLength = 0;
 		_chargeSpeed = 1.5;
 		_attackScale = 3;
 		
-		drag.x = drag.y = 15000;
+		drag.x = drag.y = GlobalVariable.UNIT * 50;
 	}
 	
 	override public function update(elapsed:Float):Void
@@ -57,10 +57,10 @@ class Player extends Creature
 		if (_chargeSpeed > 2.5)
 			_chargeSpeed = 2.5;
 			
-		if (speed < 1000)
-			speed = 1000;
-		if (speed > 3000)
-			speed = 3000;
+		if (speed < GlobalVariable.UNIT * 3)
+			speed = GlobalVariable.UNIT * 3;
+		if (speed > GlobalVariable.UNIT * 13)
+			speed = GlobalVariable.UNIT * 13;
 		
 		holdWeapon();
 		

@@ -12,7 +12,7 @@ class Pistol extends Weapon
 	{
 		super(X, Y, bullets);
 		
-		loadGraphic(AssetPaths.pistol__png, true, 256, 256);
+		loadGraphic(AssetPaths.pistol__png, true, GlobalVariable.UNIT, GlobalVariable.UNIT);
 		
 		setFacingFlip(FlxObject.LEFT, false, false);
 		setFacingFlip(FlxObject.RIGHT, true, false);
@@ -43,7 +43,7 @@ class Pistol extends Weapon
 		
 		var damage = position * position / 1250;
 		
-		_bullets.add(new Bullet(getMidpoint().x, getMidpoint().y, XTarget, YTarget, Math.round(damage), 2500, scale * 0.5));
+		_bullets.add(new Bullet(getMidpoint().x, getMidpoint().y, XTarget, YTarget, Math.round(damage), GlobalVariable.UNIT * 10, scale * 0.5));
 		
 		if (position > barPositions[0] + weight) 
 		{

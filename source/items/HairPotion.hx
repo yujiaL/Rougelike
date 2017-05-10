@@ -9,7 +9,7 @@ class HairPotion extends Item
 		chargeSpeedChange = -0.2;
 		attackScaleChange = 0.4;
 		
-		loadGraphic(AssetPaths.hair_potion__png, true, 128, 128);
+		loadGraphic(AssetPaths.hair_potion__png, true, GlobalVariable.UNIT, GlobalVariable.UNIT);
 	}
 	
 }

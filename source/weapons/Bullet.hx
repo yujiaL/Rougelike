@@ -16,7 +16,7 @@ class Bullet extends FlxSprite
 	public var hit:Bool;
 
 	// Create a bullet shoots from (X, Y) to the direction of (XTarget, YTarget).
-	public function new(X:Float, Y:Float, XTarget:Float, YTarget:Float, damage:Int, speed:Float = 1000, duration:Float = 99999) 
+	public function new(X:Float, Y:Float, XTarget:Float, YTarget:Float, damage:Int, speed:Float = GlobalVariable.UNIT * 5, duration:Float = 99999) 
 	{
 		super(X, Y);
 		
