@@ -7,9 +7,9 @@ class Broccoli extends Item
 	{
 		super(X, Y);
 		weightChange = -5;
-		speedChange = 200;
+		speedChange = GlobalVariable.UNIT;
 		
-		loadGraphic(AssetPaths.broccoli__png, true, 128, 128);
+		loadGraphic(AssetPaths.broccoli__png, true, GlobalVariable.UNIT, GlobalVariable.UNIT);
 	}
 	
 }

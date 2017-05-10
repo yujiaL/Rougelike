@@ -19,13 +19,13 @@ class TitleState extends FlxState
 		_background = new TitleBackground(0, 0);
 		add(_background);
 		
-		_tutorialText = new FlxText(0, 0, 0, "Press T for tutorial! ", 200);
+		_tutorialText = new FlxText(0, 0, 0, "Press T for tutorial! ", GlobalVariable.UNIT);
 		_tutorialText.x = FlxG.width / 2 - _tutorialText.width / 2;
 		_tutorialText.y = FlxG.height * 4 / 5;
 		FlxSpriteUtil.flicker(_tutorialText, 0, 0.5);
 		add(_tutorialText);
 		
-		_message = new FlxText(0, 0, 0, "Press Space to Start! ", 200);
+		_message = new FlxText(0, 0, 0, "Press Space to Start! ", GlobalVariable.UNIT);
 		_message.x = FlxG.width / 2 - _message.width / 2;
 		_message.y = FlxG.height * 4 / 5 + 300;
 		FlxSpriteUtil.flicker(_message, 0, 0.5);

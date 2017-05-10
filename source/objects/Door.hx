@@ -12,6 +12,6 @@ class Door extends FlxSprite
 	{
 		super(X, Y);
 		immovable = true;
-		loadGraphic(AssetPaths.cave__png, true, 256, 256);
+		loadGraphic(AssetPaths.cave__png, true, GlobalVariable.UNIT * 2, GlobalVariable.UNIT * 2);
 	}
 }

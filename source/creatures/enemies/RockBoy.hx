@@ -15,7 +15,7 @@ class RockBoy extends Enemy
 	{
 		super(X, Y, 10, bullets);
 		
-		makeGraphic(GlobalVariable.UNIT, GlobalVariable.UNIT, FlxColor.YELLOW);
+		makeGraphic(GlobalVariable.UNIT * 2, GlobalVariable.UNIT * 2, FlxColor.YELLOW);
 		
 		_idleTmr = 0;
 	}
@@ -36,6 +36,6 @@ class RockBoy extends Enemy
 	
 	override public function attack():Void
 	{
-		_bullets.add(new Bullet(x, y, playerPos.x, playerPos.y, 5, 800, 2.5));
+		_bullets.add(new Bullet(x, y, playerPos.x, playerPos.y, 5, GlobalVariable.UNIT * 3.5, 2.5));
 	}
 }
