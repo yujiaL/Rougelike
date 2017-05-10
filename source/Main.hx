@@ -1,5 +1,7 @@
 package;
 
+import states.TitleState;
+
 import flixel.FlxGame;
 import openfl.display.Sprite;
 
