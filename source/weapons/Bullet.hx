@@ -20,7 +20,7 @@ class Bullet extends FlxSprite
 	{
 		super(X, Y);
 		
-		makeGraphic(32, 32, FlxColor.YELLOW);
+		makeGraphic(Math.round(GlobalVariable.UNIT * 0.5), Math.round(GlobalVariable.UNIT * 0.5), FlxColor.YELLOW);
 		
 		// Add velocity to the direction of target.
 		var mA:Float = Math.atan2(YTarget - Y, XTarget - X) * 57.2958;

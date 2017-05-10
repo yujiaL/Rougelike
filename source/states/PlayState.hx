@@ -5,6 +5,7 @@ import creatures.Player;
 import weapons.Bullet;
 import weapons.Pistol;
 import weapons.BoxingGlove;
+import weapons.MagicWand;
 import creatures.enemies.Enemy;
 import creatures.enemies.RockBoy;
 import creatures.enemies.RockChaseBoy;
@@ -62,6 +63,7 @@ class PlayState extends FlxState
 	 */
 	private var _enemies:FlxTypedGroup<Enemy>;
 	private var _enemy_bullets:FlxTypedGroup<Bullet>;
+	private var _enemyMagicBullets:FlxTypedGroup<Bullet>;
 	
 	/**
 	 * Obstacles.
@@ -116,6 +118,8 @@ class PlayState extends FlxState
 		add(_enemy_bullets);
 		_enemies = new FlxTypedGroup<Enemy>();
 		add(_enemies);
+		//_enemyMagicBullets = new FlxTypedGroup<Bullet>();
+		//add(_enemyMagicBullets);
 		
 		// Obstacles.
 		_obstacles = new FlxTypedGroup<Obstacle>();
@@ -129,6 +133,7 @@ class PlayState extends FlxState
 		_weapons = new FlxTypedGroup<Weapon>();
 		_weapons.add(new BoxingGlove(GlobalVariable.UNIT * 14, GlobalVariable.UNIT * 6, _playerBullets));
 		_weapons.add(new Pistol(GlobalVariable.UNIT * 17, GlobalVariable.UNIT * 6, _playerBullets));
+		_weapons.add(new MagicWand(GlobalVariable.UNIT * 20, GlobalVariable.UNIT * 6, _playerBullets));
 		add(_weapons);
 		
 		// HUD.
@@ -200,6 +205,7 @@ class PlayState extends FlxState
 		
 		// Collide with tiles.
 		FlxG.collide(_player, _map);
+		FlxG.collide(_playerBullets, _map);
 		FlxG.collide(_enemies, _map);
 		FlxG.collide(_obstacles, _player);
 		FlxG.collide(_obstacles, _enemies);
