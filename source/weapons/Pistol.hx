@@ -51,16 +51,16 @@ class Pistol extends Weapon
 			switch (player.facing)
 			{
 				case FlxObject.LEFT:
-					player.velocity.set(GlobalVariable.UNIT * 15, 0);
+					player.velocity.set(GlobalVariable.UNIT * 20, 0);
 				case FlxObject.RIGHT:
-					player.velocity.set(GlobalVariable.UNIT * -15, 0);
+					player.velocity.set(GlobalVariable.UNIT * -20, 0);
 				case FlxObject.UP:
-					player.velocity.set(0, GlobalVariable.UNIT * 15);
+					player.velocity.set(0, GlobalVariable.UNIT * 20);
 				case FlxObject.DOWN:
-					player.velocity.set(0, GlobalVariable.UNIT * -15);
+					player.velocity.set(0, GlobalVariable.UNIT * -20);
 			}
 			player._specialState._pushed = true;
-			player._specialState._pushedTimer = 0.8;
+			player._specialState._pushedTimer = 0.6;
 		}
 	}
 }

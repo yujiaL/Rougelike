@@ -4,17 +4,21 @@ import creatures.Player;
 
 import flixel.FlxG;
 import flixel.util.FlxColor;
-import flixel.FlxObject;
+import flixel.math.FlxPoint;
 import flixel.group.FlxGroup.FlxTypedGroup;
 
-class MagicWand extends Weapon
+/**
+ * ...
+ * @author 
+ */
+class MagicWandPlus extends Weapon 
 {
 
 	override public function new(?X:Float=0, ?Y:Float=0, bullets:FlxTypedGroup<Bullet>) 
 	{
 		super(X, Y, bullets);
 		
-		makeGraphic(Math.round(GlobalVariable.UNIT * 0.5), Math.round(GlobalVariable.UNIT * 1.5), FlxColor.RED);
+		makeGraphic(Math.round(GlobalVariable.UNIT * 0.5), Math.round(GlobalVariable.UNIT * 1.5), FlxColor.PINK);
 		
 		barPositions[0] = 50;
 	}
@@ -34,8 +38,11 @@ class MagicWand extends Weapon
 		// Effects.
 		if (position > barPositions[0] + weight) 
 		{
-			player._specialState._fall = true;
-			player._specialState._fallTimer = 2;
+			var mA:Float = FlxG.random.int(0, 360);
+			player.velocity.set(GlobalVariable.UNIT * 25, 0);
+			player.velocity.rotate(FlxPoint.weak(0, 0), mA);
+			player._specialState._pushed = true;
+			player._specialState._pushedTimer = 0.6;
 		}
 	}
 }

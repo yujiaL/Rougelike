@@ -6,6 +6,7 @@ import weapons.Bullet;
 import weapons.Pistol;
 import weapons.BoxingGlove;
 import weapons.MagicWand;
+import weapons.MagicWandPlus;
 import creatures.enemies.Enemy;
 import creatures.enemies.RockBoy;
 import creatures.enemies.RockChaseBoy;
@@ -134,6 +135,7 @@ class PlayState extends FlxState
 		_weapons.add(new BoxingGlove(GlobalVariable.UNIT * 14, GlobalVariable.UNIT * 6, _playerBullets));
 		_weapons.add(new Pistol(GlobalVariable.UNIT * 17, GlobalVariable.UNIT * 6, _playerBullets));
 		_weapons.add(new MagicWand(GlobalVariable.UNIT * 20, GlobalVariable.UNIT * 6, _playerBullets));
+		_weapons.add(new MagicWandPlus(GlobalVariable.UNIT * 23, GlobalVariable.UNIT * 6, _playerBullets));
 		add(_weapons);
 		
 		// HUD.
