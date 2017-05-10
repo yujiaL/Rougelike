@@ -30,6 +30,8 @@ class Player extends Creature
 		setFacingFlip(FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		
+		setSize(GlobalVariable.UNIT * 1.5, GlobalVariable.UNIT * 1.5);
+		
 		animation.add("lr", [1, 2, 3, 2, 1], 6, false);
 		
 		// initialize player stats
@@ -37,7 +39,7 @@ class Player extends Creature
 		
 		_coins = 0;
 		
-		speed = GlobalVariable.UNIT * 8;
+		speed = GlobalVariable.UNIT * 7;
 		_weight = 0;
 		_hairLength = 0;
 		_chargeSpeed = 1.5;
