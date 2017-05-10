@@ -27,7 +27,7 @@ class TitleState extends FlxState
 		
 		_message = new FlxText(0, 0, 0, "Press Space to Start! ", GlobalVariable.UNIT);
 		_message.x = FlxG.width / 2 - _message.width / 2;
-		_message.y = FlxG.height * 4 / 5 + 300;
+		_message.y = FlxG.height * 4 / 5 + GlobalVariable.UNIT * 1.5;
 		FlxSpriteUtil.flicker(_message, 0, 0.5);
 		add(_message);
 		

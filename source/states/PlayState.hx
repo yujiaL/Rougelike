@@ -127,8 +127,8 @@ class PlayState extends FlxState
 		
 		// Add weapon.
 		_weapons = new FlxTypedGroup<Weapon>();
-		_weapons.add(new BoxingGlove(GlobalVariable.UNIT * 14, GlobalVariable.UNIT * 3, _playerBullets));
-		_weapons.add(new Pistol(GlobalVariable.UNIT * 17, GlobalVariable.UNIT * 3, _playerBullets));
+		_weapons.add(new BoxingGlove(GlobalVariable.UNIT * 14, GlobalVariable.UNIT * 6, _playerBullets));
+		_weapons.add(new Pistol(GlobalVariable.UNIT * 17, GlobalVariable.UNIT * 6, _playerBullets));
 		add(_weapons);
 		
 		// HUD.

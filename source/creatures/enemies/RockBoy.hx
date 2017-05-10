@@ -15,7 +15,7 @@ class RockBoy extends Enemy
 	{
 		super(X, Y, 10, bullets);
 		
-		makeGraphic(GlobalVariable.UNIT * 2, GlobalVariable.UNIT * 2, FlxColor.YELLOW);
+		makeGraphic(Math.round(GlobalVariable.UNIT * 1.5), Math.round(GlobalVariable.UNIT * 1.5), FlxColor.YELLOW);
 		
 		_idleTmr = 0;
 	}

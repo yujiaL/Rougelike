@@ -26,7 +26,7 @@ class Player extends Creature
 	override public function new(?X:Float=0, ?Y:Float=0, health:Int) 
 	{
 		super(X, Y, health);
-		loadGraphic(AssetPaths.dango__png, true, GlobalVariable.UNIT * 4, GlobalVariable.UNIT * 2);
+		loadGraphic(AssetPaths.dango__png, true, Math.round(GlobalVariable.UNIT * 3), Math.round(GlobalVariable.UNIT * 1.5));
 		setFacingFlip(FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		
@@ -77,16 +77,16 @@ class Player extends Creature
 		switch (facing)
 		{
 			case FlxObject.LEFT:
-				_weapon.hold(this.x - GlobalVariable.UNIT / 2 - _weapon.width / 2 - _hairLength, this.y + GlobalVariable.UNIT / 2 - _weapon.height / 2, facing);
+				_weapon.hold(this.x - this.width / 2 - _weapon.width / 2 - _hairLength, this.y + this.height / 2 - _weapon.height / 2, facing);
 				animation.play("lr");
 			case FlxObject.RIGHT :
-				_weapon.hold(this.x + GlobalVariable.UNIT * 1.5 - _weapon.width / 2 + _hairLength, this.y + GlobalVariable.UNIT / 2 - _weapon.height / 2, facing);
+				_weapon.hold(this.x + this.width * 1.5 - _weapon.width / 2 + _hairLength, this.y + this.height / 2 - _weapon.height / 2, facing);
 				animation.play("lr");
 			case FlxObject.UP:
-				_weapon.hold(this.x + GlobalVariable.UNIT / 2 - _weapon.width / 2, this.y - GlobalVariable.UNIT / 2 - _weapon.height / 2 - _hairLength, facing);
+				_weapon.hold(this.x + this.width / 2 - _weapon.width / 2, this.y - this.height / 2 - _weapon.height / 2 - _hairLength, facing);
 				animation.play("lr");
 			case FlxObject.DOWN:
-				_weapon.hold(this.x + GlobalVariable.UNIT / 2 - _weapon.width / 2, this.y + GlobalVariable.UNIT * 1.5 - _weapon.height / 2 + _hairLength, facing);
+				_weapon.hold(this.x + this.width / 2 - _weapon.width / 2, this.y + this.height * 1.5 - _weapon.height / 2 + _hairLength, facing);
 				animation.play("lr");
 		}
 	}

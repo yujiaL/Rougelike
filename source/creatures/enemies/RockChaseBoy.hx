@@ -23,7 +23,7 @@ class RockChaseBoy extends Enemy
 		
 		bardDamage = 5;
 		
-		makeGraphic(GlobalVariable.UNIT * 2, GlobalVariable.UNIT * 2, FlxColor.ORANGE);
+		makeGraphic(Math.round(GlobalVariable.UNIT * 1.5), Math.round(GlobalVariable.UNIT * 1.5), FlxColor.ORANGE);
 		
 		_walkTmr = FlxG.random.int(2, 4);
 		_dashTmr = 0;
