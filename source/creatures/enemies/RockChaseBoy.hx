@@ -10,7 +10,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 
 class RockChaseBoy extends Enemy 
 {
-	private static inline var _dashSpeed:Float = GlobalVariable.UNIT * 5;
+	private static inline var _dashSpeed:Float = 1300;
 	
 	private var _walkTmr:Float;
 	private var _dashTmr:Float;
@@ -23,7 +23,7 @@ class RockChaseBoy extends Enemy
 		
 		bardDamage = 5;
 		
-		makeGraphic(GlobalVariable.UNIT * 2, GlobalVariable.UNIT * 2, FlxColor.ORANGE);
+		makeGraphic(GlobalVariable.UNIT, GlobalVariable.UNIT, FlxColor.ORANGE);
 		
 		_walkTmr = FlxG.random.int(2, 4);
 		_dashTmr = 0;

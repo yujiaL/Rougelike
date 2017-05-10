@@ -8,7 +8,7 @@ class HpPotionM extends Item
 		super(X, Y);
 		hpChange = 50;
 		
-		loadGraphic(AssetPaths.health_potion_m__png, true, GlobalVariable.UNIT, GlobalVariable.UNIT);
+		loadGraphic(AssetPaths.health_potion_m__png, true, 128, 128);
 	}
 	
 }

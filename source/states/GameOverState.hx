@@ -29,11 +29,11 @@ class GameOverState extends FlxState
 			//FlxG.sound.playMusic(AssetPaths.sad_ending__ogg, 1, true);
 		}
 		
-		_txtMessage = new FlxText(0, 0, 0, "Game Over!\nYour have reached level : " + _level, GlobalVariable.UNIT);
+		_txtMessage = new FlxText(0, 0, 0, "Game Over!\nYour have reached level : " + _level, 256);
 		_txtMessage.screenCenter();
 		add(_txtMessage);
 		
-		_startMessage = new FlxText(0, 0, 0, "Press Space to Play Again! ", GlobalVariable.UNIT);
+		_startMessage = new FlxText(0, 0, 0, "Press Space to Play Again! ", 200);
 		_startMessage.screenCenter(FlxAxes.X);
 		_startMessage.y = FlxG.height * 4 / 5;
 		

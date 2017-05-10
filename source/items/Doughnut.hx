@@ -7,8 +7,8 @@ class Doughnut extends Item
 	{
 		super(X, Y);
 		weightChange = 5;
-		speedChange = GlobalVariable.UNIT * -1;
+		speedChange = -200;
 		
-		loadGraphic(AssetPaths.donut__png, true, GlobalVariable.UNIT, GlobalVariable.UNIT);
+		loadGraphic(AssetPaths.donut__png, true, 128, 128);
 	}
 }

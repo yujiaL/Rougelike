@@ -30,7 +30,6 @@ import flixel.FlxBasic;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.FlxG;
-import flixel.util.FlxAxes;
 import flixel.text.FlxText;
 import flixel.tile.FlxTilemap;
 import flixel.util.FlxColor;
@@ -93,21 +92,20 @@ class PlayState extends FlxState
 		add(_map);
 		
 		// Player.
-		_player = new Player(0, 0, GlobalVariable.PLAYERHP);
-		_player.screenCenter();
+		_player = new Player(2560, 2560, GlobalVariable.PLAYERHP);
 		add(_player);
-		_ticks = 0;
-		FlxG.camera.follow(_player, NO_DEAD_ZONE, 1);
 		
 		_playerBullets = new FlxTypedGroup<Bullet>();
 		add(_playerBullets);
+		FlxG.camera.follow(_player, NO_DEAD_ZONE, 1);
+		
+		_ticks = 0;
 		
 	
-		// Create initial room.
+		//createNewRoom();
 		_doors = new FlxTypedGroup<Door>();
 		var door = new Door();
-		door.screenCenter(FlxAxes.X);
-		door.y = GlobalVariable.UNIT;
+		door.screenCenter();
 		_doors.add(door);
 		add(_doors);
 
@@ -127,8 +125,8 @@ class PlayState extends FlxState
 		
 		// Add weapon.
 		_weapons = new FlxTypedGroup<Weapon>();
-		_weapons.add(new BoxingGlove(GlobalVariable.UNIT * 14, GlobalVariable.UNIT * 3, _playerBullets));
-		_weapons.add(new Pistol(GlobalVariable.UNIT * 17, GlobalVariable.UNIT * 3, _playerBullets));
+		_weapons.add(new BoxingGlove(4500, 1500, _playerBullets));
+		_weapons.add(new Pistol(4500, 2500, _playerBullets));
 		add(_weapons);
 		
 		// HUD.

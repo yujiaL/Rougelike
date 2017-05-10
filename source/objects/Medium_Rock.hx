@@ -6,6 +6,6 @@ class Medium_Rock extends Obstacle
 	{
 		super(X, Y, 30);
 		
-		loadGraphic(AssetPaths.stone__png, true, GlobalVariable.UNIT, GlobalVariable.UNIT);
+		loadGraphic(AssetPaths.stone__png, true, 256, 256);
 	}
 }
