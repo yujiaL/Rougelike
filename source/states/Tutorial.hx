@@ -81,7 +81,7 @@ class Tutorial extends FlxState
 		
 		// Map.
 		_map = new FlxTilemap();
-		_map.loadMapFromCSV(AssetPaths.map__csv, AssetPaths.auto_tilesBig__png, TILE_WIDTH, TILE_HEIGHT, AUTO);
+		_map.loadMapFromCSV(AssetPaths.map__csv, AssetPaths.Floor2__png, TILE_WIDTH, TILE_HEIGHT, null, 1, 1, 2);
 		add(_map);
 		
 		// Player.

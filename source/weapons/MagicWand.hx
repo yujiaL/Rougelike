@@ -23,8 +23,8 @@ class MagicWand extends Weapon
 	{	
 		var randomAngle:Float = Math.random() * 2 * Math.PI;
 
-		var XTarget = Math.cos(randomAngle) * getMidpoint().x;
-		var YTarget = Math.sin(randomAngle) * getMidpoint().y;
+		var XTarget = Math.cos(randomAngle) * getMidpoint().x + getMidpoint().x;
+		var YTarget = Math.sin(randomAngle) * getMidpoint().y + getMidpoint().y;
 		
 		// Damage calculator.
 		var damage = position * position / 1000;
