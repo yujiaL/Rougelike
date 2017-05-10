@@ -161,7 +161,7 @@ class PlayState extends FlxState
 		}
 		
 		// Debug.
-		if (FlxG.keys.pressed.I)
+		if (FlxG.keys.justPressed.I)
 		{
 			for (i in 1...6)
 			{
