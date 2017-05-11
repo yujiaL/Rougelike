@@ -8,6 +8,10 @@ import weapons.BoxingGlove;
 import weapons.MagicWand;
 import weapons.MagicWandPlus;
 import creatures.enemies.Enemy;
+import creatures.enemies.RockShootAllBoy;
+import creatures.enemies.RockWalkShootBoy;
+import creatures.enemies.RockShootAllBoyPlus;
+import creatures.enemies.RockRandomBoy;
 import creatures.enemies.RockBoy;
 import creatures.enemies.RockChaseBoy;
 import objects.Obstacle;
@@ -87,9 +91,6 @@ class PlayState extends FlxState
 	
 	override public function create():Void
 	{
-		if (GlobalVariable.LOGGING)
-			Main.LOGGER.logLevelStart(_level);
-		
 		// Map and door.
 		_map = new FlxTilemap();
 		_map.loadMapFromCSV(AssetPaths.map__csv, AssetPaths.Floor2__png, TILE_WIDTH, TILE_HEIGHT, null, 1, 1, 2);
@@ -146,6 +147,9 @@ class PlayState extends FlxState
 		_damages = new FlxTypedGroup<FlxText>();
 		add(_damages);
 		_level = 0;
+		
+		if (GlobalVariable.LOGGING)
+			Main.LOGGER.logLevelStart(_level);
 		
 		super.create();
 	}
@@ -383,7 +387,7 @@ class PlayState extends FlxState
 		{
 			if (FlxG.random.bool(100 / i))
 			{
-				var enemy = new RockChaseBoy(0, 0, _enemy_bullets);
+				var enemy = new RockWalkShootBoy(0, 0, _enemy_bullets);
 				randomizeOSPosition(enemy);
 				_enemies.add(enemy);
 			}

@@ -3,37 +3,34 @@ package creatures.enemies;
 import weapons.Bullet;
 
 import flixel.FlxG;
-import flixel.math.FlxVelocity;
-import flixel.math.FlxPoint;
 import flixel.util.FlxColor;
+import flixel.math.FlxPoint;
 import flixel.group.FlxGroup.FlxTypedGroup;
 
 /**
- * An enemy that dashed to the place of the player once a while.
+ * An enemy that dashes to a random place once a while.
  */
-class RockChaseBoy extends Enemy 
+class RockRandomBoy extends Enemy
 {
-	private static inline var _dashSpeed:Float = GlobalVariable.UNIT * 5;
+	private static inline var _dashSpeed:Float = GlobalVariable.UNIT * 10;
 	
-	private var _walkTmr:Float;
 	private var _dashTmr:Float;
 	private var _dashTarget:FlxPoint;
 	private var _dashSource:FlxPoint;
 
-	public function new(X:Float = 0, Y:Float = 0, bullets:FlxTypedGroup<Bullet>) 
+	public function new(X:Float = 0, Y:Float = 0, bullets:FlxTypedGroup<Bullet>)
 	{
-		super(X, Y, 8, bullets);
+		super(X, Y, 10, bullets);
 		
-		bardDamage = 6;
+		bardDamage = 5;
 		
-		makeGraphic(Math.round(GlobalVariable.UNIT * 1.5), Math.round(GlobalVariable.UNIT * 1.5), FlxColor.ORANGE);
+		makeGraphic(Math.round(GlobalVariable.UNIT * 1.5), Math.round(GlobalVariable.UNIT * 1.5), FlxColor.BLACK);
 		
-		_walkTmr = FlxG.random.int(2, 4);
+		_moveTmr = FlxG.random.int(2, 3);
 		_dashTmr = 0;
 		_dashTarget = new FlxPoint();
 		_dashSource = new FlxPoint();
 	}
-	
 	override public function update(elapsed:Float):Void
 	{
 		// Dash to the position of player once a while.
@@ -49,20 +46,20 @@ class RockChaseBoy extends Enemy
 				attack();
 				_dashTmr -= FlxG.elapsed;
 			}
-			else if (_walkTmr > 0) 
+			else if (_moveTmr > 0) 
 			{
 				barded = false;
 				walkAround();
-				_walkTmr -= FlxG.elapsed;
+				_moveTmr -= FlxG.elapsed;
 			} 
 			else
 			{
-				_dashTarget.x = playerPos.x;
-				_dashTarget.y = playerPos.y;
+				_dashTarget.x = getMidpoint().x + FlxG.random.int(-2, 2);
+				_dashTarget.y = getMidpoint().y + FlxG.random.int(-2, 2);
 				_dashSource.x = getMidpoint().x;
 				_dashSource.y = getMidpoint().y;
-				_dashTmr = FlxG.random.int(1, 3);
-				_walkTmr = FlxG.random.int(2, 4);
+				_dashTmr = FlxG.random.int(3, 4);
+				_moveTmr = FlxG.random.int(2, 3);
 			}
 		}
 		

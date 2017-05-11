@@ -8,12 +8,11 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 
 class Enemy extends Creature
 {
-	private static inline var _walkSpeed:Float = GlobalVariable.UNIT * 3;
-
 	public var playerPos(default, null):FlxPoint;
 	public var barded:Bool;
 	public var bardDamage:Int;
 	
+	private var _walkSpeed:Float = GlobalVariable.UNIT * 3;
 	private var _bullets:FlxTypedGroup<Bullet>;
 	private var _moveDir:Float;
 	private var _moveTmr:Float;
