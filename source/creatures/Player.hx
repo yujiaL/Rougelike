@@ -26,11 +26,12 @@ class Player extends Creature
 	override public function new(?X:Float=0, ?Y:Float=0, health:Int) 
 	{
 		super(X, Y, health);
-		loadGraphic(AssetPaths.dango__png, true, Math.round(GlobalVariable.UNIT * 3), Math.round(GlobalVariable.UNIT * 1.5));
+		loadGraphic(AssetPaths.dango__png, true, Math.round(GlobalVariable.UNIT * 4.5), Math.round(GlobalVariable.UNIT * 1.5));
 		setFacingFlip(FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		
 		setSize(GlobalVariable.UNIT * 1.5, GlobalVariable.UNIT * 1.5);
+		offset.set(GlobalVariable.UNIT * 1.5, 0);
 		
 		animation.add("lr", [1, 2, 3, 2, 1], 6, false);
 		

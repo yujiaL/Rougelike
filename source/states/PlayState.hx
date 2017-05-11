@@ -260,7 +260,13 @@ class PlayState extends FlxState
 	private function playerTouchEnemy(P:Player, E:Enemy):Void
 	{
 		if (E.barded)
+		{
+			if (GlobalVariable.LOGGING)
+				Main.LOGGER.logLevelAction(LoggingActions.ENEMY_GETSHIT);
+		
+			_damages.add(new DamageText(P.x, P.y, E.bardDamage));
 			P.receiveDamage(E.bardDamage);
+		}
 		separateCreatures(P, E);
 	}
 	
