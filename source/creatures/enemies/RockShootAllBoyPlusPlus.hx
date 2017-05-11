@@ -24,7 +24,7 @@ class RockShootAllBoyPlusPlus extends RockShootAllBoy
 			for (j in ( -2)...3)
 			{
 				if (i != 0 || j != 0)
-					_bullets.add(new Bullet(getMidpoint().x, getMidpoint().y, getMidpoint().x + i, getMidpoint().y + j, 4, GlobalVariable.UNIT * 4, 3s));
+					_bullets.add(new Bullet(getMidpoint().x, getMidpoint().y, getMidpoint().x + i, getMidpoint().y + j, 4, GlobalVariable.UNIT * 4, 3));
 			}
 		}
 	}
