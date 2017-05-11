@@ -187,6 +187,11 @@ class PlayState extends FlxState
 			_doors.add(newDoor);
 			
 			addItem();
+			if (FlxG.random.bool(30))
+			{
+				addWeapon();
+			}
+			
 		}
 
 		// Set new room,
@@ -594,6 +599,29 @@ class PlayState extends FlxState
 			var hairShorter = new HairShortenPotion();
 			randomizeOSPosition(hairShorter);
 			_items.add(hairShorter);
+		}
+	}
+	
+	private function addWeapon()
+	{
+		var prob = FlxG.random.int(0, 100);
+		
+		if (prob <= 10) {
+			var magicWandPlus = new MagicWandPlus(GlobalVariable.UNIT * 23, GlobalVariable.UNIT * 6, _playerBullets);
+			randomizeOSPosition(magicWandPlus);
+			_weapons.add(magicWandPlus);
+		} else if (prob <= 20) {
+			var magicWand = new MagicWand(GlobalVariable.UNIT * 20, GlobalVariable.UNIT * 6, _playerBullets);
+			randomizeOSPosition(magicWand);
+			_weapons.add(magicWand);
+		} else if (prob <= 60) {
+			var pistol = new Pistol(GlobalVariable.UNIT * 17, GlobalVariable.UNIT * 6, _playerBullets);
+			randomizeOSPosition(pistol);
+			_weapons.add(pistol);
+		} else {
+			var boxingGlove = new BoxingGlove(GlobalVariable.UNIT * 14, GlobalVariable.UNIT * 6, _playerBullets);
+			randomizeOSPosition(boxingGlove);
+			_weapons.add(boxingGlove);
 		}
 	}
 }
