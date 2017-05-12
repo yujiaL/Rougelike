@@ -1,10 +1,11 @@
 package states;
 
+import flixel.FlxSprite;
 import objects.Door;
 import creatures.Player;
 import weapons.Bullet;
 import creatures.enemies.Enemy;
-import creatures.enemies.RockChaseBoy;
+import creatures.enemies.RockRandomBoy;
 import objects.Obstacle;
 import items.Item;
 import weapons.Weapon;
@@ -68,6 +69,7 @@ class Tutorial extends FlxState
 	private var _damages:FlxTypedGroup<FlxText>;
 	private var _texts:FlxTypedGroup<FlxText>;
 	private var _hud:HUD;
+	private var _sprites:FlxTypedGroup<FlxSprite>;
 	
 	/**
 	 * Levels.
@@ -87,6 +89,7 @@ class Tutorial extends FlxState
 		// Player.
 		_player = new Player(0, 0, GlobalVariable.PLAYERHP);
 		_player.screenCenter();
+		_player.y = GlobalVariable.UNIT * 8;
 		add(_player);
 		FlxG.camera.follow(_player, NO_DEAD_ZONE, 1);
 		
@@ -123,6 +126,10 @@ class Tutorial extends FlxState
 		_texts = new FlxTypedGroup<FlxText>();
 		add(_texts);
 		
+		// Add sprites.
+		_sprites = new FlxTypedGroup<FlxSprite>();
+		add(_sprites);
+		
 		// Load level 1.
 		loadLevel(1);
 		_current_level = 1;
@@ -136,7 +143,7 @@ class Tutorial extends FlxState
 		if (_current_level == 1 && _player._weapon == _weapons.getFirstAlive() && _doors.countLiving() == -1)
 		{
 			_doors.add(new Door(23 * GlobalVariable.UNIT, 6 * GlobalVariable.UNIT));
-			_texts.add(new FlxText(22 * GlobalVariable.UNIT, 10 * GlobalVariable.UNIT, 8 * GlobalVariable.UNIT, "Proceed to the next level.", Math.round(GlobalVariable.UNIT / 2)));
+			_texts.add(new FlxText(22.5 * GlobalVariable.UNIT, 14 * GlobalVariable.UNIT, 8 * GlobalVariable.UNIT, "Next Level", Math.round(GlobalVariable.UNIT / 2)));
 		}
 		if (_current_level == 3 && _enemies.countLiving() == 0)
 		{
@@ -270,33 +277,51 @@ class Tutorial extends FlxState
 		_obstacles.clear();
 		_items.clear();
 		_texts.clear();
+		_sprites.clear();
 		
 		_ticks = 0;
 		
 		if (Level == 1)
 		{
 			_weapons.add(new BoxingGlove(7 * GlobalVariable.UNIT, 6 * GlobalVariable.UNIT, _playerBullets));
-			_texts.add(new FlxText(4 * GlobalVariable.UNIT, 10 * GlobalVariable.UNIT, 8 * GlobalVariable.UNIT, "Press E to pick up weapons and items.", Math.round(GlobalVariable.UNIT / 2)));
-			_texts.add(new FlxText(12 * GlobalVariable.UNIT, 10 * GlobalVariable.UNIT, 8 * GlobalVariable.UNIT, "Use arrow keys to move.", Math.round(GlobalVariable.UNIT / 2)));
+			
+			var buttonE = new FlxSprite(7 * GlobalVariable.UNIT, 12 * GlobalVariable.UNIT);
+			buttonE.loadGraphic(AssetPaths.ButtonE__PNG);
+			_sprites.add(buttonE);
+			_texts.add(new FlxText(6.5 * GlobalVariable.UNIT, 14 * GlobalVariable.UNIT, 0, "Pick Up", Math.round(GlobalVariable.UNIT / 2)));
+			
+			var arrowKeys = new FlxSprite(14.5 * GlobalVariable.UNIT, 11 * GlobalVariable.UNIT);
+			arrowKeys.loadGraphic(AssetPaths.ArrowKeys__PNG);
+			_sprites.add(arrowKeys);
+			_texts.add(new FlxText(15 * GlobalVariable.UNIT, 14 * GlobalVariable.UNIT, 0, "Move", Math.round(GlobalVariable.UNIT / 2)));
 		}
 		
 		if (Level == 2)
 		{
 			add(_hud);
+			add(_damages);
+			
 			_doors.add(new Door(16 * GlobalVariable.UNIT, GlobalVariable.UNIT));
-			_obstacles.add(new Small_Rock(14 * GlobalVariable.UNIT, GlobalVariable.UNIT));
-			_obstacles.add(new Small_Rock(15 * GlobalVariable.UNIT, GlobalVariable.UNIT * 2));
-			_obstacles.add(new Small_Rock(16 * GlobalVariable.UNIT, GlobalVariable.UNIT * 3));
-			_obstacles.add(new Small_Rock(17 * GlobalVariable.UNIT, GlobalVariable.UNIT * 2));
-			_obstacles.add(new Small_Rock(18 * GlobalVariable.UNIT, GlobalVariable.UNIT));
-			_texts.add(new FlxText(10 * GlobalVariable.UNIT, 10 * GlobalVariable.UNIT, 0, "Press SPACE to charge. Release to attack.", Math.round(GlobalVariable.UNIT / 2)));
+			
+			for (i in 1...5)
+			{
+				_obstacles.add(new Small_Rock(14 * GlobalVariable.UNIT, GlobalVariable.UNIT * i));
+				_obstacles.add(new Small_Rock(19 * GlobalVariable.UNIT, GlobalVariable.UNIT * i));
+			}
+			for (i in 15...19)
+				_obstacles.add(new Small_Rock(i * GlobalVariable.UNIT, GlobalVariable.UNIT * 4));
+			
+			var spaceBar = new FlxSprite(14 * GlobalVariable.UNIT, 12 * GlobalVariable.UNIT);
+			spaceBar.loadGraphic(AssetPaths.SpaceBar__PNG);
+			_sprites.add(spaceBar);
+			_texts.add(new FlxText(10.5 * GlobalVariable.UNIT, 14 * GlobalVariable.UNIT, 0, "Hold to charge.	Release to attack.", Math.round(GlobalVariable.UNIT / 2)));
 			_current_level = 2;
 		}
 		
 		if (Level == 3)
 		{
-			_enemies.add(new RockChaseBoy(8 * GlobalVariable.UNIT, 8 * GlobalVariable.UNIT, _enemy_bullets));
-			_texts.add(new FlxText(4 * GlobalVariable.UNIT, 10 * GlobalVariable.UNIT, 0, "Be careful when you attack...Too much power isn't always a good thing.", Math.round(GlobalVariable.UNIT / 2)));
+			_enemies.add(new RockRandomBoy(8 * GlobalVariable.UNIT, 8 * GlobalVariable.UNIT, _enemy_bullets));
+			_texts.add(new FlxText(9 * GlobalVariable.UNIT, 14 * GlobalVariable.UNIT, 0, "Hit with maximum power!", Math.round(GlobalVariable.UNIT)));
 			_current_level = 3;
 		}
 		
@@ -304,7 +329,7 @@ class Tutorial extends FlxState
 		{
 			if (GlobalVariable.LOGGING)
 				Main.LOGGER.logLevelEnd();
-			FlxG.switchState(new TitleState());
+			FlxG.switchState(new PlayState());
 		}
 	}
 }

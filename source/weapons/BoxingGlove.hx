@@ -14,16 +14,29 @@ class BoxingGlove extends Weapon
 	{
 		super(X, Y, bullets);
 		
-		loadGraphic(AssetPaths.boxing_glove__png, true, GlobalVariable.UNIT, GlobalVariable.UNIT);
+		loadGraphic(AssetPaths.BoxingGlove__PNG, true, GlobalVariable.UNIT, GlobalVariable.UNIT);
 		
 		setFacingFlip(FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		setFacingFlip(FlxObject.UP, false, false);
 		setFacingFlip(FlxObject.DOWN, false, true);
 		
+		animation.add("lr", [0], 6, false);
+		animation.add("ud", [1], 6, false);
+		
 		facing = FlxObject.RIGHT;
 		
 		barPositions[0] = 75;
+	}
+	
+	override public function update(elapsed:Float):Void
+	{
+		if (facing == FlxObject.LEFT || facing == FlxObject.RIGHT)
+			animation.play("lr");
+		if (facing == FlxObject.UP || facing == FlxObject.DOWN)
+			animation.play("ud");
+		
+		super.update(elapsed);
 	}
 	
 	override public function attack(player:Player, position:Float, weight:Int, scale:Float):Void

@@ -37,10 +37,11 @@ import flixel.FlxBasic;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.FlxG;
-import flixel.util.FlxAxes;
 import flixel.text.FlxText;
 import flixel.tile.FlxTilemap;
+import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
+import flixel.util.FlxSpriteUtil;
 import flixel.group.FlxGroup.FlxTypedGroup;
 
 class PlayState extends FlxState
@@ -261,11 +262,13 @@ class PlayState extends FlxState
 	{
 		if (E.barded)
 		{
-			if (GlobalVariable.LOGGING)
-				Main.LOGGER.logLevelAction(LoggingActions.ENEMY_GETSHIT);
-		
-			_damages.add(new DamageText(P.x, P.y, E.bardDamage));
-			P.receiveDamage(E.bardDamage);
+			if (P.receiveDamage(E.bardDamage))
+			{
+				if (GlobalVariable.LOGGING)
+					Main.LOGGER.logLevelAction(LoggingActions.ENEMY_GETSHIT);
+				
+				_damages.add(new DamageText(P.x, P.y, E.bardDamage));
+			}
 		}
 		separateCreatures(P, E);
 	}
@@ -279,13 +282,15 @@ class PlayState extends FlxState
 	
 	private function playerGetsHit(P:Player, B:Bullet):Void
 	{
-		if (GlobalVariable.LOGGING)
-			Main.LOGGER.logLevelAction(LoggingActions.PLAYER_GETSHIT);
+		if (P.receiveDamage(B._damage))
+		{
+			if (GlobalVariable.LOGGING)
+				Main.LOGGER.logLevelAction(LoggingActions.PLAYER_GETSHIT);
 		
-		_damages.add(new DamageText(P.x, P.y, B._damage));
-		P.receiveDamage(B._damage);
-		B.updateTarget(P);
-		B.hit = true;
+			_damages.add(new DamageText(P.x, P.y, B._damage));
+			B.updateTarget(P);
+			B.hit = true;
+		}
 	}
 	
 	private function enemyGetsHit(E:Enemy, B:Bullet):Void

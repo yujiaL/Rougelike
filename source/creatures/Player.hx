@@ -26,12 +26,12 @@ class Player extends Creature
 	override public function new(?X:Float=0, ?Y:Float=0, health:Int) 
 	{
 		super(X, Y, health);
-		loadGraphic(AssetPaths.dango__png, true, Math.round(GlobalVariable.UNIT * 4.5), Math.round(GlobalVariable.UNIT * 1.5));
+		loadGraphic(AssetPaths.dango__png, true, Math.round(GlobalVariable.UNIT * 6), Math.round(GlobalVariable.UNIT * 2));
 		setFacingFlip(FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		
-		setSize(GlobalVariable.UNIT * 1.5, GlobalVariable.UNIT * 1.5);
-		offset.set(GlobalVariable.UNIT * 1.5, 0);
+		setSize(GlobalVariable.UNIT * 2, GlobalVariable.UNIT * 2);
+		offset.set(GlobalVariable.UNIT * 2, 0);
 		
 		animation.add("lr", [1, 2, 3, 2, 1], 6, false);
 		
@@ -40,7 +40,7 @@ class Player extends Creature
 		
 		_coins = 0;
 		
-		speed = GlobalVariable.UNIT * 8;
+		speed = GlobalVariable.UNIT * 9;
 		_weight = 0;
 		_hairLength = 0;
 		_chargeSpeed = 1.5;
@@ -174,7 +174,7 @@ class Player extends Creature
 		_weapon = weapon;
 	}
 	
-	public function attack(ticks:Int)
+	public function attack(ticks:Int):Void
 	{
 		var position = ticks * _chargeSpeed;
 		if (position > 100)
@@ -182,13 +182,15 @@ class Player extends Creature
 		_weapon.attack(this, position, _weight, _attackScale);
 	}
 	
-	public function receiveDamage(damage:Int)
+	// Return if damage is applied or not.
+	public function receiveDamage(damage:Int):Bool
 	{
-		if (!FlxSpriteUtil.isFlickering(this))
-		{
-			FlxG.camera.shake(0.005, 0.1);
-			_health -= damage;
-			FlxSpriteUtil.flicker(this, 1, 0.2);
-		}
+		if (FlxSpriteUtil.isFlickering(this))
+			return false;
+		
+		FlxG.camera.shake(0.005, 0.1);
+		_health -= damage;
+		FlxSpriteUtil.flicker(this, 1, 0.2);
+		return true;
 	}
 }
