@@ -24,9 +24,12 @@ class RockRandomBoy extends Enemy
 		
 		bardDamage = 5;
 		
-		makeGraphic(Math.round(GlobalVariable.UNIT * 1.5), Math.round(GlobalVariable.UNIT * 1.5), FlxColor.BLACK);
+		loadGraphic(AssetPaths.MovingRock__PNG, true, Math.round(GlobalVariable.UNIT * 1.5), Math.round(GlobalVariable.UNIT * 1.5));
 		
-		_moveTmr = FlxG.random.int(2, 3);
+		animation.add("move", [0, 2, 0, 1, 3, 1], 3, false);
+		animation.add("dash", [4, 6, 4, 5, 7, 5], 9, false);
+		
+		_moveTmr = FlxG.random.int(3, 5);
 		_dashTmr = 0;
 		_dashTarget = new FlxPoint();
 		_dashSource = new FlxPoint();
@@ -42,12 +45,14 @@ class RockRandomBoy extends Enemy
 		{
 			if (_dashTmr > 0)
 			{
+				animation.play("dash");
 				barded = true;
 				attack();
 				_dashTmr -= FlxG.elapsed;
 			}
 			else if (_moveTmr > 0) 
 			{
+				animation.play("move");
 				barded = false;
 				walkAround();
 				_moveTmr -= FlxG.elapsed;
@@ -58,8 +63,8 @@ class RockRandomBoy extends Enemy
 				_dashTarget.y = getMidpoint().y + FlxG.random.int(-2, 2);
 				_dashSource.x = getMidpoint().x;
 				_dashSource.y = getMidpoint().y;
-				_dashTmr = FlxG.random.int(3, 4);
-				_moveTmr = FlxG.random.int(2, 3);
+				_dashTmr = FlxG.random.int(2, 3);
+				_moveTmr = FlxG.random.int(3, 5);
 			}
 		}
 		

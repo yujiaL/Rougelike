@@ -1,6 +1,7 @@
 package creatures.enemies;
 
 import weapons.Bullet;
+import weapons.Rock;
 
 import flixel.FlxG;
 import flixel.util.FlxColor;
@@ -17,7 +18,10 @@ class RockWalkShootBoy extends Enemy
 	{
 		super(X, Y, 7, bullets);
 		
-		makeGraphic(Math.round(GlobalVariable.UNIT * 1.5), Math.round(GlobalVariable.UNIT * 1.5), FlxColor.PINK);
+		loadGraphic(AssetPaths.MovingRock__PNG, true, Math.round(GlobalVariable.UNIT * 1.5), Math.round(GlobalVariable.UNIT * 1.5));
+		
+		animation.add("move", [0, 2, 0, 1, 3, 1], 3, false);
+		animation.add("attack", [4, 6, 4, 5, 7, 5], 15, false);
 		
 		_walkSpeed = GlobalVariable.UNIT * FlxG.random.int(4, 6);
 		
@@ -29,11 +33,13 @@ class RockWalkShootBoy extends Enemy
 		// Shoots a bullet from 1 to 4 second.
 		if (_idleTmr <= 0)
 		{
+			animation.play("attack");
 			attack();
 			_idleTmr = FlxG.random.int(2, 3);
 		}
 		else
 		{
+			animation.play("move");
 			_idleTmr -= FlxG.elapsed;
 		}
 		walkAround();
@@ -43,6 +49,6 @@ class RockWalkShootBoy extends Enemy
 	
 	override public function attack():Void
 	{
-		_bullets.add(new Bullet(getMidpoint().x, getMidpoint().y, playerPos.x, playerPos.y, 3, GlobalVariable.UNIT * 3, 3));
+		_bullets.add(new Rock(getMidpoint().x, getMidpoint().y, playerPos.x, playerPos.y, 3, GlobalVariable.UNIT * 3, 3));
 	}
 }

@@ -1,12 +1,14 @@
 package states;
 
-import objects.Door;
-import creatures.Player;
 import weapons.Bullet;
+import weapons.Weapon;
 import weapons.Pistol;
 import weapons.BoxingGlove;
 import weapons.MagicWand;
 import weapons.MagicWandPlus;
+import weapons.SuperMagicWand;
+import creatures.Creature;
+import creatures.Player;
 import creatures.enemies.Enemy;
 import creatures.enemies.RockShootAllBoy;
 import creatures.enemies.RockWalkShootBoy;
@@ -15,13 +17,12 @@ import creatures.enemies.RockShootAllBoyPlusPlus;
 import creatures.enemies.RockRandomBoy;
 import creatures.enemies.RockBoy;
 import creatures.enemies.RockChaseBoy;
+import objects.Door;
 import objects.Obstacle;
 import objects.Small_Rock;
 import objects.Medium_Rock;
-import weapons.Weapon;
 import hud.HUD;
 import hud.DamageText;
-import creatures.Creature;
 import hud.PauseHUD;
 import items.Item;
 import items.Doughnut;
@@ -178,6 +179,7 @@ class PlayState extends FlxState
 				_items.add(new HairPotion(GlobalVariable.UNIT * 6, GlobalVariable.UNIT * 2 * i));
 				_items.add(new HairShortenPotion(GlobalVariable.UNIT * 8, GlobalVariable.UNIT * 2 * i));
 			}
+			_weapons.add(new SuperMagicWand(GlobalVariable.UNIT * 10, GlobalVariable.UNIT * 2, _playerBullets));
 		}
 		
 		// When leve is finished.
