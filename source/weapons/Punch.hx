@@ -21,17 +21,21 @@ class Punch extends Bullet
 		switch(Facing)
 		{
 			case FlxObject.LEFT:
-				makeGraphic(Math.round(GlobalVariable.UNIT * Scale), Math.round(GlobalVariable.UNIT), FlxColor.BLUE);
+				loadGraphic(AssetPaths.Punch__PNG, false, Math.round(GlobalVariable.UNIT * Scale), Math.round(GlobalVariable.UNIT));
+				angle = 180;
 				setPosition(X - Math.round(GlobalVariable.UNIT * (Scale - 1)), Y);
 			case FlxObject.RIGHT :
-				makeGraphic(Math.round(GlobalVariable.UNIT * Scale), Math.round(GlobalVariable.UNIT), FlxColor.BLUE);
+				loadGraphic(AssetPaths.Punch__PNG, false, Math.round(GlobalVariable.UNIT * Scale), Math.round(GlobalVariable.UNIT));
+				angle = 0;
 				setPosition(X, Y);
 			case FlxObject.UP:
-				makeGraphic(Math.round(GlobalVariable.UNIT), Math.round(GlobalVariable.UNIT * Scale), FlxColor.BLUE);
-				setPosition(X, Y - Math.round(GlobalVariable.UNIT * (Scale - 1)));
+				loadGraphic(AssetPaths.Punch__PNG, false, Math.round(GlobalVariable.UNIT), Math.round(GlobalVariable.UNIT * Scale));
+				angle = 270;
+				setPosition(X - Math.round(GlobalVariable.UNIT * (Scale - 1)) / 2, Y - Math.round(GlobalVariable.UNIT * (Scale - 1)));
 			case FlxObject.DOWN:
-				makeGraphic(Math.round(GlobalVariable.UNIT), Math.round(GlobalVariable.UNIT * Scale), FlxColor.BLUE);
-				setPosition(X, Y);
+				loadGraphic(AssetPaths.Punch__PNG, false, Math.round(GlobalVariable.UNIT), Math.round(GlobalVariable.UNIT * Scale));
+				angle = 90;
+				setPosition(X - Math.round(GlobalVariable.UNIT * (Scale - 1)) / 2, Y);
 		}
 	}
 	

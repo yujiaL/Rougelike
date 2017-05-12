@@ -1,6 +1,7 @@
 package creatures.enemies;
 
 import weapons.Bullet;
+import weapons.Rock;
 
 import flixel.FlxG;
 import flixel.util.FlxColor;
@@ -18,9 +19,12 @@ class RockBoy extends Enemy
 	{
 		super(X, Y, 10, bullets);
 		
-		makeGraphic(Math.round(GlobalVariable.UNIT * 1.5), Math.round(GlobalVariable.UNIT * 1.5), FlxColor.YELLOW);
+		//makeGraphic(Math.round(GlobalVariable.UNIT * 1.5), Math.round(GlobalVariable.UNIT * 1.5), FlxColor.YELLOW);
+		loadGraphic(AssetPaths.StableRock__PNG, true, Math.round(GlobalVariable.UNIT * 1.5), Math.round(GlobalVariable.UNIT * 1.5));
 		
-		_idleTmr = 0;
+		animation.add("attack", [1, 0], 1, false);
+		
+		_idleTmr = FlxG.random.int(2, 4);
 	}
 	
 	override public function update(elapsed:Float):Void
@@ -39,6 +43,7 @@ class RockBoy extends Enemy
 	
 	override public function attack():Void
 	{
-		_bullets.add(new Bullet(getMidpoint().x, getMidpoint().y, playerPos.x, playerPos.y, 4, GlobalVariable.UNIT * 3.5, 2.5));
+		animation.play("attack");
+		_bullets.add(new Rock(getMidpoint().x, getMidpoint().y, playerPos.x, playerPos.y, 4, GlobalVariable.UNIT * 3.5, 2.5));
 	}
 }

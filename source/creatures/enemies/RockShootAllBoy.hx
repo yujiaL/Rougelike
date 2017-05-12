@@ -1,6 +1,7 @@
 package creatures.enemies;
 
 import weapons.Bullet;
+import weapons.Rock;
 
 import flixel.FlxG;
 import flixel.util.FlxColor;
@@ -17,13 +18,16 @@ class RockShootAllBoy extends Enemy
 	{
 		super(X, Y, 12, bullets);
 		
-		makeGraphic(Math.round(GlobalVariable.UNIT * 1.5), Math.round(GlobalVariable.UNIT * 1.5), FlxColor.BLUE);
+		//makeGraphic(Math.round(GlobalVariable.UNIT * 1.5), Math.round(GlobalVariable.UNIT * 1.5), FlxColor.BLUE);
+		loadGraphic(AssetPaths.StableRock__PNG, true, Math.round(GlobalVariable.UNIT * 1.5), Math.round(GlobalVariable.UNIT * 1.5));
+		
+		animation.add("attack", [1, 0], 1, false);
 		
 		_idleTmr = FlxG.random.int(2, 3);
 	}
 	
 	override public function update(elapsed:Float):Void
-	{
+	{	
 		// Shoots a bullet from 1 to 4 second.
 		if (_idleTmr <= 0)
 		{
@@ -38,9 +42,10 @@ class RockShootAllBoy extends Enemy
 	
 	override public function attack():Void
 	{
-		_bullets.add(new Bullet(getMidpoint().x, getMidpoint().y, getMidpoint().x + 1, getMidpoint().y, 7, GlobalVariable.UNIT * 5, 5));
-		_bullets.add(new Bullet(getMidpoint().x, getMidpoint().y, getMidpoint().x - 1, getMidpoint().y, 7, GlobalVariable.UNIT * 5, 5));
-		_bullets.add(new Bullet(getMidpoint().x, getMidpoint().y, getMidpoint().x, getMidpoint().y + 1, 7, GlobalVariable.UNIT * 5, 5));
-		_bullets.add(new Bullet(getMidpoint().x, getMidpoint().y, getMidpoint().x, getMidpoint().y - 1, 7, GlobalVariable.UNIT * 5, 5));
+		animation.play("attack");
+		_bullets.add(new Rock(getMidpoint().x, getMidpoint().y, getMidpoint().x + 1, getMidpoint().y, 7, GlobalVariable.UNIT * 5, 5));
+		_bullets.add(new Rock(getMidpoint().x, getMidpoint().y, getMidpoint().x - 1, getMidpoint().y, 7, GlobalVariable.UNIT * 5, 5));
+		_bullets.add(new Rock(getMidpoint().x, getMidpoint().y, getMidpoint().x, getMidpoint().y + 1, 7, GlobalVariable.UNIT * 5, 5));
+		_bullets.add(new Rock(getMidpoint().x, getMidpoint().y, getMidpoint().x, getMidpoint().y - 1, 7, GlobalVariable.UNIT * 5, 5));
 	}
 }
