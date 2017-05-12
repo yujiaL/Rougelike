@@ -143,7 +143,7 @@ class Tutorial extends FlxState
 		if (_current_level == 1 && _player._weapon == _weapons.getFirstAlive() && _doors.countLiving() == -1)
 		{
 			_doors.add(new Door(23 * GlobalVariable.UNIT, 6 * GlobalVariable.UNIT));
-			_texts.add(new FlxText(22.5 * GlobalVariable.UNIT, 14 * GlobalVariable.UNIT, 8 * GlobalVariable.UNIT, "Next Level", Math.round(GlobalVariable.UNIT / 2)));
+			_texts.add(new FlxText(21 * GlobalVariable.UNIT, 14 * GlobalVariable.UNIT, 8 * GlobalVariable.UNIT, "Next Level", Math.round(GlobalVariable.UNIT / 2)));
 		}
 		if (_current_level == 3 && _enemies.countLiving() == 0)
 		{
@@ -288,7 +288,7 @@ class Tutorial extends FlxState
 			var buttonE = new FlxSprite(7 * GlobalVariable.UNIT, 12 * GlobalVariable.UNIT);
 			buttonE.loadGraphic(AssetPaths.ButtonE__PNG);
 			_sprites.add(buttonE);
-			_texts.add(new FlxText(6.5 * GlobalVariable.UNIT, 14 * GlobalVariable.UNIT, 0, "Pick Up", Math.round(GlobalVariable.UNIT / 2)));
+			_texts.add(new FlxText(5.5 * GlobalVariable.UNIT, 14 * GlobalVariable.UNIT, 0, "Pick Up", Math.round(GlobalVariable.UNIT / 2)));
 			
 			var arrowKeys = new FlxSprite(14.5 * GlobalVariable.UNIT, 11 * GlobalVariable.UNIT);
 			arrowKeys.loadGraphic(AssetPaths.ArrowKeys__PNG);
@@ -314,14 +314,14 @@ class Tutorial extends FlxState
 			var spaceBar = new FlxSprite(14 * GlobalVariable.UNIT, 12 * GlobalVariable.UNIT);
 			spaceBar.loadGraphic(AssetPaths.SpaceBar__PNG);
 			_sprites.add(spaceBar);
-			_texts.add(new FlxText(10.5 * GlobalVariable.UNIT, 14 * GlobalVariable.UNIT, 0, "Hold to charge.	Release to attack.", Math.round(GlobalVariable.UNIT / 2)));
+			_texts.add(new FlxText(10.5 * GlobalVariable.UNIT, 14 * GlobalVariable.UNIT, 0, "Hold to charge.    Release to attack.", Math.round(GlobalVariable.UNIT / 2)));
 			_current_level = 2;
 		}
 		
 		if (Level == 3)
 		{
 			_enemies.add(new RockRandomBoy(8 * GlobalVariable.UNIT, 8 * GlobalVariable.UNIT, _enemy_bullets));
-			_texts.add(new FlxText(9 * GlobalVariable.UNIT, 14 * GlobalVariable.UNIT, 0, "Hit with maximum power!", Math.round(GlobalVariable.UNIT)));
+			_texts.add(new FlxText(9 * GlobalVariable.UNIT, 14 * GlobalVariable.UNIT, 0, "Hit with maximum power!", Math.round(GlobalVariable.UNIT / 2)));
 			_current_level = 3;
 		}
 		

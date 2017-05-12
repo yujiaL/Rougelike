@@ -2,6 +2,7 @@ package weapons;
 
 import creatures.Creature;
 
+import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.math.FlxPoint;
 import flixel.util.FlxColor;
@@ -15,6 +16,13 @@ class Bounce extends Bullet
 		
 		elasticity = 1;
 		
-		makeGraphic(Math.round(GlobalVariable.UNIT * 0.5), Math.round(GlobalVariable.UNIT * 0.5), FlxColor.RED);
+		loadGraphic(AssetPaths.MagicBullet__PNG, false, Math.round(GlobalVariable.UNIT / 2), Math.round(GlobalVariable.UNIT / 2));
+	}
+	
+	override public function update(elapsed:Float):Void
+	{
+		angle += FlxG.elapsed * 120;
+		
+		super.update(elapsed);
 	}
 }

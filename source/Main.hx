@@ -1,7 +1,7 @@
 package;
 
 import states.TitleState;
-
+import flixel.system.FlxAssets;
 import flixel.FlxGame;
 import openfl.display.Sprite;
 
@@ -13,13 +13,18 @@ class Main extends Sprite
 	public function new()
 	{
 		super();
-		var gameId:Int = 1700;
-		var gameKey:String = "86ba54e08dfe7dc76e36075f8c819700";
-		var gameName:String = "hairyball";
-		var categoryId:Int = 1;
-
+		
+		// Change font.
+		FlxAssets.FONT_DEFAULT = AssetPaths.m04__TTF;
+		
+		// Loggings.
 		if (GlobalVariable.LOGGING)
 		{
+			var gameId:Int = 1700;
+			var gameKey:String = "86ba54e08dfe7dc76e36075f8c819700";
+			var gameName:String = "hairyball";
+			var categoryId:Int = 1;
+			
 			Main.LOGGER = new CapstoneLogger(gameId, gameName, gameKey, categoryId, 1, true);
 			
 			// Retrieve the user (saved in local storage for later)

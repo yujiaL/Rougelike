@@ -2,46 +2,32 @@ package states;
 
 import flixel.FlxState;
 import flixel.FlxG;
-import flixel.ui.FlxButton;
+import flixel.addons.ui.FlxButtonPlus;
 import flixel.text.FlxText;
-import flixel.tweens.FlxTween;
-import flixel.tweens.FlxEase;
-import flixel.util.FlxSpriteUtil;
 
 class TitleState extends FlxState
 {
 	
 	private var _background:TitleBackground;
-	private var _message:FlxText;
-	private var _tutorialText:FlxText;
 	
-	private var _tutorialBtn:FlxButton;
-	private var _gameBtn:FlxButton;
+	private var _tutorialBtn:FlxButtonPlus;
+	private var _gameBtn:FlxButtonPlus;
 
 	override public function create():Void
 	{
 		_background = new TitleBackground(0, 0);
 		add(_background);
 		
-		/*
-		_tutorialText = new FlxText(0, 0, 0, "Press T for tutorial! ", GlobalVariable.UNIT);
-		_tutorialText.x = FlxG.width / 2 - _tutorialText.width / 2;
-		_tutorialText.y = FlxG.height * 4 / 5;
-		FlxSpriteUtil.flicker(_tutorialText, 0, 0.5);
-		add(_tutorialText);
-		
-		_message = new FlxText(0, 0, 0, "Press Space to Start! ", GlobalVariable.UNIT);
-		_message.x = FlxG.width / 2 - _message.width / 2;
-		_message.y = FlxG.height * 4 / 5 + GlobalVariable.UNIT * 1.5;
-		FlxSpriteUtil.flicker(_message, 0, 0.5);
-		add(_message);*/
-		
-		_tutorialBtn = new FlxButton(0, 0, "Tutorial", playTutorial);
+		_tutorialBtn = new FlxButtonPlus(0, 0, playTutorial, "Play Tutorial", GlobalVariable.UNIT * 8, GlobalVariable.UNIT);
+		_tutorialBtn.textNormal.size = Math.round(GlobalVariable.UNIT / 2);
+		_tutorialBtn.textHighlight.size = Math.round(GlobalVariable.UNIT / 2);
 		_tutorialBtn.screenCenter();
 		_tutorialBtn.y = FlxG.height * 4 / 5;
 		add(_tutorialBtn);
 		
-		_gameBtn = new FlxButton(0, 0, "Start Game", playGame);
+		_gameBtn = new FlxButtonPlus(0, 0, playGame, "Play Game", GlobalVariable.UNIT * 8, GlobalVariable.UNIT);
+		_gameBtn.textNormal.size = Math.round(GlobalVariable.UNIT / 2);
+		_gameBtn.textHighlight.size = Math.round(GlobalVariable.UNIT / 2);
 		_gameBtn.screenCenter();
 		_gameBtn.y = _tutorialBtn.y + GlobalVariable.UNIT * 1.5;
 		add(_gameBtn);

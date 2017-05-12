@@ -14,9 +14,19 @@ class MagicWand extends Weapon
 	{
 		super(X, Y, bullets);
 		
-		makeGraphic(Math.round(GlobalVariable.UNIT * 0.5), Math.round(GlobalVariable.UNIT * 1.5), FlxColor.RED);
+		loadGraphic(AssetPaths.MagicWand__PNG, true, GlobalVariable.UNIT, GlobalVariable.UNIT);
+		setFacingFlip(FlxObject.LEFT, true, false);
+		animation.add("lr", [0], 6, false);
 		
 		barPositions[0] = 50;
+	}
+	
+	override public function update(elapsed:Float):Void
+	{
+		if (facing == FlxObject.LEFT || facing == FlxObject.RIGHT)
+			animation.play("lr");
+		
+		super.update(elapsed);
 	}
 	
 	override public function attack(player:Player, position:Float, weight:Int, scale:Float):Void
