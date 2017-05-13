@@ -60,15 +60,15 @@ class HUD extends FlxTypedGroup<FlxSprite>
 		_limit4.visible = false;
 		add(_limit4);
 		
-		_level = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT, 0, "Level: ", Math.round(GlobalVariable.UNIT / 2));
+		_level = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT, 0, "Level: ", GlobalVariable.FONT_SIZE);
 		add(_level);
 		
 		if (GlobalVariable.LOGGING)
 		{
-			_ticksText = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT * 2, 0, "Time pressed: ", Math.round(GlobalVariable.UNIT / 2));
+			_ticksText = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT * 2, 0, "Time pressed: ", GlobalVariable.FONT_SIZE);
 			add(_ticksText);
 			
-			_playerHpText = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT * 3, 0, "HP: ", Math.round(GlobalVariable.UNIT / 2));
+			_playerHpText = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT * 3, 0, "HP: ", GlobalVariable.FONT_SIZE);
 			add(_playerHpText);
 		}
 		

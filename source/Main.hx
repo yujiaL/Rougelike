@@ -15,7 +15,7 @@ class Main extends Sprite
 		super();
 		
 		// Change font.
-		FlxAssets.FONT_DEFAULT = AssetPaths.m04__TTF;
+		FlxAssets.FONT_DEFAULT = AssetPaths.Dventure__ttf;
 		
 		// Loggings.
 		if (GlobalVariable.LOGGING)
