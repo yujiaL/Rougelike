@@ -12,7 +12,7 @@ class DamageText extends FlxText
 	{
 		super(X, Y - GlobalVariable.UNIT / 4, 0, Damage + "", Size);
 		
-		setFormat(null, Math.round(GlobalVariable.FONT_SIZE / 2), FlxColor.RED);
+		setFormat(AssetPaths.VCR__ttf, Math.round(GlobalVariable.FONT_SIZE / 2), FlxColor.RED);
 		
 		kill();
 	}
