@@ -3,14 +3,11 @@ package weapons;
 import creatures.Player;
 
 import flixel.FlxG;
+import flixel.FlxObject;
 import flixel.util.FlxColor;
 import flixel.math.FlxPoint;
 import flixel.group.FlxGroup.FlxTypedGroup;
 
-/**
- * ...
- * @author 
- */
 class MagicWandPlus extends Weapon 
 {
 
@@ -18,9 +15,19 @@ class MagicWandPlus extends Weapon
 	{
 		super(X, Y, bullets);
 		
-		makeGraphic(Math.round(GlobalVariable.UNIT * 0.5), Math.round(GlobalVariable.UNIT * 1.5), FlxColor.PINK);
+		loadGraphic(AssetPaths.MagicWandPlus__png, true, GlobalVariable.UNIT, GlobalVariable.UNIT);
+		setFacingFlip(FlxObject.LEFT, true, false);
+		animation.add("lr", [0], 6, false);
 		
 		barPositions[0] = 50;
+	}
+	
+	override public function update(elapsed:Float):Void
+	{
+		if (facing == FlxObject.LEFT || facing == FlxObject.RIGHT)
+			animation.play("lr");
+		
+		super.update(elapsed);
 	}
 	
 	override public function attack(player:Player, position:Float, weight:Int, scale:Float):Void
@@ -33,7 +40,7 @@ class MagicWandPlus extends Weapon
 		// Damage calculator.
 		var damage = position * position / 1000 + FlxG.random.int(0, Math.round(position / 10 + 1));
 		
-		_bullets.add(new Bounce(x, y, XTarget, YTarget, Math.round(damage), scale));
+		_bullets.add(new BouncePlus(x, y, XTarget, YTarget, Math.round(damage), scale));
 		
 		// Effects.
 		if (position > barPositions[0] + weight) 
