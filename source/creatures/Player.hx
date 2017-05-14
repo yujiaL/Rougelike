@@ -26,14 +26,17 @@ class Player extends Creature
 	override public function new(?X:Float=0, ?Y:Float=0, health:Int) 
 	{
 		super(X, Y, health);
-		loadGraphic(AssetPaths.dango__png, true, Math.round(GlobalVariable.UNIT * 4.5), Math.round(GlobalVariable.UNIT * 1.5));
+		loadGraphic(AssetPaths.dango__png, true, Math.round(GlobalVariable.UNIT * 4.5), Math.round(GlobalVariable.UNIT * 4.5));
 		setFacingFlip(FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		
 		setSize(GlobalVariable.UNIT * 1.5, GlobalVariable.UNIT * 1.5);
-		offset.set(GlobalVariable.UNIT * 1.5, 0);
+		offset.set(GlobalVariable.UNIT * 1.5, GlobalVariable.UNIT * 1.5);
 		
-		animation.add("lr", [1, 2, 3, 2, 1], 6, false);
+		animation.add("lr", [0, 1, 0], 6, false);
+		animation.add("up", [2], 1, false);
+		animation.add("dn", [3], 1, false);
+		animation.add("fuzzy", [4], 1, false);
 		
 		// initialize player stats
 		_weapon = new Weapon(0, 0, null);
@@ -70,6 +73,8 @@ class Player extends Creature
 		// If no special state.
 		if (!_specialState.updateStates(this))
 			movement();
+		else if (_specialState._fall)
+			animation.play("fuzzy");
 		
 		super.update(elapsed);
 	}
@@ -86,10 +91,10 @@ class Player extends Creature
 				animation.play("lr");
 			case FlxObject.UP:
 				_weapon.hold(this.x + this.width / 2 - _weapon.width / 2, this.y - this.height / 2 - _weapon.height / 2 - _hairLength, facing);
-				animation.play("lr");
+				animation.play("up");
 			case FlxObject.DOWN:
 				_weapon.hold(this.x + this.width / 2 - _weapon.width / 2, this.y + this.height * 1.5 - _weapon.height / 2 + _hairLength, facing);
-				animation.play("lr");
+				animation.play("dn");
 		}
 	}
 	
