@@ -4,6 +4,7 @@ import flixel.FlxState;
 import flixel.FlxG;
 import flixel.addons.ui.FlxButtonPlus;
 import flixel.text.FlxText;
+import flixel.util.FlxColor;
 
 class TitleState extends FlxState
 {
@@ -18,18 +19,18 @@ class TitleState extends FlxState
 		_background = new TitleBackground(0, 0);
 		add(_background);
 		
-		_tutorialBtn = new FlxButtonPlus(0, 0, playTutorial, "Play Tutorial", GlobalVariable.UNIT * 8, GlobalVariable.UNIT);
-		_tutorialBtn.textNormal.size = Math.round(GlobalVariable.UNIT / 2);
-		_tutorialBtn.textHighlight.size = Math.round(GlobalVariable.UNIT / 2);
+		_tutorialBtn = new FlxButtonPlus(0, 0, playTutorial, "Play Tutorial", GlobalVariable.UNIT * 12, GlobalVariable.UNIT * 2);
+		_tutorialBtn.textNormal.size = Math.round(GlobalVariable.UNIT * 1.3);
+		_tutorialBtn.textHighlight.size = Math.round(GlobalVariable.UNIT * 1.3);
 		_tutorialBtn.screenCenter();
-		_tutorialBtn.y = FlxG.height * 4 / 5;
+		_tutorialBtn.y = FlxG.height * 2 / 3;
 		add(_tutorialBtn);
 		
-		_gameBtn = new FlxButtonPlus(0, 0, playGame, "Play Game", GlobalVariable.UNIT * 8, GlobalVariable.UNIT);
-		_gameBtn.textNormal.size = Math.round(GlobalVariable.UNIT / 2);
-		_gameBtn.textHighlight.size = Math.round(GlobalVariable.UNIT / 2);
+		_gameBtn = new FlxButtonPlus(0, 0, playGame, "Play Game", GlobalVariable.UNIT * 12, GlobalVariable.UNIT * 2);
+		_gameBtn.textNormal.size = Math.round(GlobalVariable.UNIT * 1.3);
+		_gameBtn.textHighlight.size = Math.round(GlobalVariable.UNIT * 1.3);
 		_gameBtn.screenCenter();
-		_gameBtn.y = _tutorialBtn.y + GlobalVariable.UNIT * 1.5;
+		_gameBtn.y = _tutorialBtn.y + GlobalVariable.UNIT * 2.5;
 		add(_gameBtn);
 		
 		super.create();

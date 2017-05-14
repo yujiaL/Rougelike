@@ -9,6 +9,6 @@ class Doughnut extends Item
 		weightChange = 5;
 		speedChange = GlobalVariable.UNIT * -1;
 		
-		loadGraphic(AssetPaths.donut__png, true, GlobalVariable.UNIT, GlobalVariable.UNIT);
+		loadGraphic(AssetPaths.chunk__png, true, GlobalVariable.UNIT, GlobalVariable.UNIT);
 	}
 }
