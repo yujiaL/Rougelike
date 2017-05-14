@@ -11,7 +11,9 @@ import flixel.util.FlxAxes;
 class HUD extends FlxTypedGroup<FlxSprite>
 {
 	private var _hpBar:FlxBar;
+	private var _hpIndicator:FlxText;
 	private var _chargeBar:FlxBar;
+	private var _chargeIndicator:FlxText;
 
 	private var _ticksText:FlxText;
 	private var _playerHpText:FlxText;
@@ -30,15 +32,25 @@ class HUD extends FlxTypedGroup<FlxSprite>
 		
 		_hpBar = new FlxBar(0, 0, LEFT_TO_RIGHT, cast(FlxG.width - GlobalVariable.UNIT * 2, Int), cast(GlobalVariable.UNIT / 2, Int));
 		_hpBar.screenCenter(FlxAxes.X);
-		_hpBar.y = FlxG.height - GlobalVariable.UNIT * 2;
+		_hpBar.y = FlxG.height - GlobalVariable.UNIT * 2.5;
 		_hpBar.createFilledBar(0xff464646, 0xff00FF00, true, FlxColor.BLACK);
 		add(_hpBar);
+		
+		_hpIndicator = new FlxText(0, 0, 0, "Health", GlobalVariable.FONT_SIZE);
+		_hpIndicator.screenCenter(FlxAxes.X);
+		_hpIndicator.y = FlxG.height - GlobalVariable.UNIT * 3.5;
+		add(_hpIndicator);
 		
 		_chargeBar = new FlxBar(0, 0, LEFT_TO_RIGHT, cast(FlxG.width - GlobalVariable.UNIT * 2, Int), cast(GlobalVariable.UNIT / 2, Int));
 		_chargeBar.screenCenter(FlxAxes.X);
 		_chargeBar.y = FlxG.height - GlobalVariable.UNIT * 1;
 		_chargeBar.createFilledBar(0xff464646, 0xffFFFF33, true, FlxColor.BLACK);
 		add(_chargeBar);
+		
+		_chargeIndicator = new FlxText(0, 0, 0, "Charge", GlobalVariable.FONT_SIZE);
+		_chargeIndicator.screenCenter(FlxAxes.X);
+		_chargeIndicator.y = FlxG.height - GlobalVariable.UNIT * 2;
+		add(_chargeIndicator);
 		
 		_limit1 = new FlxSprite(0, 0);
 		_limit1.makeGraphic(cast(GlobalVariable.UNIT / 8, Int), cast(GlobalVariable.UNIT / 2, Int), FlxColor.ORANGE);
@@ -60,7 +72,7 @@ class HUD extends FlxTypedGroup<FlxSprite>
 		_limit4.visible = false;
 		add(_limit4);
 		
-		_level = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT, 0, "Level: ", GlobalVariable.FONT_SIZE);
+		_level = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT * 0.5, 0, "Level: ", GlobalVariable.FONT_SIZE);
 		add(_level);
 		
 		if (GlobalVariable.LOGGING)
