@@ -57,7 +57,7 @@ class Pistol extends Weapon
 		
 		var damage = position * position / 1250 + 0.3;
 		
-		_bullets.add(new PistolBullet(getMidpoint().x, getMidpoint().y, XTarget, YTarget, Math.round(damage), scale * 0.5));
+		_bullets.add(new PistolBullet(getMidpoint().x, getMidpoint().y, XTarget, YTarget, Math.round(damage), scale * 0.4));
 		
 		if (position > barPositions[0] + weight) 
 		{
@@ -82,7 +82,7 @@ private class PistolBullet extends Bullet
 {
 	public function new(X:Float, Y:Float,  XTarget:Float, YTarget:Float, Damage:Int, Scale:Float)
 	{
-		super(X, Y, XTarget, YTarget, Damage, GlobalVariable.UNIT * 12, Scale * 2);
+		super(X, Y, XTarget, YTarget, Damage, GlobalVariable.UNIT * 12, Scale);
 		
 		loadGraphic(AssetPaths.PistolBullet__png);
 	}
