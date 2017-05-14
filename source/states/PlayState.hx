@@ -186,7 +186,7 @@ class PlayState extends FlxState
 		if (!ExistInBound() && _doors.countLiving() == -1)
 		{
 			var newDoor = new Door();
-			randomizeOSPosition(newDoor);
+			randomizeOSPositionSafe(newDoor);
 			_doors.add(newDoor);
 			
 			addItem();
@@ -352,10 +352,9 @@ class PlayState extends FlxState
 	{
 		// Player.
 		_playerBullets.clear();
-		randomizeOSPosition(_player);
+		randomizeOSPositionSafe(_player);
 		
 		_ticks = 0;
-		
 		
 		// Add Enemies.
 		_enemy_bullets.clear();
@@ -377,7 +376,6 @@ class PlayState extends FlxState
 			_obstacles.add(obstacle);
 		}
 		
-		
 		// Remove item.
 		_items.clear();
 		
@@ -386,6 +384,18 @@ class PlayState extends FlxState
 		
 		// Remove door.
 		_doors.clear();
+	}
+	
+	private function randomizeOSPositionSafe(OS:FlxSprite, ?Object2:FlxObject):Void
+	{
+		// Pick a random place.
+		OS.x = FlxG.random.int(GlobalVariable.UNIT * 2, 29 * GlobalVariable.UNIT);
+		OS.y = FlxG.random.int(GlobalVariable.UNIT * 2, 15 * GlobalVariable.UNIT);
+		
+		// Check overlap.
+		FlxG.overlap(OS, _enemies, randomizeOSPosition);
+		FlxG.overlap(OS, _player, randomizeOSPosition);
+		FlxG.overlap(OS, _doors, randomizeOSPosition);
 	}
 	
 	private function randomizeOSPosition(OS:FlxSprite, ?Object2:FlxObject):Void
