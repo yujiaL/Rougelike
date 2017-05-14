@@ -13,16 +13,29 @@ class Pistol extends Weapon
 	{
 		super(X, Y, bullets);
 		
-		loadGraphic(AssetPaths.pistol__png, true, GlobalVariable.UNIT, GlobalVariable.UNIT);
+		loadGraphic(AssetPaths.Pistol__png, true, GlobalVariable.UNIT, GlobalVariable.UNIT);
 		
-		setFacingFlip(FlxObject.LEFT, false, false);
-		setFacingFlip(FlxObject.RIGHT, true, false);
+		setFacingFlip(FlxObject.LEFT, true, false);
+		setFacingFlip(FlxObject.RIGHT, false, false);
 		setFacingFlip(FlxObject.UP, false, false);
 		setFacingFlip(FlxObject.DOWN, false, true);
+		
+		animation.add("lr", [0], 1, false);
+		animation.add("ud", [1], 1, false);
 		
 		facing = FlxObject.RIGHT;
 		
 		barPositions[0] = 85;
+	}
+	
+	override public function update(elapsed:Float):Void
+	{
+		if (facing == FlxObject.LEFT || facing == FlxObject.RIGHT)
+			animation.play("lr");
+		if (facing == FlxObject.UP || facing == FlxObject.DOWN)
+			animation.play("ud");
+		
+		super.update(elapsed);
 	}
 	
 	override public function attack(player:Player, position:Float, weight:Int, scale:Float):Void
@@ -71,6 +84,6 @@ private class PistolBullet extends Bullet
 	{
 		super(X, Y, XTarget, YTarget, Damage, GlobalVariable.UNIT * 12, Scale);
 		
-		makeGraphic(Math.round(GlobalVariable.UNIT * 0.5), Math.round(GlobalVariable.UNIT * 0.5), FlxColor.PINK);
+		loadGraphic(AssetPaths.PistolBullet__png);
 	}
 }

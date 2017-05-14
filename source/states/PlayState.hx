@@ -183,7 +183,7 @@ class PlayState extends FlxState
 		}
 		
 		// When leve is finished.
-		if (!ExistInBount() && _doors.countLiving() == -1)
+		if (!ExistInBound() && _doors.countLiving() == -1)
 		{
 			var newDoor = new Door();
 			randomizeOSPosition(newDoor);
@@ -258,7 +258,7 @@ class PlayState extends FlxState
 			B.kill();
 	}
 	
-	private function ExistInBount():Bool
+	private function ExistInBound():Bool
 	{
 		for (E in _enemies)
 			if (E.alive && E.x > 0 && E.x < FlxG.width && E.y > 0 && E.y < FlxG.height)

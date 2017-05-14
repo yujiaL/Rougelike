@@ -21,8 +21,8 @@ class BoxingGlove extends Weapon
 		setFacingFlip(FlxObject.UP, false, false);
 		setFacingFlip(FlxObject.DOWN, false, true);
 		
-		animation.add("lr", [0], 6, false);
-		animation.add("ud", [1], 6, false);
+		animation.add("lr", [0], 1, false);
+		animation.add("ud", [1], 1, false);
 		
 		facing = FlxObject.RIGHT;
 		
