@@ -71,7 +71,6 @@ class PlayState extends FlxState
 	 */
 	private var _enemies:FlxTypedGroup<Enemy>;
 	private var _enemy_bullets:FlxTypedGroup<Bullet>;
-	private var _enemyMagicBullets:FlxTypedGroup<Bullet>;
 	
 	/**
 	 * Obstacles.
@@ -109,13 +108,9 @@ class PlayState extends FlxState
 		_playerBullets = new FlxTypedGroup<Bullet>();
 		add(_playerBullets);
 		
-	
 		// Create initial room.
 		_doors = new FlxTypedGroup<Door>();
-		var door = new Door();
-		door.screenCenter(FlxAxes.X);
-		door.y = GlobalVariable.UNIT;
-		_doors.add(door);
+		_doors.add(new Door(15 * GlobalVariable.UNIT, GlobalVariable.UNIT));
 		add(_doors);
 
 		// Enemies.
@@ -123,11 +118,16 @@ class PlayState extends FlxState
 		add(_enemy_bullets);
 		_enemies = new FlxTypedGroup<Enemy>();
 		add(_enemies);
-		//_enemyMagicBullets = new FlxTypedGroup<Bullet>();
-		//add(_enemyMagicBullets);
 		
 		// Obstacles.
 		_obstacles = new FlxTypedGroup<Obstacle>();
+		for (i in 1...5)
+		{
+			_obstacles.add(new Small_Rock(13 * GlobalVariable.UNIT, GlobalVariable.UNIT * i));
+			_obstacles.add(new Small_Rock(18 * GlobalVariable.UNIT, GlobalVariable.UNIT * i));
+		}
+		for (i in 14...18)
+			_obstacles.add(new Small_Rock(i * GlobalVariable.UNIT, GlobalVariable.UNIT * 4));
 		add(_obstacles);
 		
 		// Add item.
@@ -138,8 +138,8 @@ class PlayState extends FlxState
 		_weapons = new FlxTypedGroup<Weapon>();
 		_weapons.add(new BoxingGlove(GlobalVariable.UNIT * 14, GlobalVariable.UNIT * 6, _playerBullets));
 		_weapons.add(new Pistol(GlobalVariable.UNIT * 17, GlobalVariable.UNIT * 6, _playerBullets));
-		_weapons.add(new MagicWand(GlobalVariable.UNIT * 20, GlobalVariable.UNIT * 6, _playerBullets));
-		_weapons.add(new MagicWandPlus(GlobalVariable.UNIT * 23, GlobalVariable.UNIT * 6, _playerBullets));
+		//_weapons.add(new MagicWand(GlobalVariable.UNIT * 20, GlobalVariable.UNIT * 6, _playerBullets));
+		//_weapons.add(new MagicWandPlus(GlobalVariable.UNIT * 23, GlobalVariable.UNIT * 6, _playerBullets));
 		add(_weapons);
 		
 		// HUD.
@@ -149,8 +149,8 @@ class PlayState extends FlxState
 		//add(_pause);
 		_damages = new FlxTypedGroup<FlxText>();
 		add(_damages);
-		_level = 0;
 		
+		_level = 0;
 		if (GlobalVariable.LOGGING)
 			Main.LOGGER.logLevelStart(_level);
 		
@@ -170,17 +170,17 @@ class PlayState extends FlxState
 		}
 		
 		// Debug.
-		if (FlxG.keys.justPressed.I)
-		{
-			for (i in 1...6)
-			{
-				_items.add(new Broccoli(GlobalVariable.UNIT * 2, GlobalVariable.UNIT * 2 * i));
-				_items.add(new Doughnut(GlobalVariable.UNIT * 4, GlobalVariable.UNIT * 2 * i));
-				_items.add(new HairPotion(GlobalVariable.UNIT * 6, GlobalVariable.UNIT * 2 * i));
-				_items.add(new HairShortenPotion(GlobalVariable.UNIT * 8, GlobalVariable.UNIT * 2 * i));
-			}
-			_weapons.add(new SuperMagicWand(GlobalVariable.UNIT * 10, GlobalVariable.UNIT * 2, _playerBullets));
-		}
+		//if (FlxG.keys.justPressed.I)
+		//{
+		//	for (i in 1...6)
+		//	{
+		//		_items.add(new Broccoli(GlobalVariable.UNIT * 2, GlobalVariable.UNIT * 2 * i));
+		//		_items.add(new Doughnut(GlobalVariable.UNIT * 4, GlobalVariable.UNIT * 2 * i));
+		//		_items.add(new HairPotion(GlobalVariable.UNIT * 6, GlobalVariable.UNIT * 2 * i));
+		//		_items.add(new HairShortenPotion(GlobalVariable.UNIT * 8, GlobalVariable.UNIT * 2 * i));
+		//	}
+		//	_weapons.add(new SuperMagicWand(GlobalVariable.UNIT * 10, GlobalVariable.UNIT * 2, _playerBullets));
+		//}
 		
 		// When leve is finished.
 		if (!ExistInBound() && _doors.countLiving() == -1)
@@ -190,10 +190,9 @@ class PlayState extends FlxState
 			_doors.add(newDoor);
 			
 			addItem();
+			
 			if (FlxG.random.bool(30))
-			{
 				addWeapon();
-			}
 		}
 
 		// Set new room,
@@ -231,24 +230,22 @@ class PlayState extends FlxState
 		// Update hud.
 		_hud.updateHUD(_ticks, _player._health, _level, _ticks * _player._chargeSpeed, _player._weapon.barPositions, _player._weight);	
 		
-		// If special state.
-		if (_player._specialState.updateStates(_player))
+		// If no special state.
+		if (!_player._specialState.updateStates(_player))
 		{
-			return;
-		}
-		
-		// Attack.
-		playerAttack();
-		
-		//   Check stats.
-		//if (FlxG.keys.justPressed.Q)
-		//	_pause.openOrClosePause();
-		
-		// pick up items
-		if (FlxG.keys.justReleased.E)
-		{
-			FlxG.overlap(_player, _items, playerPickItem);
-			FlxG.overlap(_player, _weapons, playerPickWeapon);
+			// Attack.
+			playerAttack();
+			
+			//   Check stats.
+			//if (FlxG.keys.justPressed.Q)
+			//	_pause.openOrClosePause();
+			
+			// pick up items
+			if (FlxG.keys.justReleased.E)
+			{
+				FlxG.overlap(_player, _items, playerPickItem);
+				FlxG.overlap(_player, _weapons, playerPickWeapon);
+			}
 		}
 	}
 	
@@ -363,18 +360,7 @@ class PlayState extends FlxState
 		
 		// Add obstacles.
 		_obstacles.clear();
-		for (i in 0...FlxG.random.int(4, 8))
-		{
-			var obstacle = new Small_Rock();
-			randomizeOSPosition(obstacle);
-			_obstacles.add(obstacle);
-		}
-		for (i in 0...FlxG.random.int(3, 6))
-		{
-			var obstacle = new Medium_Rock();
-			randomizeOSPosition(obstacle);
-			_obstacles.add(obstacle);
-		}
+		addObstacles();
 		
 		// Remove item.
 		_items.clear();
@@ -416,7 +402,23 @@ class PlayState extends FlxState
 			W.destroy();
 	}
 	
-	private function addEnemy()
+	private function addObstacles():Void
+	{
+		for (i in 0...FlxG.random.int(4, 8))
+		{
+			var obstacle = new Small_Rock();
+			randomizeOSPosition(obstacle);
+			_obstacles.add(obstacle);
+		}
+		for (i in 0...FlxG.random.int(3, 6))
+		{
+			var obstacle = new Medium_Rock();
+			randomizeOSPosition(obstacle);
+			_obstacles.add(obstacle);
+		}
+	}
+	
+	private function addEnemy():Void
 	{
 		if (_level <= 6)
 			for (i in 1...(_level + 2 - 1))

@@ -67,6 +67,16 @@ class Player extends Creature
 			speed = GlobalVariable.UNIT * 3;
 		if (speed > GlobalVariable.UNIT * 13)
 			speed = GlobalVariable.UNIT * 13;
+			
+		if (_weight < -25)
+			_weight = -25;
+		if (_weight > 25)
+			_weight = 25;
+			
+		if (_attackScale < 1)
+			_attackScale = 1;
+		if (_attackScale > 5)
+			_attackScale = 5;
 		
 		holdWeapon();
 		
