@@ -17,6 +17,9 @@ class MagicWandPlus extends Weapon
 		
 		loadGraphic(AssetPaths.MagicWandPlus__png, true, GlobalVariable.UNIT, GlobalVariable.UNIT);
 		setFacingFlip(FlxObject.LEFT, true, false);
+		setFacingFlip(FlxObject.RIGHT, false, false);
+		setFacingFlip(FlxObject.UP, false, false);
+		setFacingFlip(FlxObject.DOWN, false, true);
 		animation.add("lr", [0], 6, false);
 		
 		barPositions[0] = 50;
