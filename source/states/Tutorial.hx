@@ -98,7 +98,7 @@ class Tutorial extends FlxState
 		_playerBullets = new FlxTypedGroup<Bullet>();
 		add(_playerBullets);
 		
-		//createNewRoom();
+		// Doors.
 		_doors = new FlxTypedGroup<Door>();
 		add(_doors);
 
@@ -163,31 +163,31 @@ class Tutorial extends FlxState
 		FlxG.overlap(_obstacles, _enemy_bullets, obstacleGetsHit);
 		FlxG.overlap(_obstacles, _playerBullets, obstacleGetsHit);
 		
-		// Remove all bullets that hits one or more targets.
-		_enemy_bullets.forEachAlive(removeBullet);
-		_playerBullets.forEachAlive(removeBullet);
-		
 		// Collide with tiles.
 		FlxG.collide(_player, _map);
 		FlxG.collide(_enemies, _map);
 		FlxG.collide(_obstacles, _player);
 		FlxG.collide(_obstacles, _enemies);
 		
+		// Remove all bullets that hits one or more targets.
+		_enemy_bullets.forEachAlive(removeBullet);
+		_playerBullets.forEachAlive(removeBullet);
+		
 		// Update hud.
 		_hud.updateHUD(_ticks, _player._health, 0, _ticks * _player._chargeSpeed, _player._weapon.barPositions, _player._weight);
 		
 		// If special state.
-		if (_player._specialState.updateStates(_player))
-			return;
-		
-		// Attack.
-		playerAttack();
-		
-		// pick up items
-		if (FlxG.keys.justReleased.E)
+		if (!_player._specialState.updateStates(_player))
 		{
-			FlxG.overlap(_player, _items, playerPickItem);
-			FlxG.overlap(_player, _weapons, playerPickWeapon);
+			// Attack.
+			playerAttack();
+			
+			// pick up items
+			if (FlxG.keys.justReleased.E)
+			{
+				FlxG.overlap(_player, _items, playerPickItem);
+				FlxG.overlap(_player, _weapons, playerPickWeapon);
+			}
 		}
 	}
 	
@@ -207,7 +207,13 @@ class Tutorial extends FlxState
 	{
 		if (E.barded)
 		{
-			P.receiveDamage(E.bardDamage);
+			if (P.receiveDamage(E.bardDamage))
+			{
+				if (GlobalVariable.LOGGING)
+					Main.LOGGER.logLevelAction(LoggingActions.ENEMY_GETSHIT);
+				
+				_damages.add(new DamageText(P.x, P.y, E.bardDamage));
+			}
 		}
 		separateCreatures(P, E);
 	}
@@ -221,13 +227,22 @@ class Tutorial extends FlxState
 	
 	private function playerGetsHit(P:Player, B:Bullet):Void
 	{
-		P.receiveDamage(B._damage);
-		B.updateTarget(P);
-		B.hit = true;
+		if (P.receiveDamage(B._damage))
+		{
+			if (GlobalVariable.LOGGING)
+				Main.LOGGER.logLevelAction(LoggingActions.PLAYER_GETSHIT);
+		
+			_damages.add(new DamageText(P.x, P.y, B._damage));
+			B.updateTarget(P);
+			B.hit = true;
+		}
 	}
 	
 	private function enemyGetsHit(E:Enemy, B:Bullet):Void
 	{
+		if (GlobalVariable.LOGGING)
+			Main.LOGGER.logLevelAction(LoggingActions.ENEMY_GETSHIT);
+		
 		_damages.add(new DamageText(E.x, E.y, B._damage));
 		E._health -= B._damage;
 		B.updateTarget(E);
@@ -262,6 +277,9 @@ class Tutorial extends FlxState
 			_ticks++;
 		}
 		if (FlxG.keys.justReleased.SPACE) {
+
+			if (GlobalVariable.LOGGING)
+				Main.LOGGER.logLevelAction(LoggingActions.PLAYER_ATTACK);
 			_player.attack(_ticks);
 			_ticks = 0;
 		}
