@@ -75,7 +75,7 @@ class HUD extends FlxTypedGroup<FlxSprite>
 		_level = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT * 0.5, 0, "Level: ", GlobalVariable.FONT_SIZE);
 		add(_level);
 		
-		if (GlobalVariable.LOGGING)
+		if (GlobalVariable.DEBUG)
 		{
 			_ticksText = new FlxText(GlobalVariable.UNIT, GlobalVariable.UNIT * 2, 0, "Time pressed: ", GlobalVariable.FONT_SIZE);
 			add(_ticksText);
@@ -92,7 +92,7 @@ class HUD extends FlxTypedGroup<FlxSprite>
 	
 	public function updateHUD(TimePressed:Int = 0, PlayerHP:Int = 0, Level:Int = 0, BarValue:Float = 0, Limits:Array<Int>, Weight:Int):Void
     {
-		if (GlobalVariable.LOGGING)
+		if (GlobalVariable.DEBUG)
 		{
 			_ticksText.text = "Time pressed: " + TimePressed;
 			_playerHpText.text = "HP: " + PlayerHP;
