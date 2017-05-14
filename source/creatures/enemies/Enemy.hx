@@ -39,11 +39,6 @@ class Enemy extends Creature
 	{
 		if (_health <= 0)
 			kill();
-			
-		if (x < 0 && x > FlxG.width)
-			kill();
-		if (y < 0 && y > FlxG.height)
-			kill();
 		
 		super.update(elapsed);
 	}

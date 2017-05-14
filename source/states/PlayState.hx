@@ -183,7 +183,7 @@ class PlayState extends FlxState
 		}
 		
 		// When leve is finished.
-		if (_enemies.countLiving() == 0 && _doors.countLiving() == -1)
+		if (!ExistInBount() && _doors.countLiving() == -1)
 		{
 			var newDoor = new Door();
 			randomizeOSPosition(newDoor);
@@ -194,7 +194,6 @@ class PlayState extends FlxState
 			{
 				addWeapon();
 			}
-			
 		}
 
 		// Set new room,
@@ -237,7 +236,6 @@ class PlayState extends FlxState
 		{
 			return;
 		}
-			
 		
 		// Attack.
 		playerAttack();
@@ -258,6 +256,14 @@ class PlayState extends FlxState
 	{
 		if (B.hit)
 			B.kill();
+	}
+	
+	private function ExistInBount():Bool
+	{
+		for (E in _enemies)
+			if (E.alive && E.x > 0 && E.x < FlxG.width && E.y > 0 && E.y < FlxG.height)
+				return true;
+		return false;
 	}
 	
 	private function playerTouchEnemy(P:Player, E:Enemy):Void
