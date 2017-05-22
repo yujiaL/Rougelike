@@ -30,8 +30,8 @@ class Player extends Creature
 		setFacingFlip(FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		
-		setSize(GlobalVariable.UNIT * 1.5, GlobalVariable.UNIT * 1.5);
-		offset.set(GlobalVariable.UNIT * 1.5, GlobalVariable.UNIT * 1.5);
+		setSize(GlobalVariable.UNIT * 1.3, GlobalVariable.UNIT * 1.3);
+		offset.set(GlobalVariable.UNIT * 1.6, GlobalVariable.UNIT * 1.6);
 		
 		animation.add("lr", [0, 1, 0], 6, false);
 		animation.add("up", [2], 1, false);

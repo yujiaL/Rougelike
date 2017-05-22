@@ -324,9 +324,9 @@ class Tutorial extends FlxState
 			_sprites.add(spaceBar);
 			_texts.add(new FlxText(5.5 * GlobalVariable.UNIT, 14 * GlobalVariable.UNIT, 0, "Pick Up", GlobalVariable.FONT_SIZE));
 			
-			var arrowKeys = new FlxSprite(14.5 * GlobalVariable.UNIT, 11 * GlobalVariable.UNIT);
-			arrowKeys.loadGraphic(AssetPaths.ArrowKeys__PNG);
-			_sprites.add(arrowKeys);
+			var moveKeys = new FlxSprite(14.5 * GlobalVariable.UNIT, 11 * GlobalVariable.UNIT);
+			moveKeys.loadGraphic(AssetPaths.MoveKeys__png);
+			_sprites.add(moveKeys);
 			_texts.add(new FlxText(14.5 * GlobalVariable.UNIT, 14 * GlobalVariable.UNIT, 0, "Move", GlobalVariable.FONT_SIZE));
 		}
 		
