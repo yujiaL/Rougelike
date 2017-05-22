@@ -90,7 +90,7 @@ class PlayState extends FlxState
 	 */
 	private var _hud:HUD;
 	private var _pause:PauseHUD;
-	private var _damages:FlxTypedGroup<FlxText>;
+	private var _floatingText:FlxTypedGroup<FlxText>;
 	private var _level:Int;
 	
 	override public function create():Void
@@ -154,8 +154,11 @@ class PlayState extends FlxState
 		add(_hud);
 		//_pause = new PauseHUD();
 		//add(_pause);
-		_damages = new FlxTypedGroup<FlxText>();
-		add(_damages);
+		_floatingText = new FlxTypedGroup<FlxText>();
+		add(_floatingText);
+		
+		if (GlobalVariable.DEBUG)
+			_floatingText.add(new hud.ClearText());
 		
 		_level = 0;
 		if (GlobalVariable.LOGGING)
@@ -189,9 +192,11 @@ class PlayState extends FlxState
 		//	_weapons.add(new SuperMagicWand(GlobalVariable.UNIT * 10, GlobalVariable.UNIT * 2, _playerBullets));
 		//}
 		
-		// When leve is finished.
+		// When the level is finished.
 		if (!ExistInBound() && _doors.countLiving() == -1)
 		{
+			_floatingText.add(new hud.ClearText());
+			
 			var newDoor = new Door();
 			randomizeOSPositionSafe(newDoor);
 			_doors.add(newDoor);
@@ -264,7 +269,7 @@ class PlayState extends FlxState
 				if (GlobalVariable.LOGGING)
 					Main.LOGGER.logLevelAction(LoggingActions.ENEMY_GETSHIT);
 				
-				_damages.add(new DamageText(P.x, P.y, E.bardDamage));
+				_floatingText.add(new DamageText(P.x, P.y, E.bardDamage));
 			}
 		}
 		separateCreatures(P, E);
@@ -284,7 +289,7 @@ class PlayState extends FlxState
 			if (GlobalVariable.LOGGING)
 				Main.LOGGER.logLevelAction(LoggingActions.PLAYER_GETSHIT);
 		
-			_damages.add(new DamageText(P.x, P.y, B._damage));
+			_floatingText.add(new DamageText(P.x, P.y, B._damage));
 			B.updateTarget(P);
 			B.hit = true;
 		}
@@ -295,7 +300,7 @@ class PlayState extends FlxState
 		if (GlobalVariable.LOGGING)
 			Main.LOGGER.logLevelAction(LoggingActions.ENEMY_GETSHIT);
 		
-		_damages.add(new DamageText(E.x, E.y, B._damage));
+		_floatingText.add(new DamageText(E.x, E.y, B._damage));
 		E._health -= B._damage;
 		B.updateTarget(E);
 		B.hit = true;
@@ -303,7 +308,7 @@ class PlayState extends FlxState
 	
 	private function obstacleGetsHit(O:Obstacle, B:Bullet):Void
 	{
-		_damages.add(new DamageText(O.x, O.y, B._damage));
+		_floatingText.add(new DamageText(O.x, O.y, B._damage));
 		O._health -= B._damage;
 		B.hit = true;
 	}

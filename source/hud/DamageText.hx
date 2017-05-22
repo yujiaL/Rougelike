@@ -7,7 +7,6 @@ import flixel.tweens.FlxEase;
 
 class DamageText extends FlxText 
 {
-
 	public function new(X:Float=0, Y:Float=0, Damage:Int, Size:Int=28) 
 	{
 		super(X, Y - GlobalVariable.UNIT / 4, 0, Damage + "", Size);
