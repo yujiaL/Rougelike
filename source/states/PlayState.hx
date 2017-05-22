@@ -230,9 +230,8 @@ class PlayState extends FlxState
 		// Update hud.
 		_hud.updateHUD(_ticks, _player._health, _level, _ticks * _player._chargeSpeed, _player._weapon.barPositions, _player._weight);	
 		
-		// Attack.
-		// If no special state.
-		playerAttack();
+		// Player action.
+		playerAction();
 	}
 	
 	private function removeBullet(B:Bullet):Void
@@ -312,7 +311,7 @@ class PlayState extends FlxState
 		P.pickUpWeapon(W);
 	}
 	
-	private function playerAttack():Void
+	private function playerAction():Void
 	{
 		if (!_player._specialState.updateStates(_player))
 		{

@@ -185,19 +185,8 @@ class Tutorial extends FlxState
 		// Update hud.
 		_hud.updateHUD(_ticks, _player._health, 0, _ticks * _player._chargeSpeed, _player._weapon.barPositions, _player._weight);
 		
-		// If special state.
-		if (!_player._specialState.updateStates(_player))
-		{
-			// Attack.
-			playerAttack();
-			
-			// pick up items
-			if (FlxG.keys.justReleased.E)
-			{
-				FlxG.overlap(_player, _items, playerPickItem);
-				FlxG.overlap(_player, _weapons, playerPickWeapon);
-			}
-		}
+		// Player action.
+		playerAction();
 	}
 	
 	private function playerTouchDoor(P:Player, D:Door):Void
@@ -280,17 +269,32 @@ class Tutorial extends FlxState
 		e.playerPos.copyFrom(_player.getMidpoint());
 	}
 	
-	private function playerAttack():Void
+	private function playerAction():Void
 	{
-		if (FlxG.keys.pressed.SPACE) {
-			_ticks++;
-		}
-		if (FlxG.keys.justReleased.SPACE) {
+		if (!_player._specialState.updateStates(_player))
+		{
+			// Attack.
+			if (FlxG.keys.anyPressed([UP, DOWN, LEFT, RIGHT])) {
+				_ticks++;
+			}
+			if (_ticks != 0 && !FlxG.keys.anyPressed([UP, DOWN, LEFT, RIGHT])) {
 
-			if (GlobalVariable.LOGGING)
-				Main.LOGGER.logLevelAction(LoggingActions.PLAYER_ATTACK);
-			_player.attack(_ticks);
-			_ticks = 0;
+				if (GlobalVariable.LOGGING)
+					Main.LOGGER.logLevelAction(LoggingActions.PLAYER_ATTACK);
+				_player.attack(_ticks);
+				_ticks = 0;
+			}
+			
+			//   Check stats.
+			//if (FlxG.keys.justPressed.Q)
+			//	_pause.openOrClosePause();
+			
+			// pick up items
+			if (FlxG.keys.justReleased.E)
+			{
+				FlxG.overlap(_player, _items, playerPickItem);
+				FlxG.overlap(_player, _weapons, playerPickWeapon);
+			}
 		}
 	}
 	
@@ -355,10 +359,14 @@ class Tutorial extends FlxState
 			_texts.add(new FlxText(9 * GlobalVariable.UNIT, 14 * GlobalVariable.UNIT, 0, "Weak", GlobalVariable.FONT_SIZE));
 			var bar1 = new FlxBar(0, 0, LEFT_TO_RIGHT, cast(FlxG.width - GlobalVariable.UNIT * 2, Int), cast(GlobalVariable.UNIT / 2, Int));
 			bar1.screenCenter(FlxAxes.X);
-			bar1.y = FlxG.height - GlobalVariable.UNIT * 10;
+			bar1.y = FlxG.height - GlobalVariable.UNIT * 20;
 			bar1.createFilledBar(0xff464646, 0xffFFFF33, true, FlxColor.BLACK);
 			bar1.value = 10;
 			_bars.add(bar1);
+			var limit1 = new FlxSprite(0, 0);
+			limit1.makeGraphic(cast(GlobalVariable.UNIT / 8, Int), cast(GlobalVariable.UNIT / 2, Int), FlxColor.ORANGE);
+			limit1.setPosition(75 / 100.0 * bar1.barWidth + bar1.x, bar1.y);
+			_sprites.add(limit1);
 			
 			_current_level = 3;
 		}
