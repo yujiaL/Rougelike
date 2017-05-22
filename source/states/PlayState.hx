@@ -420,7 +420,240 @@ class PlayState extends FlxState
 	
 	private function addEnemy():Void
 	{
-		if (_level <= 6)
+		if (_level < 5) {
+			for (i in 1...Math.round(Math.min(_level + 1, 2)))
+				if (FlxG.random.bool(100 / i))
+				{
+					var enemy = new RockRandomBoy(0, 0, _enemy_bullets);
+					randomizeOSPosition(enemy);
+					_enemies.add(enemy);
+				}
+				
+			for (i in 1...Math.round(Math.min(_level, 2)))
+				if (FlxG.random.bool(100 / i))
+				{
+					var enemy = new RockChaseBoy(0, 0, _enemy_bullets);
+					randomizeOSPosition(enemy);
+					_enemies.add(enemy);
+				}
+			
+			for (i in 1...Math.round(Math.min(_level - 1, 2)))
+				if (FlxG.random.bool(100 / i))
+				{
+					var enemy = new RockShootAllBoy(0, 0, _enemy_bullets);
+					randomizeOSPosition(enemy);
+					_enemies.add(enemy);
+				}
+		} else if (_level == 5) {
+			var enemy1 = new RockChaseBoy(0, 0, _enemy_bullets);
+			randomizeOSPosition(enemy1);
+			_enemies.add(enemy1);
+			
+			var enemy2 = new RockRandomBoy(0, 0, _enemy_bullets);
+			randomizeOSPosition(enemy2);
+			_enemies.add(enemy2);
+			
+			var enemy3 = new RockShootAllBoyPlus(0, 0, _enemy_bullets);
+			randomizeOSPosition(enemy3);
+			_enemies.add(enemy3);
+			
+		} else if (_level <= 9) {
+			for (i in 1...Math.round(Math.min(_level - 4, 3)))
+				if (FlxG.random.bool(100 / i))
+				{
+					var enemy = new RockRandomBoy(0, 0, _enemy_bullets);
+					randomizeOSPosition(enemy);
+					_enemies.add(enemy);
+				}
+				
+			for (i in 1...Math.round(Math.min(_level - 4, 3)))
+				if (FlxG.random.bool(100 / i))
+				{
+					var enemy = new RockChaseBoy(0, 0, _enemy_bullets);
+					randomizeOSPosition(enemy);
+					_enemies.add(enemy);
+				}
+			
+			for (i in 1...Math.round(Math.min(_level - 5, 2)))
+				if (FlxG.random.bool(100 / i))
+				{
+					var enemy = new RockShootAllBoy(0, 0, _enemy_bullets);
+					randomizeOSPosition(enemy);
+					_enemies.add(enemy);
+				}
+				
+			for (i in 1...Math.round(Math.min(_level - 5, 2)))
+				if (FlxG.random.bool(100 / i))
+				{
+					var enemy = new RockBoy(0, 0, _enemy_bullets);
+					randomizeOSPosition(enemy);
+					_enemies.add(enemy);
+				}
+		} else if (_level == 10) {
+			for (i in 1...8) {
+				var enemy = new RockChaseBoy(0, 0, _enemy_bullets);
+				randomizeOSPosition(enemy);
+				_enemies.add(enemy);
+			}
+		} else if (_level <= 14) {
+			for (i in 1...Math.round(Math.min(_level - 9, 3)))
+				if (FlxG.random.bool(100 / i))
+				{
+					var enemy = new RockShootAllBoy(0, 0, _enemy_bullets);
+					randomizeOSPosition(enemy);
+					_enemies.add(enemy);
+				}
+				
+			for (i in 1...Math.round(Math.min(_level - 9, 3)))
+				if (FlxG.random.bool(100 / i))
+				{
+					var enemy = new RockBoy(0, 0, _enemy_bullets);
+					randomizeOSPosition(enemy);
+					_enemies.add(enemy);
+				}
+				
+			for (i in 1...Math.round(Math.min(_level - 9, 3)))
+				if (FlxG.random.bool(100 / i))
+				{
+					var enemy = new RockShootAllBoyPlus(0, 0, _enemy_bullets);
+					randomizeOSPosition(enemy);
+					_enemies.add(enemy);
+				}
+				
+			for (i in 1...Math.round(Math.min(_level - 10, 2)))
+				if (FlxG.random.bool(100 / i))
+				{
+					var enemy = new RockRandomBoy(0, 0, _enemy_bullets);
+					randomizeOSPosition(enemy);
+					_enemies.add(enemy);
+				}
+				
+			for (i in 1...Math.round(Math.min(_level - 10, 2)))
+				if (FlxG.random.bool(100 / i))
+				{
+					var enemy = new RockChaseBoy(0, 0, _enemy_bullets);
+					randomizeOSPosition(enemy);
+					_enemies.add(enemy);
+				}
+		} else if (_level == 15) {
+			for (i in 1...7) {
+				var enemy = new RockShootAllBoyPlusPlus(0, 0, _enemy_bullets);
+				randomizeOSPosition(enemy);
+				_enemies.add(enemy);
+			}
+		} else if (_level <= 19) {
+			for (i in 1...Math.round(Math.min(_level - 15, 2)))
+				if (FlxG.random.bool(100 / i))
+				{
+					var enemy = new RockRandomBoy(0, 0, _enemy_bullets);
+					randomizeOSPosition(enemy);
+					_enemies.add(enemy);
+				}
+				
+			for (i in 1...Math.round(Math.min(_level - 15, 2)))
+				if (FlxG.random.bool(100 / i))
+				{
+					var enemy = new RockChaseBoy(0, 0, _enemy_bullets);
+					randomizeOSPosition(enemy);
+					_enemies.add(enemy);
+				}
+				
+			for (i in 1...Math.round(Math.min(_level - 15, 2)))
+				if (FlxG.random.bool(100 / i))
+				{
+					var enemy = new RockShootAllBoy(0, 0, _enemy_bullets);
+					randomizeOSPosition(enemy);
+					_enemies.add(enemy);
+				}
+				
+			for (i in 1...Math.round(Math.min(_level - 15, 2)))
+				if (FlxG.random.bool(100 / i))
+				{
+					var enemy = new RockBoy(0, 0, _enemy_bullets);
+					randomizeOSPosition(enemy);
+					_enemies.add(enemy);
+				}
+				
+			for (i in 1...Math.round(Math.min(_level - 15, 2)))
+				if (FlxG.random.bool(100 / i))
+				{
+					var enemy = new RockShootAllBoyPlus(0, 0, _enemy_bullets);
+					randomizeOSPosition(enemy);
+					_enemies.add(enemy);
+				}
+				
+			for (i in 1...Math.round(Math.min(_level - 15, 2)))
+				if (FlxG.random.bool(100 / i))
+				{
+					var enemy = new RockShootAllBoyPlusPlus(0, 0, _enemy_bullets);
+					randomizeOSPosition(enemy);
+					_enemies.add(enemy);
+				}
+		} else if (_level == 20) {
+			for (i in 1...4) {
+				var enemy = new RockWalkShootBoy(0, 0, _enemy_bullets);
+				randomizeOSPosition(enemy);
+				_enemies.add(enemy);
+			}
+		} else {
+			for (i in 1...Math.round(Math.min(_level - 20, 2)))
+				if (FlxG.random.bool(100 / i))
+				{
+					var enemy = new RockRandomBoy(0, 0, _enemy_bullets);
+					randomizeOSPosition(enemy);
+					_enemies.add(enemy);
+				}
+				
+			for (i in 1...Math.round(Math.min(_level - 20, 2)))
+				if (FlxG.random.bool(100 / i))
+				{
+					var enemy = new RockChaseBoy(0, 0, _enemy_bullets);
+					randomizeOSPosition(enemy);
+					_enemies.add(enemy);
+				}
+				
+			for (i in 1...Math.round(Math.min(_level - 20, 2)))
+				if (FlxG.random.bool(100 / i))
+				{
+					var enemy = new RockShootAllBoy(0, 0, _enemy_bullets);
+					randomizeOSPosition(enemy);
+					_enemies.add(enemy);
+				}
+				
+			for (i in 1...Math.round(Math.min(_level - 20, 2)))
+				if (FlxG.random.bool(100 / i))
+				{
+					var enemy = new RockBoy(0, 0, _enemy_bullets);
+					randomizeOSPosition(enemy);
+					_enemies.add(enemy);
+				}
+				
+			for (i in 1...Math.round(Math.min(_level - 20, 2)))
+				if (FlxG.random.bool(100 / i))
+				{
+					var enemy = new RockShootAllBoyPlus(0, 0, _enemy_bullets);
+					randomizeOSPosition(enemy);
+					_enemies.add(enemy);
+				}
+				
+			for (i in 1...Math.round(Math.min(_level - 20, 2)))
+				if (FlxG.random.bool(100 / i))
+				{
+					var enemy = new RockShootAllBoyPlusPlus(0, 0, _enemy_bullets);
+					randomizeOSPosition(enemy);
+					_enemies.add(enemy);
+				}
+				
+			for (i in 1...Math.round(Math.min(_level - 20, 2)))
+				if (FlxG.random.bool(100 / i))
+				{
+					var enemy = new RockWalkShootBoy(0, 0, _enemy_bullets);
+					randomizeOSPosition(enemy);
+					_enemies.add(enemy);
+				}
+		}
+		
+		/*if (_level <= 6)
 			for (i in 1...(_level + 2 - 1))
 				if (FlxG.random.bool(100 / i))
 				{
@@ -576,7 +809,7 @@ class PlayState extends FlxState
 					randomizeOSPosition(enemy);
 					_enemies.add(enemy);
 				}
-		}
+		}*/
 	}
 	
 	private function addItem()
