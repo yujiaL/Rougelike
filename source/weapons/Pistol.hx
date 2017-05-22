@@ -13,7 +13,7 @@ class Pistol extends Weapon
 	{
 		super(X, Y, bullets);
 		
-		loadGraphic(AssetPaths.Pistol__png, true, GlobalVariable.UNIT, GlobalVariable.UNIT);
+		loadGraphic(AssetPaths.pistol__png, true, GlobalVariable.UNIT, GlobalVariable.UNIT);
 		
 		setFacingFlip(FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.RIGHT, false, false);

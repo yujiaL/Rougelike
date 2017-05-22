@@ -1,9 +1,11 @@
 package;
 
+import states.PlayState;
 import states.TitleState;
 import flixel.system.FlxAssets;
 import flixel.FlxGame;
 import openfl.display.Sprite;
+import states.Tutorial;
 
 class Main extends Sprite
 {
@@ -38,12 +40,12 @@ class Main extends Sprite
 		} 
 		else
 		{
-			addChild(new FlxGame(1024, 768, TitleState));
+			addChild(new FlxGame(1024, 768, Tutorial));
 		}
 	}
 	
 	private function onSessionReady(sessionRecieved:Bool):Void
 	{
-		addChild(new FlxGame(1024, 768, TitleState));
+		addChild(new FlxGame(1024, 768, Tutorial));
 	}
 }

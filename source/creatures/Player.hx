@@ -82,7 +82,10 @@ class Player extends Creature
 		
 		// If no special state.
 		if (!_specialState.updateStates(this))
+		{
 			movement();
+			updateFacing();
+		}
 		else if (_specialState._fall)
 			animation.play("fuzzy");
 		
@@ -115,10 +118,10 @@ class Player extends Creature
 		var _left:Bool = false;
 		var _right:Bool = false;
 		
-		_up = FlxG.keys.anyPressed([UP, W]);
-		_down = FlxG.keys.anyPressed([DOWN, S]);
-		_left = FlxG.keys.anyPressed([LEFT, A]);
-		_right = FlxG.keys.anyPressed([RIGHT, D]);
+		_up = FlxG.keys.pressed.W;
+		_down = FlxG.keys.pressed.S;
+		_left = FlxG.keys.pressed.A;
+		_right = FlxG.keys.pressed.D;
 		
 		if (_up || _down || _left || _right)
 		{
@@ -135,7 +138,6 @@ class Player extends Creature
 					mA -= 45;
 				else if (_right)
 					mA += 45;
-				facing = FlxObject.UP;
 			}
 			else if (_down)
 			{
@@ -144,23 +146,40 @@ class Player extends Creature
 					mA += 45;
 				else if (_right)
 					mA -= 45;
-				facing = FlxObject.DOWN;
 			}
 			else if (_left)
 			{
 				mA = 180;
-				facing = FlxObject.LEFT;
 			}
 			else if (_right)
 			{
 				mA = 0;
-				facing = FlxObject.RIGHT;
 			}
 			
 			velocity.set(speed, 0);
 			velocity.rotate(FlxPoint.weak(0, 0), mA);
 			
 			// Main.LOGGER.logLevelAction(LoggingActions.PLAYER_MOVE);
+		}
+	}
+	
+	private function updateFacing():Void
+	{
+		if (FlxG.keys.justPressed.UP)
+		{
+			facing = FlxObject.UP;
+		}
+		else if (FlxG.keys.justPressed.DOWN)
+		{
+			facing = FlxObject.DOWN;
+		}
+		else if (FlxG.keys.justPressed.LEFT)
+		{
+			facing = FlxObject.LEFT;
+		}
+		else if (FlxG.keys.justPressed.RIGHT)
+		{
+			facing = FlxObject.RIGHT;
 		}
 	}
 	

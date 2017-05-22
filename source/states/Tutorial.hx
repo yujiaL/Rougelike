@@ -1,6 +1,7 @@
 package states;
 
 import flixel.FlxSprite;
+import flixel.ui.FlxBar;
 import objects.Door;
 import creatures.Player;
 import weapons.Bullet;
@@ -19,9 +20,12 @@ import objects.Small_Rock;
 
 import flixel.FlxState;
 import flixel.FlxG;
+import flixel.FlxObject;
+import flixel.util.FlxAxes;
+import flixel.util.FlxColor;
 import flixel.tile.FlxTilemap;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.FlxObject;
+import flixel.ui.FlxBar;
 import flixel.text.FlxText;
 
 class Tutorial extends FlxState
@@ -70,6 +74,7 @@ class Tutorial extends FlxState
 	private var _texts:FlxTypedGroup<FlxText>;
 	private var _hud:HUD;
 	private var _sprites:FlxTypedGroup<FlxSprite>;
+	private var _bars:FlxTypedGroup<FlxBar>;
 	
 	/**
 	 * Levels.
@@ -129,6 +134,10 @@ class Tutorial extends FlxState
 		// Add sprites.
 		_sprites = new FlxTypedGroup<FlxSprite>();
 		add(_sprites);
+		
+		// Add bars.
+		_bars = new FlxTypedGroup<FlxBar>();
+		add(_bars);
 		
 		// Load level 1.
 		loadLevel(1);
@@ -296,6 +305,7 @@ class Tutorial extends FlxState
 		_items.clear();
 		_texts.clear();
 		_sprites.clear();
+		_bars.clear();
 		
 		_ticks = 0;
 		
@@ -339,7 +349,17 @@ class Tutorial extends FlxState
 		if (Level == 3)
 		{
 			_enemies.add(new RockRandomBoy(8 * GlobalVariable.UNIT, 8 * GlobalVariable.UNIT, _enemy_bullets));
-			_texts.add(new FlxText(9 * GlobalVariable.UNIT, 14 * GlobalVariable.UNIT, 0, "Hit with maximum power!", GlobalVariable.FONT_SIZE));
+			// _texts.add(new FlxText(9 * GlobalVariable.UNIT, 14 * GlobalVariable.UNIT, 0, "Hit with maximum power!", GlobalVariable.FONT_SIZE));
+			
+			// Different bars.
+			_texts.add(new FlxText(9 * GlobalVariable.UNIT, 14 * GlobalVariable.UNIT, 0, "Weak", GlobalVariable.FONT_SIZE));
+			var bar1 = new FlxBar(0, 0, LEFT_TO_RIGHT, cast(FlxG.width - GlobalVariable.UNIT * 2, Int), cast(GlobalVariable.UNIT / 2, Int));
+			bar1.screenCenter(FlxAxes.X);
+			bar1.y = FlxG.height - GlobalVariable.UNIT * 10;
+			bar1.createFilledBar(0xff464646, 0xffFFFF33, true, FlxColor.BLACK);
+			bar1.value = 10;
+			_bars.add(bar1);
+			
 			_current_level = 3;
 		}
 		

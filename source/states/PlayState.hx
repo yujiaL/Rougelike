@@ -230,23 +230,9 @@ class PlayState extends FlxState
 		// Update hud.
 		_hud.updateHUD(_ticks, _player._health, _level, _ticks * _player._chargeSpeed, _player._weapon.barPositions, _player._weight);	
 		
+		// Attack.
 		// If no special state.
-		if (!_player._specialState.updateStates(_player))
-		{
-			// Attack.
-			playerAttack();
-			
-			//   Check stats.
-			//if (FlxG.keys.justPressed.Q)
-			//	_pause.openOrClosePause();
-			
-			// pick up items
-			if (FlxG.keys.justReleased.E)
-			{
-				FlxG.overlap(_player, _items, playerPickItem);
-				FlxG.overlap(_player, _weapons, playerPickWeapon);
-			}
-		}
+		playerAttack();
 	}
 	
 	private function removeBullet(B:Bullet):Void
@@ -328,15 +314,30 @@ class PlayState extends FlxState
 	
 	private function playerAttack():Void
 	{
-		if (FlxG.keys.pressed.SPACE) {
-			_ticks++;
-		}
-		if (FlxG.keys.justReleased.SPACE) {
+		if (!_player._specialState.updateStates(_player))
+		{
+			// Attack.
+			if (FlxG.keys.anyPressed([UP, DOWN, LEFT, RIGHT])) {
+				_ticks++;
+			}
+			if (_ticks != 0 && !FlxG.keys.anyPressed([UP, DOWN, LEFT, RIGHT])) {
 
-			if (GlobalVariable.LOGGING)
-				Main.LOGGER.logLevelAction(LoggingActions.PLAYER_ATTACK);
-			_player.attack(_ticks);
-			_ticks = 0;
+				if (GlobalVariable.LOGGING)
+					Main.LOGGER.logLevelAction(LoggingActions.PLAYER_ATTACK);
+				_player.attack(_ticks);
+				_ticks = 0;
+			}
+			
+			//   Check stats.
+			//if (FlxG.keys.justPressed.Q)
+			//	_pause.openOrClosePause();
+			
+			// pick up items
+			if (FlxG.keys.justReleased.E)
+			{
+				FlxG.overlap(_player, _items, playerPickItem);
+				FlxG.overlap(_player, _weapons, playerPickWeapon);
+			}
 		}
 	}
 	
