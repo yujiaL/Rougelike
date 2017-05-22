@@ -11,7 +11,9 @@ class ClearText extends FlxText
 	
 	public function new() 
 	{
-		super(0, 0, 0, "CLEAR", GlobalVariable.UNIT * 6);
+		super(0, 0, 0, "CLEAR!", GlobalVariable.UNIT * 6);
+		
+		_timer = 0;
 		
 		this.screenCenter();
 		
@@ -24,17 +26,19 @@ class ClearText extends FlxText
 	{
 		_timer += FlxG.elapsed;
 		
-		if (_timer > 1.8)
+		if (_timer > 1.4)
 			kill();
-		else if (_timer > 1.5)
-			this.text = "CLEAR";
 		else if (_timer > 1.2)
+			this.text = "CLEAR!";
+		else if (_timer > 1.0)
+			this.text = "CLEAR";
+		else if (_timer > 0.8)
 			this.text = "CLEA ";
-		else if (_timer > 0.9)
-			this.text = "CLE  ";
 		else if (_timer > 0.6)
+			this.text = "CLE  ";
+		else if (_timer > 0.4)
 			this.text = "CL   ";
-		else if (_timer > 0.3)
+		else if (_timer > 0.2)
 			this.text = "C    ";
 		
 		super.update(elapsed);
@@ -43,7 +47,7 @@ class ClearText extends FlxText
 	override public function kill():Void
 	{
 		alive = false;
-		FlxTween.tween(this, { x : x, y : -GlobalVariable.UNIT * 6 }, 0.6, { onComplete: finishKill });
+		FlxTween.tween(this, { x : x, y : -GlobalVariable.UNIT * 6 }, 0.4, { onComplete: finishKill });
 	}
 	
 	private function finishKill(_):Void

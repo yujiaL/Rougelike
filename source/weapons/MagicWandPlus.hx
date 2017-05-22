@@ -41,7 +41,7 @@ class MagicWandPlus extends Weapon
 		var YTarget = Math.sin(randomAngle) * getMidpoint().y + getMidpoint().y;
 		
 		// Damage calculator.
-		var damage = position * position / 1000 + FlxG.random.int(0, Math.round(position / 10 + 1));
+		var damage = position * position / 1200 + FlxG.random.int(0, Math.round(position / 50 + 0.5));
 		
 		_bullets.add(new BouncePlus(x, y, XTarget, YTarget, Math.round(damage), scale));
 		_bullets.add(new BouncePlus(x, y, x + x - XTarget, y + y - YTarget, Math.round(damage), scale));

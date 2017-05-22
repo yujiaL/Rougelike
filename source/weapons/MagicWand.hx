@@ -21,7 +21,7 @@ class MagicWand extends Weapon
 		setFacingFlip(FlxObject.DOWN, false, true);
 		animation.add("lr", [0], 1, false);
 		
-		barPositions[0] = 50;
+		barPositions[0] = 60;
 	}
 	
 	override public function update(elapsed:Float):Void
@@ -34,7 +34,7 @@ class MagicWand extends Weapon
 	
 	override public function attack(player:Player, position:Float, weight:Int, scale:Float):Void
 	{
-		for (i in 1...4)
+		for (i in 1...FlxG.random.int(2, 4))
 		{
 			var randomAngle:Float = Math.random() * 2 * Math.PI;
 
@@ -42,7 +42,7 @@ class MagicWand extends Weapon
 			var YTarget = Math.sin(randomAngle) * getMidpoint().y + getMidpoint().y;
 			
 			// Damage calculator.
-			var damage = position * position / 1000 + FlxG.random.int(0, Math.round(position / 10 + 1));
+			var damage = position * position / (FlxG.random.int(900, 1700));
 			
 			_bullets.add(new Bounce(x, y, XTarget, YTarget, Math.round(damage), scale));
 		}

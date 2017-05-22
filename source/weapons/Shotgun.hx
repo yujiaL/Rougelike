@@ -73,7 +73,7 @@ class Shotgun extends Weapon
 				target3.y += 2;
 		}
 		
-		var damage = position * position / 1250 + 0.3;
+		var damage = position * position / 1250 + 0.1;
 		
 		_bullets.add(new PistolBullet(getMidpoint().x, getMidpoint().y, target1.x, target1.y, Math.round(damage), scale * 0.4));
 		_bullets.add(new PistolBullet(getMidpoint().x, getMidpoint().y, target2.x, target2.y, Math.round(damage), scale * 0.4));

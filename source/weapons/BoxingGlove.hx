@@ -57,7 +57,7 @@ class BoxingGlove extends Weapon
 		}
 		
 		// Damage calculator.
-		var damage = position * position / 1000;
+		var damage = position * position / 900;
 		
 		_bullets.add(new Punch(x, y, XTarget, YTarget, Math.round(damage), getMidpoint().x, getMidpoint().y, facing, scale));
 		

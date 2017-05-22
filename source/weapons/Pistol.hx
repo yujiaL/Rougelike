@@ -25,7 +25,7 @@ class Pistol extends Weapon
 		
 		facing = FlxObject.RIGHT;
 		
-		barPositions[0] = 85;
+		barPositions[0] = 80;
 	}
 	
 	override public function update(elapsed:Float):Void
