@@ -33,16 +33,19 @@ class MagicWand extends Weapon
 	}
 	
 	override public function attack(player:Player, position:Float, weight:Int, scale:Float):Void
-	{	
-		var randomAngle:Float = Math.random() * 2 * Math.PI;
+	{
+		for (i in 1...4)
+		{
+			var randomAngle:Float = Math.random() * 2 * Math.PI;
 
-		var XTarget = Math.cos(randomAngle) * getMidpoint().x + getMidpoint().x;
-		var YTarget = Math.sin(randomAngle) * getMidpoint().y + getMidpoint().y;
-		
-		// Damage calculator.
-		var damage = position * position / 1000 + FlxG.random.int(0, Math.round(position / 10 + 1));
-		
-		_bullets.add(new Bounce(x, y, XTarget, YTarget, Math.round(damage), scale));
+			var XTarget = Math.cos(randomAngle) * getMidpoint().x + getMidpoint().x;
+			var YTarget = Math.sin(randomAngle) * getMidpoint().y + getMidpoint().y;
+			
+			// Damage calculator.
+			var damage = position * position / 1000 + FlxG.random.int(0, Math.round(position / 10 + 1));
+			
+			_bullets.add(new Bounce(x, y, XTarget, YTarget, Math.round(damage), scale));
+		}
 		
 		// Effects.
 		if (position > barPositions[0] + weight) 

@@ -44,6 +44,7 @@ class MagicWandPlus extends Weapon
 		var damage = position * position / 1000 + FlxG.random.int(0, Math.round(position / 10 + 1));
 		
 		_bullets.add(new BouncePlus(x, y, XTarget, YTarget, Math.round(damage), scale));
+		_bullets.add(new BouncePlus(x, y, x + x - XTarget, y + y - YTarget, Math.round(damage), scale));
 		
 		// Effects.
 		if (position > barPositions[0] + weight) 
