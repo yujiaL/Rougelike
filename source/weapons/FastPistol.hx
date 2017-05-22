@@ -82,7 +82,7 @@ private class PistolBullet extends Bullet
 {
 	public function new(X:Float, Y:Float,  XTarget:Float, YTarget:Float, Damage:Int, Scale:Float)
 	{
-		super(X, Y, XTarget, YTarget, Damage, GlobalVariable.UNIT * Scale * 5, 1);
+		super(X, Y, XTarget, YTarget, Damage, GlobalVariable.UNIT * Scale * 20, 0.5);
 		
 		loadGraphic(AssetPaths.FastPistolBullet__png);
 	}

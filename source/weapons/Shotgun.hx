@@ -41,9 +41,9 @@ class Shotgun extends Weapon
 	
 	override public function attack(player:Player, position:Float, weight:Int, scale:Float):Void
 	{	
-		var target1 = player.getMidpoint();
-		var target2 = player.getMidpoint();
-		var target3 = player.getMidpoint();
+		var target1 = getMidpoint();
+		var target2 = getMidpoint();
+		var target3 = getMidpoint();
 		
 		switch (facing)
 		{
@@ -76,8 +76,8 @@ class Shotgun extends Weapon
 		var damage = position * position / 1250 + 0.3;
 		
 		_bullets.add(new PistolBullet(getMidpoint().x, getMidpoint().y, target1.x, target1.y, Math.round(damage), scale * 0.4));
-		_bullets.add(new PistolBullet(getMidpoint().x, getMidpoint().y, target2.x, target2.x, Math.round(damage), scale * 0.4));
-		_bullets.add(new PistolBullet(getMidpoint().x, getMidpoint().y, target3.x, target3.x, Math.round(damage), scale * 0.4));
+		_bullets.add(new PistolBullet(getMidpoint().x, getMidpoint().y, target2.x, target2.y, Math.round(damage), scale * 0.4));
+		_bullets.add(new PistolBullet(getMidpoint().x, getMidpoint().y, target3.x, target3.y, Math.round(damage), scale * 0.4));
 		
 		if (position > barPositions[0] + weight) 
 		{

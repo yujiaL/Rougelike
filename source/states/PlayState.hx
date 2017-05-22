@@ -7,6 +7,8 @@ import weapons.BoxingGlove;
 import weapons.MagicWand;
 import weapons.MagicWandPlus;
 import weapons.SuperMagicWand;
+import weapons.FastPistol;
+import weapons.Shotgun;
 import creatures.Creature;
 import creatures.Player;
 import creatures.enemies.Enemy;
@@ -138,8 +140,13 @@ class PlayState extends FlxState
 		_weapons = new FlxTypedGroup<Weapon>();
 		_weapons.add(new BoxingGlove(GlobalVariable.UNIT * 14, GlobalVariable.UNIT * 6, _playerBullets));
 		_weapons.add(new Pistol(GlobalVariable.UNIT * 17, GlobalVariable.UNIT * 6, _playerBullets));
-		//_weapons.add(new MagicWand(GlobalVariable.UNIT * 20, GlobalVariable.UNIT * 6, _playerBullets));
-		//_weapons.add(new MagicWandPlus(GlobalVariable.UNIT * 23, GlobalVariable.UNIT * 6, _playerBullets));
+		if (GlobalVariable.DEBUG)
+		{
+			_weapons.add(new MagicWand(GlobalVariable.UNIT * 14, GlobalVariable.UNIT * 8, _playerBullets));
+			_weapons.add(new MagicWandPlus(GlobalVariable.UNIT * 17, GlobalVariable.UNIT * 8, _playerBullets));
+			_weapons.add(new FastPistol(GlobalVariable.UNIT * 14, GlobalVariable.UNIT * 10, _playerBullets));
+			_weapons.add(new Shotgun(GlobalVariable.UNIT * 17, GlobalVariable.UNIT * 10, _playerBullets));
+		}
 		add(_weapons);
 		
 		// HUD.
@@ -191,7 +198,7 @@ class PlayState extends FlxState
 			
 			addItem();
 			
-			if (FlxG.random.bool(30))
+			if (FlxG.random.bool(60))
 				addWeapon();
 		}
 
@@ -332,7 +339,7 @@ class PlayState extends FlxState
 			//	_pause.openOrClosePause();
 			
 			// pick up items
-			if (FlxG.keys.justReleased.E)
+			if (FlxG.keys.justReleased.SPACE)
 			{
 				FlxG.overlap(_player, _items, playerPickItem);
 				FlxG.overlap(_player, _weapons, playerPickWeapon);
@@ -542,7 +549,7 @@ class PlayState extends FlxState
 				_enemies.add(enemy);
 			}
 		} else if (_level <= 19) {
-			for (i in 1...Math.round(Math.min(_level - 15, 2)))
+			for (i in 1...Math.round(Math.min(_level - 14, 2)))
 				if (FlxG.random.bool(100 / i))
 				{
 					var enemy = new RockRandomBoy(0, 0, _enemy_bullets);
@@ -828,6 +835,19 @@ class PlayState extends FlxState
 			randomizeOSPosition(broccoli);
 			_items.add(broccoli);
 		}
+		if (FlxG.random.bool(30))
+		{
+			var hairLonger = new HairPotion();
+			randomizeOSPosition(hairLonger);
+			_items.add(hairLonger);
+		}
+		
+		if (FlxG.random.bool(30))
+		{
+			var hairShorter = new HairShortenPotion();
+			randomizeOSPosition(hairShorter);
+			_items.add(hairShorter);
+		}
 		
 		// items that changes the player hp
 		if (FlxG.random.bool(60))
@@ -849,20 +869,6 @@ class PlayState extends FlxState
 			var hpL = new HpPotionL();
 			randomizeOSPosition(hpL);
 			_items.add(hpL);
-		}
-		
-		if (FlxG.random.bool(30))
-		{
-			var hairLonger = new HairPotion();
-			randomizeOSPosition(hairLonger);
-			_items.add(hairLonger);
-		}
-		
-		if (FlxG.random.bool(30))
-		{
-			var hairShorter = new HairShortenPotion();
-			randomizeOSPosition(hairShorter);
-			_items.add(hairShorter);
 		}
 	}
 	
