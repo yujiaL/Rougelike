@@ -65,7 +65,7 @@ class BoxingGlove extends Weapon
 		if (position > barPositions[0] + weight) 
 		{
 			player._specialState._fall = true;
-			player._specialState._fallTimer = 2;
+			player._specialState._fallTimer = 1.8;
 		}
 	}
 }
