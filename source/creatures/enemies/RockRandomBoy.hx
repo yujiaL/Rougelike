@@ -27,7 +27,7 @@ class RockRandomBoy extends Enemy
 		loadGraphic(AssetPaths.MovingRock__PNG, true, Math.round(GlobalVariable.UNIT * 1.5), Math.round(GlobalVariable.UNIT * 1.5));
 		
 		animation.add("move", [0, 2, 0, 1, 3, 1], 3, false);
-		animation.add("dash", [4, 6, 4, 5, 7, 5], 9, false);
+		animation.add("dash", [0, 2, 0, 1, 3, 1], 9, false);
 		
 		_moveTmr = FlxG.random.int(3, 5);
 		_dashTmr = 0;
