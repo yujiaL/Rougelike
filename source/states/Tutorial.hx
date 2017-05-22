@@ -91,6 +91,18 @@ class Tutorial extends FlxState
 		_map.loadMapFromCSV(AssetPaths.map__csv, AssetPaths.Floor2__png, TILE_WIDTH, TILE_HEIGHT, null, 1, 1, 2);
 		add(_map);
 		
+		// Add texts.
+		_texts = new FlxTypedGroup<FlxText>();
+		add(_texts);
+		
+		// Add bars.
+		_bars = new FlxTypedGroup<FlxBar>();
+		add(_bars);
+		
+		// Add sprites.
+		_sprites = new FlxTypedGroup<FlxSprite>();
+		add(_sprites);
+		
 		// Player.
 		_player = new Player(0, 0, GlobalVariable.PLAYERHP);
 		_player.screenCenter();
@@ -125,19 +137,9 @@ class Tutorial extends FlxState
 		_weapons = new FlxTypedGroup<Weapon>();
 		add(_weapons);
 		
-		// Add texts.
+		// Add hud.
 		_hud = new HUD();
 		_damages = new FlxTypedGroup<FlxText>();
-		_texts = new FlxTypedGroup<FlxText>();
-		add(_texts);
-		
-		// Add sprites.
-		_sprites = new FlxTypedGroup<FlxSprite>();
-		add(_sprites);
-		
-		// Add bars.
-		_bars = new FlxTypedGroup<FlxBar>();
-		add(_bars);
 		
 		// Load level 1.
 		loadLevel(1);
@@ -151,12 +153,12 @@ class Tutorial extends FlxState
 		// Levels.
 		if (_current_level == 1 && _player._weapon == _weapons.getFirstAlive() && _doors.countLiving() == -1)
 		{
-			_doors.add(new Door(23 * GlobalVariable.UNIT, 6 * GlobalVariable.UNIT));
+			_doors.add(new Door(23 * GlobalVariable.UNIT, 11 * GlobalVariable.UNIT));
 			_texts.add(new FlxText(21.5 * GlobalVariable.UNIT, 14 * GlobalVariable.UNIT, 8 * GlobalVariable.UNIT, "Next Level", GlobalVariable.FONT_SIZE));
 		}
 		if (_current_level == 3 && _enemies.countLiving() == 0)
 		{
-			_doors.add(new Door(23 * GlobalVariable.UNIT, 6 * GlobalVariable.UNIT));
+			_doors.add(new Door(15 * GlobalVariable.UNIT, GlobalVariable.UNIT));
 		}
 		
 		// Doors.
@@ -290,7 +292,7 @@ class Tutorial extends FlxState
 			//	_pause.openOrClosePause();
 			
 			// pick up items
-			if (FlxG.keys.justReleased.E)
+			if (FlxG.keys.justReleased.SPACE)
 			{
 				FlxG.overlap(_player, _items, playerPickItem);
 				FlxG.overlap(_player, _weapons, playerPickWeapon);
@@ -317,9 +319,9 @@ class Tutorial extends FlxState
 		{
 			_weapons.add(new BoxingGlove(7 * GlobalVariable.UNIT, 6 * GlobalVariable.UNIT, _playerBullets));
 			
-			var buttonE = new FlxSprite(7 * GlobalVariable.UNIT, 12 * GlobalVariable.UNIT);
-			buttonE.loadGraphic(AssetPaths.ButtonE__PNG);
-			_sprites.add(buttonE);
+			var spaceBar = new FlxSprite(6 * GlobalVariable.UNIT, 12 * GlobalVariable.UNIT);
+			spaceBar.loadGraphic(AssetPaths.SpaceBar__PNG);
+			_sprites.add(spaceBar);
 			_texts.add(new FlxText(5.5 * GlobalVariable.UNIT, 14 * GlobalVariable.UNIT, 0, "Pick Up", GlobalVariable.FONT_SIZE));
 			
 			var arrowKeys = new FlxSprite(14.5 * GlobalVariable.UNIT, 11 * GlobalVariable.UNIT);
@@ -343,9 +345,9 @@ class Tutorial extends FlxState
 			for (i in 15...19)
 				_obstacles.add(new Small_Rock(i * GlobalVariable.UNIT, GlobalVariable.UNIT * 4));
 			
-			var spaceBar = new FlxSprite(14 * GlobalVariable.UNIT, 12 * GlobalVariable.UNIT);
-			spaceBar.loadGraphic(AssetPaths.SpaceBar__PNG);
-			_sprites.add(spaceBar);
+			var arrowKeys = new FlxSprite(14.5 * GlobalVariable.UNIT, 11 * GlobalVariable.UNIT);
+			arrowKeys.loadGraphic(AssetPaths.ArrowKeys__PNG);
+			_sprites.add(arrowKeys);
 			_texts.add(new FlxText(6.5 * GlobalVariable.UNIT, 14 * GlobalVariable.UNIT, 0, "Hold to charge.    Release to attack.", GlobalVariable.FONT_SIZE));
 			_current_level = 2;
 		}
@@ -354,12 +356,15 @@ class Tutorial extends FlxState
 		{
 			_enemies.add(new RockRandomBoy(8 * GlobalVariable.UNIT, 8 * GlobalVariable.UNIT, _enemy_bullets));
 			// _texts.add(new FlxText(9 * GlobalVariable.UNIT, 14 * GlobalVariable.UNIT, 0, "Hit with maximum power!", GlobalVariable.FONT_SIZE));
-			
+
 			// Different bars.
-			_texts.add(new FlxText(9 * GlobalVariable.UNIT, 14 * GlobalVariable.UNIT, 0, "Weak", GlobalVariable.FONT_SIZE));
-			var bar1 = new FlxBar(0, 0, LEFT_TO_RIGHT, cast(FlxG.width - GlobalVariable.UNIT * 2, Int), cast(GlobalVariable.UNIT / 2, Int));
+			var bar1Indicator = new FlxText(0, 0, 0, "Weak", GlobalVariable.FONT_SIZE);
+			bar1Indicator.screenCenter(FlxAxes.X);
+			bar1Indicator.y = GlobalVariable.UNIT * 5;
+			_texts.add(bar1Indicator);
+			var bar1 = new FlxBar(0, 0, LEFT_TO_RIGHT, cast(FlxG.width - GlobalVariable.UNIT * 4, Int), cast(GlobalVariable.UNIT / 2, Int));
 			bar1.screenCenter(FlxAxes.X);
-			bar1.y = FlxG.height - GlobalVariable.UNIT * 20;
+			bar1.y = bar1Indicator.y + GlobalVariable.UNIT;
 			bar1.createFilledBar(0xff464646, 0xffFFFF33, true, FlxColor.BLACK);
 			bar1.value = 10;
 			_bars.add(bar1);
@@ -367,6 +372,36 @@ class Tutorial extends FlxState
 			limit1.makeGraphic(cast(GlobalVariable.UNIT / 8, Int), cast(GlobalVariable.UNIT / 2, Int), FlxColor.ORANGE);
 			limit1.setPosition(75 / 100.0 * bar1.barWidth + bar1.x, bar1.y);
 			_sprites.add(limit1);
+			
+			var bar2Indicator = new FlxText(0, 0, 0, "Strong", GlobalVariable.FONT_SIZE);
+			bar2Indicator.screenCenter(FlxAxes.X);
+			bar2Indicator.y = bar1.y + GlobalVariable.UNIT * 3;
+			_texts.add(bar2Indicator);
+			var bar2 = new FlxBar(0, 0, LEFT_TO_RIGHT, cast(FlxG.width - GlobalVariable.UNIT * 4, Int), cast(GlobalVariable.UNIT / 2, Int));
+			bar2.screenCenter(FlxAxes.X);
+			bar2.y = bar2Indicator.y + GlobalVariable.UNIT;
+			bar2.createFilledBar(0xff464646, 0xffFFFF33, true, FlxColor.BLACK);
+			bar2.value = 70;
+			_bars.add(bar2);
+			var limit2 = new FlxSprite(0, 0);
+			limit2.makeGraphic(cast(GlobalVariable.UNIT / 8, Int), cast(GlobalVariable.UNIT / 2, Int), FlxColor.ORANGE);
+			limit2.setPosition(75 / 100.0 * bar2.barWidth + bar2.x, bar2.y);
+			_sprites.add(limit2);
+			
+			var bar3Indicator = new FlxText(0, 0, 0, "?", GlobalVariable.FONT_SIZE);
+			bar3Indicator.screenCenter(FlxAxes.X);
+			bar3Indicator.y = bar2.y + GlobalVariable.UNIT * 3;
+			_texts.add(bar3Indicator);
+			var bar3 = new FlxBar(0, 0, LEFT_TO_RIGHT, cast(FlxG.width - GlobalVariable.UNIT * 4, Int), cast(GlobalVariable.UNIT / 2, Int));
+			bar3.screenCenter(FlxAxes.X);
+			bar3.y = bar3Indicator.y + GlobalVariable.UNIT;
+			bar3.createFilledBar(0xff464646, 0xffFFFF33, true, FlxColor.BLACK);
+			bar3.value = 90;
+			_bars.add(bar3);
+			var limit3 = new FlxSprite(0, 0);
+			limit3.makeGraphic(cast(GlobalVariable.UNIT / 8, Int), cast(GlobalVariable.UNIT / 2, Int), FlxColor.ORANGE);
+			limit3.setPosition(75 / 100.0 * bar3.barWidth + bar3.x, bar3.y);
+			_sprites.add(limit3);
 			
 			_current_level = 3;
 		}
