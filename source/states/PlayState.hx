@@ -25,6 +25,7 @@ import objects.Small_Rock;
 import objects.Medium_Rock;
 import hud.HUD;
 import hud.DamageText;
+import hud.ItemText;
 import hud.PauseHUD;
 import items.Item;
 import items.Doughnut;
@@ -323,6 +324,7 @@ class PlayState extends FlxState
 	private function playerPickItem(P:Player, I:Item):Void
 	{
 		P.pickUpItem(I);
+		_floatingText.add(new ItemText(P.x, P.y, I));
 	}
 	
 	private function playerPickWeapon(P:Player, W:Weapon):Void

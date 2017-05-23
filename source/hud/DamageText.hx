@@ -10,9 +10,9 @@ class DamageText extends FlxText
 {
 	public function new(X:Float=0, Y:Float=0, Damage:Int, Size:Int=28) 
 	{
-		var x = X + FlxG.random.int(0, Math.round(GlobalVariable.UNIT / 4));
-		var y = Y - GlobalVariable.UNIT / 4 + FlxG.random.int(0, Math.round(GlobalVariable.UNIT / 4));
-		super(x, y, 0, Damage + "", Size);
+		var xx = X + FlxG.random.int(0, Math.round(GlobalVariable.UNIT / 4));
+		var yy = Y - GlobalVariable.UNIT / 4 + FlxG.random.int(0, Math.round(GlobalVariable.UNIT / 4));
+		super(xx, yy, 0, Damage + "", Size);
 		
 		setFormat(AssetPaths.VCR__ttf, Math.round(GlobalVariable.FONT_SIZE / 2), FlxColor.RED);
 		
