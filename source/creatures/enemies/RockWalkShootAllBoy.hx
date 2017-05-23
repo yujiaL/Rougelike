@@ -1,5 +1,6 @@
 package creatures.enemies;
-import creatures.enemies.RockWalkShootAllBoy;
+
+import weapons.Rock;
 
 class RockWalkShootAllBoy extends creatures.enemies.RockWalkShootBoy
 {

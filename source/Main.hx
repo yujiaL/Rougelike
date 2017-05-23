@@ -25,7 +25,7 @@ class Main extends Sprite
 			var gameId:Int = 1700;
 			var gameKey:String = "86ba54e08dfe7dc76e36075f8c819700";
 			var gameName:String = "hairyball";
-			var categoryId:Int = 1;
+			var categoryId:Int = 2;
 			
 			Main.LOGGER = new CapstoneLogger(gameId, gameName, gameKey, categoryId, 1, true);
 			
@@ -37,15 +37,15 @@ class Main extends Sprite
 				Main.LOGGER.setSavedUserId(userId);
 			}
 			Main.LOGGER.startNewSession(userId, this.onSessionReady);
-		} 
+		}
 		else
 		{
-			addChild(new FlxGame(1024, 768, PlayState));
+			addChild(new FlxGame(1024, 768, Tutorial));
 		}
 	}
 	
 	private function onSessionReady(sessionRecieved:Bool):Void
 	{
-		addChild(new FlxGame(1024, 768, PlayState));
+		addChild(new FlxGame(1024, 768, Tutorial));
 	}
 }

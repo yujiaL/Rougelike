@@ -14,7 +14,7 @@ class Shotgun extends Weapon
 	{
 		super(X, Y, bullets);
 		
-		loadGraphic(AssetPaths.pistol__png, true, GlobalVariable.UNIT, GlobalVariable.UNIT);
+		loadGraphic(AssetPaths.Shotgun__png, true, GlobalVariable.UNIT, GlobalVariable.UNIT);
 		
 		setFacingFlip(FlxObject.LEFT, true, false);
 		setFacingFlip(FlxObject.RIGHT, false, false);
@@ -106,6 +106,6 @@ private class PistolBullet extends Bullet
 	{
 		super(X, Y, XTarget, YTarget, Damage, GlobalVariable.UNIT * 12, Scale);
 		
-		loadGraphic(AssetPaths.PistolBullet__png);
+		loadGraphic(AssetPaths.ShotgunBullet__png);
 	}
 }

@@ -1,5 +1,6 @@
 package states;
 
+import flixel.system.debug.watch.Tracker.TrackerProfile;
 import weapons.Bullet;
 import weapons.Weapon;
 import weapons.Pistol;
@@ -19,6 +20,8 @@ import creatures.enemies.RockShootAllBoyPlusPlus;
 import creatures.enemies.RockRandomBoy;
 import creatures.enemies.RockBoy;
 import creatures.enemies.RockChaseBoy;
+import creatures.enemies.RockWalkShootBoy;
+import creatures.enemies.RockWalkShootAllBoy;
 import objects.Door;
 import objects.Obstacle;
 import objects.Small_Rock;
@@ -231,8 +234,8 @@ class PlayState extends FlxState
 		
 		// Collide with tiles.
 		FlxG.collide(_player, _map);
-		//_playerBullets.forEachAlive(bulletHitsWall);
-		FlxG.collide(_playerBullets, _map);
+		_playerBullets.forEachAlive(bulletHitsWall);
+		//FlxG.collide(_playerBullets, _map);
 		FlxG.collide(_enemies, _map);
 		FlxG.collide(_obstacles, _player);
 		FlxG.collide(_obstacles, _enemies);
@@ -611,11 +614,38 @@ class PlayState extends FlxState
 					_enemies.add(enemy);
 				}
 		} else if (_level == 20) {
-			for (i in 1...4) {
-				var enemy = new RockWalkShootBoy(0, 0, _enemy_bullets);
-				randomizeOSPosition(enemy);
-				_enemies.add(enemy);
-			}
+			var enemy1 = new RockBoy(0, 0, _enemy_bullets);
+			randomizeOSPosition(enemy1);
+			_enemies.add(enemy1);
+			
+			var enemy2 = new RockChaseBoy(0, 0, _enemy_bullets);
+			randomizeOSPosition(enemy2);
+			_enemies.add(enemy2);
+			
+			var enemy3 = new RockRandomBoy(0, 0, _enemy_bullets);
+			randomizeOSPosition(enemy3);
+			_enemies.add(enemy3);
+			
+			var enemy4 = new RockShootAllBoy(0, 0, _enemy_bullets);
+			randomizeOSPosition(enemy4);
+			_enemies.add(enemy4);
+			
+			var enemy5 = new RockShootAllBoyPlus(0, 0, _enemy_bullets);
+			randomizeOSPosition(enemy5);
+			_enemies.add(enemy5);
+			
+			var enemy6 = new RockShootAllBoyPlusPlus(0, 0, _enemy_bullets);
+			randomizeOSPosition(enemy6);
+			_enemies.add(enemy6);
+			
+			var enemy7 = new RockWalkShootBoy(0, 0, _enemy_bullets);
+			randomizeOSPosition(enemy7);
+			_enemies.add(enemy7);
+			
+			var enemy8 = new RockWalkShootAllBoy(0, 0, _enemy_bullets);
+			randomizeOSPosition(enemy8);
+			_enemies.add(enemy8);
+			
 		} else {
 			for (i in 1...Math.round(Math.min(_level - 20, 2)))
 				if (FlxG.random.bool(100 / i))
@@ -625,7 +655,7 @@ class PlayState extends FlxState
 					_enemies.add(enemy);
 				}
 				
-			for (i in 1...Math.round(Math.min(_level - 20, 2)))
+			for (i in 1...Math.round(Math.min(_level - 20, 3)))
 				if (FlxG.random.bool(100 / i))
 				{
 					var enemy = new RockChaseBoy(0, 0, _enemy_bullets);
@@ -633,7 +663,7 @@ class PlayState extends FlxState
 					_enemies.add(enemy);
 				}
 				
-			for (i in 1...Math.round(Math.min(_level - 20, 2)))
+			for (i in 1...Math.round(Math.min(_level - 19, 2)))
 				if (FlxG.random.bool(100 / i))
 				{
 					var enemy = new RockShootAllBoy(0, 0, _enemy_bullets);
@@ -648,16 +678,16 @@ class PlayState extends FlxState
 					randomizeOSPosition(enemy);
 					_enemies.add(enemy);
 				}
-				
-			for (i in 1...Math.round(Math.min(_level - 20, 2)))
+			
+			for (i in 1...Math.round(Math.min(_level - 19, 3)))
 				if (FlxG.random.bool(100 / i))
 				{
 					var enemy = new RockShootAllBoyPlus(0, 0, _enemy_bullets);
 					randomizeOSPosition(enemy);
 					_enemies.add(enemy);
 				}
-				
-			for (i in 1...Math.round(Math.min(_level - 20, 2)))
+			
+			for (i in 1...Math.round(Math.min(_level - 20, 3)))
 				if (FlxG.random.bool(100 / i))
 				{
 					var enemy = new RockShootAllBoyPlusPlus(0, 0, _enemy_bullets);
@@ -673,164 +703,6 @@ class PlayState extends FlxState
 					_enemies.add(enemy);
 				}
 		}
-		
-		/*if (_level <= 6)
-			for (i in 1...(_level + 2 - 1))
-				if (FlxG.random.bool(100 / i))
-				{
-					var enemy = new RockRandomBoy(0, 0, _enemy_bullets);
-					randomizeOSPosition(enemy);
-					_enemies.add(enemy);
-				}
-		else if (FlxG.random.bool(60))
-		{
-			var enemy = new RockRandomBoy(0, 0, _enemy_bullets);
-			randomizeOSPosition(enemy);
-			_enemies.add(enemy);
-		}
-		
-		if (_level <= 8)
-			for (i in 1...(_level + 2 - 3))
-				if (FlxG.random.bool(100 / i))
-				{
-					var enemy = new RockShootAllBoy(0, 0, _enemy_bullets);
-					randomizeOSPosition(enemy);
-					_enemies.add(enemy);
-				}
-		else if (FlxG.random.bool(60))
-		{
-			var enemy = new RockShootAllBoy(0, 0, _enemy_bullets);
-			randomizeOSPosition(enemy);
-			_enemies.add(enemy);
-		}
-		
-		if (_level <= 11)
-			for (i in 1...(_level + 2 - 6))
-				if (FlxG.random.bool(100 / i))
-				{
-					var enemy = new RockBoy(0, 0, _enemy_bullets);
-					randomizeOSPosition(enemy);
-					_enemies.add(enemy);
-				}
-		else if (FlxG.random.bool(60))
-		{
-			var enemy = new RockBoy(0, 0, _enemy_bullets);
-			randomizeOSPosition(enemy);
-			_enemies.add(enemy);
-		}
-		
-		if (_level <= 13)
-			for (i in 1...(_level + 2 - 8))
-				if (FlxG.random.bool(100 / i))
-				{
-					var enemy = new RockRandomBoy(0, 0, _enemy_bullets);
-					randomizeOSPosition(enemy);
-					_enemies.add(enemy);
-				}
-		else if (FlxG.random.bool(60))
-		{
-			var enemy = new RockRandomBoy(0, 0, _enemy_bullets);
-			randomizeOSPosition(enemy);
-			_enemies.add(enemy);
-		}
-		
-		if (_level <= 16)
-			for (i in 1...(_level + 2 - 11))
-				if (FlxG.random.bool(100 / i))
-				{
-					var enemy = new RockShootAllBoyPlus(0, 0, _enemy_bullets);
-					randomizeOSPosition(enemy);
-					_enemies.add(enemy);
-				}
-		else if (FlxG.random.bool(60))
-		{
-			var enemy = new RockShootAllBoyPlus(0, 0, _enemy_bullets);
-			randomizeOSPosition(enemy);
-			_enemies.add(enemy);
-		}
-		
-		if (_level <= 18)
-			for (i in 1...(_level + 2 - 13))
-				if (FlxG.random.bool(100 / i))
-				{
-					var enemy = new RockWalkShootBoy(0, 0, _enemy_bullets);
-					randomizeOSPosition(enemy);
-					_enemies.add(enemy);
-				}
-		else if (FlxG.random.bool(60))
-		{
-			var enemy = new RockWalkShootBoy(0, 0, _enemy_bullets);
-			randomizeOSPosition(enemy);
-			_enemies.add(enemy);
-		}
-		
-		if (_level <= 21)
-			for (i in 1...(_level + 2 - 16))
-				if (FlxG.random.bool(100 / i))
-				{
-					var enemy = new RockShootAllBoyPlusPlus(0, 0, _enemy_bullets);
-					randomizeOSPosition(enemy);
-					_enemies.add(enemy);
-				}
-		else if (FlxG.random.bool(60))
-		{
-			var enemy = new RockShootAllBoyPlusPlus(0, 0, _enemy_bullets);
-			randomizeOSPosition(enemy);
-			_enemies.add(enemy);
-		}
-		
-		if (_level > 21)
-		{
-			for (i in 1...(5))
-				if (FlxG.random.bool(80 / i))
-				{
-					var enemy = new RockBoy(0, 0, _enemy_bullets);
-					randomizeOSPosition(enemy);
-					_enemies.add(enemy);
-				}
-			for (i in 1...(5))
-				if (FlxG.random.bool(80 / i))
-				{
-					var enemy = new RockShootAllBoy(0, 0, _enemy_bullets);
-					randomizeOSPosition(enemy);
-					_enemies.add(enemy);
-				}
-			for (i in 1...(5))
-				if (FlxG.random.bool(80 / i))
-				{
-					var enemy = new RockBoy(0, 0, _enemy_bullets);
-					randomizeOSPosition(enemy);
-					_enemies.add(enemy);
-				}
-			for (i in 1...(5))
-				if (FlxG.random.bool(80 / i))
-				{
-					var enemy = new RockChaseBoy(0, 0, _enemy_bullets);
-					randomizeOSPosition(enemy);
-					_enemies.add(enemy);
-				}
-			for (i in 1...(5))
-				if (FlxG.random.bool(80 / i))
-				{
-					var enemy = new RockShootAllBoyPlus(0, 0, _enemy_bullets);
-					randomizeOSPosition(enemy);
-					_enemies.add(enemy);
-				}
-			for (i in 1...(5))
-				if (FlxG.random.bool(80 / i))
-				{
-					var enemy = new RockWalkShootBoy(0, 0, _enemy_bullets);
-					randomizeOSPosition(enemy);
-					_enemies.add(enemy);
-				}
-			for (i in 1...(5))
-				if (FlxG.random.bool(80 / i))
-				{
-					var enemy = new RockShootAllBoyPlusPlus(0, 0, _enemy_bullets);
-					randomizeOSPosition(enemy);
-					_enemies.add(enemy);
-				}
-		}*/
 	}
 	
 	private function addItem()
@@ -842,7 +714,6 @@ class PlayState extends FlxState
 			randomizeOSPosition(doughnut);
 			_items.add(doughnut);
 		}
-		
 		if (FlxG.random.bool(30))
 		{
 			var broccoli = new Broccoli();
@@ -855,7 +726,6 @@ class PlayState extends FlxState
 			randomizeOSPosition(hairLonger);
 			_items.add(hairLonger);
 		}
-		
 		if (FlxG.random.bool(30))
 		{
 			var hairShorter = new HairShortenPotion();
@@ -890,22 +760,22 @@ class PlayState extends FlxState
 	{
 		var prob = FlxG.random.int(0, 100);
 		
+		var weapon:Weapon;
 		if (prob <= 10) {
-			var magicWandPlus = new MagicWandPlus(GlobalVariable.UNIT * 23, GlobalVariable.UNIT * 6, _playerBullets);
-			randomizeOSPosition(magicWandPlus);
-			_weapons.add(magicWandPlus);
+			weapon = new Shotgun(GlobalVariable.UNIT * 17, GlobalVariable.UNIT * 10, _playerBullets);
 		} else if (prob <= 20) {
-			var magicWand = new MagicWand(GlobalVariable.UNIT * 20, GlobalVariable.UNIT * 6, _playerBullets);
-			randomizeOSPosition(magicWand);
-			_weapons.add(magicWand);
-		} else if (prob <= 60) {
-			var pistol = new Pistol(GlobalVariable.UNIT * 17, GlobalVariable.UNIT * 6, _playerBullets);
-			randomizeOSPosition(pistol);
-			_weapons.add(pistol);
+			weapon = new MagicWandPlus(GlobalVariable.UNIT * 23, GlobalVariable.UNIT * 6, _playerBullets);
+		} else if (prob <= 30) {
+			weapon = new MagicWand(GlobalVariable.UNIT * 20, GlobalVariable.UNIT * 6, _playerBullets);
+		} else if (prob <= 50) {
+			weapon = new FastPistol(GlobalVariable.UNIT * 14, GlobalVariable.UNIT * 10, _playerBullets);
+		} else if (prob <= 70) {
+			weapon = new Pistol(GlobalVariable.UNIT * 17, GlobalVariable.UNIT * 6, _playerBullets);
 		} else {
-			var boxingGlove = new BoxingGlove(GlobalVariable.UNIT * 14, GlobalVariable.UNIT * 6, _playerBullets);
-			randomizeOSPosition(boxingGlove);
-			_weapons.add(boxingGlove);
+			weapon = new BoxingGlove(GlobalVariable.UNIT * 14, GlobalVariable.UNIT * 6, _playerBullets);
 		}
+		
+		randomizeOSPosition(weapon);
+		_weapons.add(weapon);
 	}
 }
