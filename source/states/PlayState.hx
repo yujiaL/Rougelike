@@ -180,7 +180,7 @@ class PlayState extends FlxState
 		}
 		
 		// Debug.
-		if (FlxG.keys.justPressed.I)
+		if (GlobalVariable.DEBUG && FlxG.keys.justPressed.I)
 		{
 			for (i in 1...6)
 			{
@@ -230,7 +230,7 @@ class PlayState extends FlxState
 		
 		// Collide with tiles.
 		FlxG.collide(_player, _map);
-		FlxG.collide(_playerBullets, _map);
+		_playerBullets.forEachAlive(bulletHitsWall);
 		FlxG.collide(_enemies, _map);
 		FlxG.collide(_obstacles, _player);
 		FlxG.collide(_obstacles, _enemies);
@@ -244,6 +244,12 @@ class PlayState extends FlxState
 		
 		// Player action.
 		playerAction();
+	}
+	
+	private function bulletHitsWall(B:Bullet):Void
+	{
+		if (Std.is(B, weapons.BounceBullet))
+			FlxG.collide(B, _map);
 	}
 	
 	private function removeBullet(B:Bullet):Void
