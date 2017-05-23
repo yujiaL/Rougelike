@@ -180,17 +180,17 @@ class PlayState extends FlxState
 		}
 		
 		// Debug.
-		//if (FlxG.keys.justPressed.I)
-		//{
-		//	for (i in 1...6)
-		//	{
-		//		_items.add(new Broccoli(GlobalVariable.UNIT * 2, GlobalVariable.UNIT * 2 * i));
-		//		_items.add(new Doughnut(GlobalVariable.UNIT * 4, GlobalVariable.UNIT * 2 * i));
-		//		_items.add(new HairPotion(GlobalVariable.UNIT * 6, GlobalVariable.UNIT * 2 * i));
-		//		_items.add(new HairShortenPotion(GlobalVariable.UNIT * 8, GlobalVariable.UNIT * 2 * i));
-		//	}
-		//	_weapons.add(new SuperMagicWand(GlobalVariable.UNIT * 10, GlobalVariable.UNIT * 2, _playerBullets));
-		//}
+		if (FlxG.keys.justPressed.I)
+		{
+			for (i in 1...6)
+			{
+				_items.add(new Broccoli(GlobalVariable.UNIT * 2, GlobalVariable.UNIT * 2 * i));
+				_items.add(new Doughnut(GlobalVariable.UNIT * 4, GlobalVariable.UNIT * 2 * i));
+				_items.add(new HairPotion(GlobalVariable.UNIT * 6, GlobalVariable.UNIT * 2 * i));
+				_items.add(new HairShortenPotion(GlobalVariable.UNIT * 8, GlobalVariable.UNIT * 2 * i));
+			}
+			_weapons.add(new SuperMagicWand(GlobalVariable.UNIT * 10, GlobalVariable.UNIT * 2, _playerBullets));
+		}
 		
 		// When the level is finished.
 		if (!ExistInBound() && _doors.countLiving() == -1)
