@@ -230,7 +230,8 @@ class PlayState extends FlxState
 		
 		// Collide with tiles.
 		FlxG.collide(_player, _map);
-		_playerBullets.forEachAlive(bulletHitsWall);
+		//_playerBullets.forEachAlive(bulletHitsWall);
+		FlxG.collide(_playerBullets, _map);
 		FlxG.collide(_enemies, _map);
 		FlxG.collide(_obstacles, _player);
 		FlxG.collide(_obstacles, _enemies);
