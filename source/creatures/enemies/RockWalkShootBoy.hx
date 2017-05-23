@@ -16,7 +16,7 @@ class RockWalkShootBoy extends Enemy
 	
 	public function new(X:Float = 0, Y:Float = 0, bullets:FlxTypedGroup<Bullet>) 
 	{
-		super(X, Y, 7, bullets);
+		super(X, Y, 12, bullets);
 		
 		loadGraphic(AssetPaths.MovingRock__PNG, true, Math.round(GlobalVariable.UNIT * 1.5), Math.round(GlobalVariable.UNIT * 1.5));
 		
@@ -49,6 +49,6 @@ class RockWalkShootBoy extends Enemy
 	
 	override public function attack():Void
 	{
-		_bullets.add(new Rock(getMidpoint().x, getMidpoint().y, playerPos.x, playerPos.y, 3, GlobalVariable.UNIT * 3, 3));
+		_bullets.add(new Rock(getMidpoint().x, getMidpoint().y, playerPos.x, playerPos.y, 3, GlobalVariable.UNIT * 5, 3));
 	}
 }

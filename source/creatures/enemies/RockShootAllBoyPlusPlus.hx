@@ -11,6 +11,13 @@ import flixel.group.FlxGroup.FlxTypedGroup;
  */
 class RockShootAllBoyPlusPlus extends RockShootAllBoy
 {
+	override public function new(X:Float = 0, Y:Float = 0, bullets:FlxTypedGroup<Bullet>)
+	{
+		super(X, Y, bullets);
+		
+		this._health = 20;
+	}
+	
 	override public function attack():Void
 	{
 		for (i in ( -2)...3)
