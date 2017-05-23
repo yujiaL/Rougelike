@@ -11,5 +11,4 @@ class Broccoli extends Item
 		
 		loadGraphic(AssetPaths.chunk_rotten__png, true, GlobalVariable.UNIT, GlobalVariable.UNIT);
 	}
-	
 }
