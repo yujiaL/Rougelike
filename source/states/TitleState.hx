@@ -38,15 +38,11 @@ class TitleState extends FlxState
 	
 	private function playTutorial():Void
 	{
-		if (GlobalVariable.LOGGING)
-			Main.LOGGER.logActionWithNoLevel(LoggingActions.START_TUTORIAL);
 		FlxG.switchState(new Tutorial());
 	}
 	
 	private function playGame():Void
 	{
-		if (GlobalVariable.LOGGING)
-			Main.LOGGER.logActionWithNoLevel(LoggingActions.START_GAME);
 		FlxG.switchState(new PlayState());
 	}
 

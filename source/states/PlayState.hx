@@ -230,7 +230,7 @@ class PlayState extends FlxState
 				Main.LOGGER.logLevelEnd();
 			_level++;
 			if (GlobalVariable.LOGGING)
-				Main.LOGGER.logLevelStart(_level);
+				Main.LOGGER.logLevelStart(_level, Type.getClassName(Type.getClass(_player._weapon)));
 			setNewRoom();
 		}
 		
@@ -345,6 +345,13 @@ class PlayState extends FlxState
 	private function playerPickWeapon(P:Player, W:Weapon):Void
 	{
 		P.pickUpWeapon(W);
+		if (GlobalVariable.LOGGING && _level == 0) {
+			if (Std.is(W, Pistol)) {
+				Main.LOGGER.logLevelAction(LoggingActions.PICK_UP_PISTOL);
+			} else if (Std.is(W, BoxingGlove)) {
+				Main.LOGGER.logLevelAction(LoggingActions.PICK_UP_GLOVE);
+			}
+		}
 	}
 	
 	private function playerAction():Void
@@ -572,7 +579,7 @@ class PlayState extends FlxState
 					_enemies.add(enemy);
 				}
 		} else if (_level == 15) {
-			for (i in 1...7) {
+			for (i in 1...5) {
 				var enemy = new RockShootAllBoyPlusPlus(0, 0, _enemy_bullets);
 				randomizeOSPosition(enemy);
 				_enemies.add(enemy);

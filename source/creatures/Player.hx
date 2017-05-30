@@ -184,10 +184,7 @@ class Player extends Creature
 	}
 	
 	public function pickUpItem(item:Item):Void
-	{
-		if (GlobalVariable.LOGGING)
-			Main.LOGGER.logLevelAction(LoggingActions.PICK_UP_ITEM);
-		
+	{		
 		_health += item.hpChange;
 		_coins += item.coinChange;
 		_weight += item.weightChange;
@@ -201,8 +198,6 @@ class Player extends Creature
 	
 	public function pickUpWeapon(weapon:Weapon):Void
 	{
-		if (GlobalVariable.LOGGING)
-			Main.LOGGER.logLevelAction(LoggingActions.PICK_UP_WEAPON);
 		
 		//pick up new weapon
 		_weapon = weapon;
