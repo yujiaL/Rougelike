@@ -180,20 +180,34 @@ class PlayState extends FlxState
 		{
 			if (GlobalVariable.LOGGING)
 				Main.LOGGER.logLevelEnd();
-			FlxG.switchState(new GameOverState(_level));
+			//FlxG.switchState(new GameOverState(_level));
 		}
 		
 		// Debug.
-		if (GlobalVariable.DEBUG && FlxG.keys.justPressed.I)
+		if (GlobalVariable.DEBUG)
 		{
-			for (i in 1...6)
+			
+			if (FlxG.keys.justPressed.I)
 			{
-				_items.add(new Broccoli(GlobalVariable.UNIT * 2, GlobalVariable.UNIT * 2 * i));
-				_items.add(new Doughnut(GlobalVariable.UNIT * 4, GlobalVariable.UNIT * 2 * i));
-				_items.add(new HairPotion(GlobalVariable.UNIT * 6, GlobalVariable.UNIT * 2 * i));
-				_items.add(new HairShortenPotion(GlobalVariable.UNIT * 8, GlobalVariable.UNIT * 2 * i));
+				for (i in 1...6)
+				{
+					_items.add(new Broccoli(GlobalVariable.UNIT * 2, GlobalVariable.UNIT * 2 * i));
+					_items.add(new Doughnut(GlobalVariable.UNIT * 4, GlobalVariable.UNIT * 2 * i));
+					_items.add(new HairPotion(GlobalVariable.UNIT * 6, GlobalVariable.UNIT * 2 * i));
+					_items.add(new HairShortenPotion(GlobalVariable.UNIT * 8, GlobalVariable.UNIT * 2 * i));
+				}
+				_weapons.add(new SuperMagicWand(GlobalVariable.UNIT * 10, GlobalVariable.UNIT * 2, _playerBullets));
 			}
-			_weapons.add(new SuperMagicWand(GlobalVariable.UNIT * 10, GlobalVariable.UNIT * 2, _playerBullets));
+			if (FlxG.keys.justPressed.P)
+			{
+				openSubState(new GameOverState(_level));
+				_player._health = 100;
+				setNewRoom();
+			}
+			if (FlxG.keys.justPressed.L)
+			{
+				_player._health = 1;
+			}
 		}
 		
 		// When the level is finished.
