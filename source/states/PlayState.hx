@@ -1,5 +1,6 @@
 package states;
 
+import flixel.FlxSubState;
 import flixel.system.debug.watch.Tracker.TrackerProfile;
 import weapons.Bullet;
 import weapons.Weapon;
@@ -181,9 +182,9 @@ class PlayState extends FlxState
 			if (GlobalVariable.LOGGING)
 				Main.LOGGER.logLevelEnd();
 
-			openSubState(new GameOverState(_level));
 			_player._health = 100;
 			setNewRoom();
+			openSubState(new GameOverState(_level, _player.getMidpoint()));
 		}
 		
 		// Debug.
@@ -201,15 +202,9 @@ class PlayState extends FlxState
 				}
 				_weapons.add(new SuperMagicWand(GlobalVariable.UNIT * 10, GlobalVariable.UNIT * 2, _playerBullets));
 			}
-			if (FlxG.keys.justPressed.P)
-			{
-				openSubState(new GameOverState(_level));
-				_player._health = 100;
-				setNewRoom();
-			}
 			if (FlxG.keys.justPressed.L)
 			{
-				_player._health = 1;
+				_player._health = -1;
 			}
 		}
 		
