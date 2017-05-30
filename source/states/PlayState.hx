@@ -180,7 +180,10 @@ class PlayState extends FlxState
 		{
 			if (GlobalVariable.LOGGING)
 				Main.LOGGER.logLevelEnd();
-			//FlxG.switchState(new GameOverState(_level));
+
+			openSubState(new GameOverState(_level));
+			_player._health = 100;
+			setNewRoom();
 		}
 		
 		// Debug.

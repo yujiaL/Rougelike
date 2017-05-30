@@ -3,13 +3,13 @@ package;
 import states.PlayState;
 import states.TitleState;
 import flixel.system.FlxAssets;
+import flixel.FlxG;
 import flixel.FlxGame;
 import openfl.display.Sprite;
 import states.Tutorial;
 
 class Main extends Sprite
 {
-	
 	public static var LOGGER:CapstoneLogger;
 	
 	public function new()
@@ -19,13 +19,22 @@ class Main extends Sprite
 		// Change font.
 		FlxAssets.FONT_DEFAULT = AssetPaths.Dventure__ttf;
 		
+		if (FlxG.random.bool(50))
+			GlobalVariable.REVIVE = true;
+		else
+			GlobalVariable.REVIVE = false;
+		
 		// Loggings.
 		if (GlobalVariable.LOGGING)
 		{
 			var gameId:Int = 1700;
 			var gameKey:String = "86ba54e08dfe7dc76e36075f8c819700";
 			var gameName:String = "hairyball";
-			var categoryId:Int = 2;
+			var categoryId:Int;
+			if (GlobalVariable.REVIVE)
+				categoryId = 3;
+			else
+				categoryId = 4;
 			
 			Main.LOGGER = new CapstoneLogger(gameId, gameName, gameKey, categoryId, 1, true);
 			

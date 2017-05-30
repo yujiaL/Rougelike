@@ -62,8 +62,10 @@ class GameOverState extends FlxSubState
 		
 		if (_timer > 1 && FlxG.keys.justReleased.SPACE)
 		{
-			// FlxG.switchState(new TitleState());
-			close();
+			if (GlobalVariable.REVIVE)
+				close();
+			else
+				FlxG.switchState(new TitleState());
 		}
 	}
 }
