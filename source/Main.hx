@@ -36,7 +36,7 @@ class Main extends Sprite
 			else
 				categoryId = 4;
 			
-			Main.LOGGER = new CapstoneLogger(gameId, gameName, gameKey, categoryId, 1, true);
+			Main.LOGGER = new CapstoneLogger(gameId, gameName, gameKey, categoryId, 1, false);
 			
 			// Retrieve the user (saved in local storage for later)
 			var userId:String = Main.LOGGER.getSavedUserId();
