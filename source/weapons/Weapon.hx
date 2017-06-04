@@ -37,10 +37,10 @@ class Weapon extends FlxSprite
 		// Logging action.
 		if (GlobalVariable.LOGGING)
 			if (position > barPositions[0] + weight)
-				Main.LOGGER.logLevelAction(LoggingActions.PLAYER_OVERCHARGE);
+				Main.LOGGER.logLevelAction(LoggingActions.PLAYER_OVERCHARGE, Type.getClassName(Type.getClass(this)));
 			else if (position > (barPositions[0] + weight) / 2)
-				Main.LOGGER.logLevelAction(LoggingActions.PLAYER_ATTACKSTRONG);
-			else if (position > 0)
-				Main.LOGGER.logLevelAction(LoggingActions.PLAYER_ATTACKWEAK);
+				Main.LOGGER.logLevelAction(LoggingActions.PLAYER_ATTACKSTRONG, Type.getClassName(Type.getClass(this)));
+			else
+				Main.LOGGER.logLevelAction(LoggingActions.PLAYER_ATTACKWEAK, Type.getClassName(Type.getClass(this)));
 	}
 }

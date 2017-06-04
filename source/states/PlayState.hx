@@ -166,8 +166,7 @@ class PlayState extends FlxState
 		if (GlobalVariable.LOGGING)
 			Main.LOGGER.logLevelStart(_level);
 		
-		if (GlobalVariable.DEBUG)
-			_floatingText.add(new hud.LevelText(_level));
+		_floatingText.add(new hud.LevelText(_level));
 		
 		super.create();
 	}
@@ -292,7 +291,7 @@ class PlayState extends FlxState
 			if (P.receiveDamage(E.bardDamage))
 			{
 				if (GlobalVariable.LOGGING)
-					Main.LOGGER.logLevelAction(LoggingActions.ENEMY_GETSHIT);
+					Main.LOGGER.logLevelAction(LoggingActions.PLAYER_GETSHIT);
 				
 				_floatingText.add(new DamageText(P.x, P.y, E.bardDamage));
 			}

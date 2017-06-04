@@ -158,8 +158,6 @@ class Player extends Creature
 			
 			velocity.set(speed, 0);
 			velocity.rotate(FlxPoint.weak(0, 0), mA);
-			
-			// Main.LOGGER.logLevelAction(LoggingActions.PLAYER_MOVE);
 		}
 	}
 	
@@ -198,7 +196,6 @@ class Player extends Creature
 	
 	public function pickUpWeapon(weapon:Weapon):Void
 	{
-		
 		//pick up new weapon
 		_weapon = weapon;
 	}

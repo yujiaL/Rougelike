@@ -63,12 +63,12 @@ class Main extends Sprite
 		}
 		else
 		{
-			addChild(new FlxGame(1024, 768, PlayState));
+			addChild(new FlxGame(1024, 768, Tutorial));
 		}
 	}
 	
 	private function onSessionReady(sessionRecieved:Bool):Void
 	{
-		addChild(new FlxGame(1024, 768, PlayState));
+		addChild(new FlxGame(1024, 768, Tutorial));
 	}
 }

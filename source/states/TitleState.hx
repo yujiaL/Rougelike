@@ -49,6 +49,7 @@ class TitleState extends FlxState
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
+		/*
 		if (FlxG.keys.justReleased.T)
 		{
 			playTutorial();
@@ -56,6 +57,6 @@ class TitleState extends FlxState
 		if (FlxG.keys.justReleased.SPACE)
 		{
 			playGame();
-		}
+		}*/
 	}
 }
