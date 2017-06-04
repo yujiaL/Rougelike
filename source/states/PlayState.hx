@@ -162,12 +162,12 @@ class PlayState extends FlxState
 		_floatingText = new FlxTypedGroup<FlxText>();
 		add(_floatingText);
 		
-		if (GlobalVariable.DEBUG)
-			_floatingText.add(new hud.ClearText());
-		
 		_level = 0;
 		if (GlobalVariable.LOGGING)
 			Main.LOGGER.logLevelStart(_level);
+		
+		if (GlobalVariable.DEBUG)
+			_floatingText.add(new hud.LevelText(_level));
 		
 		super.create();
 	}
@@ -179,15 +179,9 @@ class PlayState extends FlxState
 		// Game over.
 		if (_player._health <= 0)
 		{
-			if (GlobalVariable.LOGGING)
-				Main.LOGGER.logLevelEnd();
-
 			_player._health = 100;
 			setNewRoom();
-			openSubState(new GameOverState(_level, _player.getMidpoint()));
-			
-			if (GlobalVariable.LOGGING)
-				Main.LOGGER.logLevelStart(_level);
+			openSubState(new GameOverState(_level, _player.getMidpoint(), false));
 		}
 		
 		// Debug.
@@ -229,12 +223,17 @@ class PlayState extends FlxState
 		// Set new room,
 		if (FlxG.overlap(_player, _doors))
 		{
-			if (GlobalVariable.LOGGING)
-				Main.LOGGER.logLevelEnd();
-			_level++;
-			if (GlobalVariable.LOGGING)
-				Main.LOGGER.logLevelStart(_level, _player._health);
-			setNewRoom();
+			if (GlobalVariable.LIMIT && _level == 20)
+				openSubState(new GameOverState(_level, _player.getMidpoint(), true));
+			else {
+				if (GlobalVariable.LOGGING)
+					Main.LOGGER.logLevelEnd();
+				_level++;
+				if (GlobalVariable.LOGGING)
+					Main.LOGGER.logLevelStart(_level, _player._health);
+				_floatingText.add(new hud.LevelText(_level));
+				setNewRoom();
+			}
 		}
 		
 		// Update enemy's vision.
