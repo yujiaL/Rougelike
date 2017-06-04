@@ -209,9 +209,6 @@ class Tutorial extends FlxState
 		{
 			if (P.receiveDamage(E.bardDamage))
 			{
-				if (GlobalVariable.LOGGING)
-					Main.LOGGER.logLevelAction(LoggingActions.ENEMY_GETSHIT);
-				
 				_damages.add(new DamageText(P.x, P.y, E.bardDamage));
 			}
 		}
@@ -229,9 +226,6 @@ class Tutorial extends FlxState
 	{
 		if (P.receiveDamage(B._damage))
 		{
-			if (GlobalVariable.LOGGING)
-				Main.LOGGER.logLevelAction(LoggingActions.PLAYER_GETSHIT);
-		
 			_damages.add(new DamageText(P.x, P.y, B._damage));
 			B.updateTarget(P);
 			B.hit = true;
@@ -240,9 +234,6 @@ class Tutorial extends FlxState
 	
 	private function enemyGetsHit(E:Enemy, B:Bullet):Void
 	{
-		if (GlobalVariable.LOGGING)
-			Main.LOGGER.logLevelAction(LoggingActions.ENEMY_GETSHIT);
-		
 		_damages.add(new DamageText(E.x, E.y, B._damage));
 		E._health -= B._damage;
 		B.updateTarget(E);
@@ -280,9 +271,6 @@ class Tutorial extends FlxState
 				_ticks++;
 			}
 			if (_ticks != 0 && !FlxG.keys.anyPressed([UP, DOWN, LEFT, RIGHT])) {
-
-				if (GlobalVariable.LOGGING)
-					Main.LOGGER.logLevelAction(LoggingActions.PLAYER_ATTACK);
 				_player.attack(_ticks);
 				_ticks = 0;
 			}

@@ -66,10 +66,20 @@ class GameOverState extends FlxSubState
 		
 		if (_timer > 1 && FlxG.keys.justReleased.SPACE)
 		{
-			if (GlobalVariable.REVIVE)
+			if (GlobalVariable.REVIVE) {
+				if (GlobalVariable.LOGGING) {
+					Main.LOGGER.logLevelAction(LoggingActions.REVIVE, _level);
+					Main.LOGGER.logLevelEnd();
+					Main.LOGGER.logLevelStart(_level);
+				}
 				close();
-			else
+				
+			}
+			else {
+				if (GlobalVariable.LOGGING) {
+					Main.LOGGER.logLevelEnd();
 				FlxG.switchState(new TitleState());
+			}
 		}
 	}
 }

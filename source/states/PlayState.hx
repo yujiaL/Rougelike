@@ -185,6 +185,9 @@ class PlayState extends FlxState
 			_player._health = 100;
 			setNewRoom();
 			openSubState(new GameOverState(_level, _player.getMidpoint()));
+			
+			if (GlobalVariable.LOGGING)
+				Main.LOGGER.logLevelStart(_level);
 		}
 		
 		// Debug.
@@ -230,7 +233,7 @@ class PlayState extends FlxState
 				Main.LOGGER.logLevelEnd();
 			_level++;
 			if (GlobalVariable.LOGGING)
-				Main.LOGGER.logLevelStart(_level, Type.getClassName(Type.getClass(_player._weapon)));
+				Main.LOGGER.logLevelStart(_level, _player._health);
 			setNewRoom();
 		}
 		
@@ -340,18 +343,17 @@ class PlayState extends FlxState
 	{
 		P.pickUpItem(I);
 		_floatingText.add(new ItemText(P.x, P.y, I));
+		
+		if (GlobalVariable.LOGGING)
+			Main.LOGGER.logLevelAction(LoggingActions.PICK_UP_WEAPON, Type.getClassName(Type.getClass(I)));
 	}
 	
 	private function playerPickWeapon(P:Player, W:Weapon):Void
 	{
 		P.pickUpWeapon(W);
-		if (GlobalVariable.LOGGING && _level == 0) {
-			if (Std.is(W, Pistol)) {
-				Main.LOGGER.logLevelAction(LoggingActions.PICK_UP_PISTOL);
-			} else if (Std.is(W, BoxingGlove)) {
-				Main.LOGGER.logLevelAction(LoggingActions.PICK_UP_GLOVE);
-			}
-		}
+		
+		if (GlobalVariable.LOGGING)
+			Main.LOGGER.logLevelAction(LoggingActions.PICK_UP_WEAPON, Type.getClassName(Type.getClass(W)));
 	}
 	
 	private function playerAction():Void
@@ -363,9 +365,6 @@ class PlayState extends FlxState
 				_ticks++;
 			}
 			if (_ticks != 0 && !FlxG.keys.anyPressed([UP, DOWN, LEFT, RIGHT])) {
-
-				if (GlobalVariable.LOGGING)
-					Main.LOGGER.logLevelAction(LoggingActions.PLAYER_ATTACK);
 				_player.attack(_ticks);
 				_ticks = 0;
 			}

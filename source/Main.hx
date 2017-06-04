@@ -32,9 +32,9 @@ class Main extends Sprite
 			var gameName:String = "hairyball";
 			var categoryId:Int;
 			if (GlobalVariable.REVIVE)
-				categoryId = 3;
+				categoryId = 5;
 			else
-				categoryId = 4;
+				categoryId = 6;
 			
 			Main.LOGGER = new CapstoneLogger(gameId, gameName, gameKey, categoryId, 1, false);
 			

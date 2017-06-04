@@ -34,6 +34,13 @@ class Weapon extends FlxSprite
 	
 	public function attack(player:Player, position:Float, weight:Int, scale:Float):Void
 	{
-		
+		// Logging action.
+		if (GlobalVariable.LOGGING)
+			if (position > barPositions[0] + weight)
+				Main.LOGGER.logLevelAction(LoggingActions.PLAYER_OVERCHARGE);
+			else if (position > (barPositions[0] + weight) / 2)
+				Main.LOGGER.logLevelAction(LoggingActions.PLAYER_ATTACKSTRONG);
+			else if (position > 0)
+				Main.LOGGER.logLevelAction(LoggingActions.PLAYER_ATTACKWEAK);
 	}
 }
